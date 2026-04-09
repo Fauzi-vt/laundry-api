@@ -24,7 +24,28 @@ Route::middleware('guest')->group(function () {
 */
 Route::middleware('auth')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
-    Route::post('/orders', [\App\Http\Controllers\Web\UserOrderController::class, 'store'])->name('orders.store');
+
+    // Hanya pelanggan (user) yang bisa membuat order
+    Route::middleware('role:user')->group(function () {
+        Route::post('/orders', [\App\Http\Controllers\Web\UserOrderController::class, 'store'])->name('orders.store');
+    });
+
+    // Hanya admin yang bisa update status transaksi & buat transaksi baru
+    Route::middleware('role:admin')->group(function () {
+        Route::patch('/transactions/{id}/status', [\App\Http\Controllers\Web\TransactionStatusController::class, 'update'])->name('transactions.status.update');
+        Route::post('/orders/admin', [\App\Http\Controllers\Web\AdminOrderController::class, 'store'])->name('orders.admin.store');
+
+        // CRUD Pelanggan
+        Route::post  ('/admin/customers',           [\App\Http\Controllers\Web\CustomerController::class, 'store'])   ->name('admin.customers.store');
+        Route::put   ('/admin/customers/{id}',      [\App\Http\Controllers\Web\CustomerController::class, 'update'])  ->name('admin.customers.update');
+        Route::delete('/admin/customers/{id}',      [\App\Http\Controllers\Web\CustomerController::class, 'destroy']) ->name('admin.customers.destroy');
+        Route::get   ('/admin/customers/{id}/trx',  [\App\Http\Controllers\Web\CustomerController::class, 'transactions'])->name('admin.customers.trx');
+
+        // CRUD Layanan
+        Route::post  ('/admin/services',            [\App\Http\Controllers\Web\ServiceController::class, 'store'])    ->name('admin.services.store');
+        Route::put   ('/admin/services/{id}',       [\App\Http\Controllers\Web\ServiceController::class, 'update'])   ->name('admin.services.update');
+        Route::delete('/admin/services/{id}',       [\App\Http\Controllers\Web\ServiceController::class, 'destroy'])  ->name('admin.services.destroy');
+    });
 
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 });
@@ -40,8 +61,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-// Admin Package Management (Could normally be protected by an admin middleware)
-Route::prefix('admin/packages')->group(function () {
+// Admin Package Management — diproteksi oleh auth + role:admin
+Route::middleware(['auth', 'role:admin'])->prefix('admin/packages')->group(function () {
     Route::get('/', [PackageController::class, 'index']);
     Route::post('/', [PackageController::class, 'store']);
 });

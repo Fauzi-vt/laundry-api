@@ -27,10 +27,6 @@ class TransactionController extends Controller
 
     public function store(Request $request)
     {
-        if ($request->user()->role !== 'admin') {
-            return response()->json(['message' => 'Unauthorized'], 403);
-        }
-
         $request->validate([
             'user_id' => 'required|exists:users,id',
             'details' => 'required|array',
@@ -74,10 +70,6 @@ class TransactionController extends Controller
 
     public function updateStatus(Request $request, $id)
     {
-        if ($request->user()->role !== 'admin') {
-            return response()->json(['message' => 'Unauthorized'], 403);
-        }
-
         $request->validate([
             'status' => 'required|in:baru,cuci,kering,setrika,selesai,diambil'
         ]);

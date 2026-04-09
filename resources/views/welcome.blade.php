@@ -40,7 +40,7 @@
                         Akun</button>
                     <button @click="showLogin = true"
                         class="text-sm font-medium bg-primary text-white px-4 py-2 rounded-lg hover:bg-blue-800 transition shadow-sm">Login
-                        Pegawai</button>
+                    </button>
                 </div>
             </div>
         </div>

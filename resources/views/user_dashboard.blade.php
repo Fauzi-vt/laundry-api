@@ -480,6 +480,11 @@
     </div>
 </footer>
 
+@php
+    $servicesJson = $services->map(function($s) {
+        return ['id' => $s->id, 'name' => $s->name, 'price' => $s->price, 'unit' => $s->unit];
+    })->values();
+@endphp
 <script>
 function userApp(){
     return {
@@ -490,7 +495,7 @@ function userApp(){
 }
 
 let itemCount = 1;
-const services = @json($services->map(fn($s)=>['id'=>$s->id,'name'=>$s->name,'price'=>$s->price,'unit'=>$s->unit]));
+const services = @json($servicesJson);
 
 function addItem() {
     const idx = itemCount++;
