@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 260 210" fill="none">
+  <!-- Hanger hook (orange circle top) -->
+  <circle cx="130" cy="14" r="10" stroke="#F47920" stroke-width="5" fill="none"/>
+  <!-- Hanger neck down -->
+  <line x1="130" y1="24" x2="130" y2="36" stroke="#F47920" stroke-width="5" stroke-linecap="round"/>
+  <!-- Hanger arms (orange) -->
+  <polyline points="130,36 60,76 200,76" stroke="#F47920" stroke-width="6" fill="none" stroke-linejoin="round" stroke-linecap="round"/>
+
+  <!-- House body (blue) -->
+  <polygon points="60,76 200,76 200,165 60,165" fill="#3A6EBF"/>
+
+  <!-- Shadow panel (darker blue right side) -->
+  <polygon points="130,76 200,76 200,165 130,165" fill="#2A5294" opacity="0.35"/>
+
+  <!-- Window white background -->
+  <rect x="95" y="98" width="70" height="52" rx="3" fill="white"/>
+  <!-- Window dividers -->
+  <line x1="130" y1="98" x2="130" y2="150" stroke="#3A6EBF" stroke-width="3.5"/>
+  <line x1="95" y1="124" x2="165" y2="124" stroke="#3A6EBF" stroke-width="3.5"/>
+
+  <!-- Base platform (dark blue) -->
+  <rect x="50" y="162" width="160" height="10" rx="3" fill="#2A5294"/>
+
+  <!-- Text row -->
+  <!-- "rumah" in blue -->
+  <text x="14" y="202" font-family="Arial Black, Arial, sans-serif" font-size="23" font-weight="900" fill="#3A6EBF">rumah</text>
+  <!-- "laundry.id" in orange -->
+  <text x="102" y="202" font-family="Arial Black, Arial, sans-serif" font-size="23" font-weight="900" fill="#F47920">laundry.id</text>
+</svg>

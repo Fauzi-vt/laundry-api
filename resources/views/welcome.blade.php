@@ -27,11 +27,8 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between h-16">
                 <div class="flex items-center">
-                    <div class="flex-shrink-0 flex items-center gap-2">
-                        <div
-                            class="w-8 h-8 rounded bg-gradient-to-br from-primary to-secondary flex items-center justify-center text-white font-bold text-lg">
-                            L</div>
-                        <span class="font-bold text-xl text-slate-900 tracking-tight">Rumah Laundry</span>
+                    <div class="flex-shrink-0 flex items-center">
+                        <img src="/images/logo.svg" alt="Rumah Laundry Logo" class="h-10 w-auto">
                     </div>
                 </div>
                 <div class="flex items-center gap-4">
@@ -73,9 +70,9 @@
                 </button>
 
                 <div class="text-center mb-6">
-                    <div
-                        class="mx-auto w-12 h-12 rounded-xl bg-gradient-to-br from-primary to-secondary flex items-center justify-center text-white font-bold text-2xl shadow-lg ring-4 ring-blue-50 mb-4">
-                        L</div>
+                    <div class="flex justify-center mb-4">
+                        <img src="/images/logo.svg" alt="Rumah Laundry Logo" class="h-16 w-auto">
+                    </div>
                     <h3 class="text-2xl font-bold text-slate-900">Selamat Datang</h3>
                     <p class="text-sm text-slate-500 mt-1">Akses sistem Rumah Laundry</p>
                 </div>
