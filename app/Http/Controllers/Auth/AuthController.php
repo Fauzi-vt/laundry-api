@@ -85,7 +85,7 @@ class AuthController extends Controller
         $request->validate([
             'name'     => ['required', 'string', 'max:255'],
             'email'    => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'confirmed', Password::min(8)->letters()->mixedCase()->numbers()],
+            'password' => ['required', 'confirmed', Password::min(8)],
         ]);
 
         $user = User::create([
@@ -95,11 +95,9 @@ class AuthController extends Controller
             'role'     => 'user',
         ]);
 
-        Auth::login($user);
-
-        $request->session()->regenerate();
-
-        return redirect()->route('dashboard');
+        // Jangan auto-login setelah pendaftaran.
+        // Langsung arahkan pengguna ke halaman login dengan pesan sukses.
+        return redirect()->route('login')->with('success', 'Registrasi berhasil. Silakan masuk untuk melanjutkan.');
     }
 
     /**
