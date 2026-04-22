@@ -56,8 +56,7 @@ class UserOrderController extends Controller
             $trx->update(['total_price' => $totalPrice]);
         });
 
-        return redirect()->route('dashboard')
-            ->with('success', 'Pesanan berhasil dibuat! Silakan lakukan pembayaran di kasir kami.')
-            ->with('tab', 'status');
+        return redirect()->route('user.status')
+            ->with('success', 'Pesanan berhasil dibuat! Silakan lakukan pembayaran di kasir kami.');
     }
 }

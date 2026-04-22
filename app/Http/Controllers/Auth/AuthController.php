@@ -21,7 +21,9 @@ class AuthController extends Controller
     public function showLogin(): View|RedirectResponse
     {
         if (Auth::check()) {
-            return redirect()->route('dashboard');
+            return Auth::user()->role === 'admin'
+                ? redirect()->route('dashboard')
+                : redirect()->route('user.dashboard');
         }
 
         return view('auth.login');
@@ -62,7 +64,10 @@ class AuthController extends Controller
         // Regenerate session untuk mencegah Session Fixation Attack
         $request->session()->regenerate();
 
-        return redirect()->intended(route('dashboard'));
+        $user = Auth::user();
+        $intended = $user->role === 'admin' ? route('dashboard') : route('user.dashboard');
+
+        return redirect()->intended($intended);
     }
 
     /**
@@ -71,7 +76,9 @@ class AuthController extends Controller
     public function showRegister(): View|RedirectResponse
     {
         if (Auth::check()) {
-            return redirect()->route('dashboard');
+            return Auth::user()->role === 'admin'
+                ? redirect()->route('dashboard')
+                : redirect()->route('user.dashboard');
         }
 
         return view('auth.register');
