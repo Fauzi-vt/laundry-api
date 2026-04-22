@@ -37,6 +37,8 @@ class ProfileController extends Controller
 
         $user->update($data);
 
-        return redirect()->route('dashboard')->with('success', 'Profil berhasil diperbarui!');
+        $redirect = $user->role === 'admin' ? route('dashboard') : route('user.dashboard');
+
+        return redirect($redirect)->with('success', 'Profil berhasil diperbarui!');
     }
 }

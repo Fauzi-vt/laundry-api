@@ -25,6 +25,16 @@ Route::middleware('guest')->group(function () {
 Route::middleware('auth')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
+    // ── Halaman User (tiap menu halaman terpisah) ────────────────────────────
+    Route::middleware('role:user')->prefix('user')->group(function () {
+        Route::get('/',           [\App\Http\Controllers\Web\UserDashboardController::class, 'dashboard'])->name('user.dashboard');
+        Route::get('/layanan',    [\App\Http\Controllers\Web\UserDashboardController::class, 'layanan'])->name('user.layanan');
+        Route::get('/order',      [\App\Http\Controllers\Web\UserDashboardController::class, 'order'])->name('user.order');
+        Route::get('/pembayaran', [\App\Http\Controllers\Web\UserDashboardController::class, 'pembayaran'])->name('user.pembayaran');
+        Route::get('/status',     [\App\Http\Controllers\Web\UserDashboardController::class, 'status'])->name('user.status');
+        Route::get('/order/{id}', [\App\Http\Controllers\Web\UserDashboardController::class, 'show'])->name('user.show');
+    });
+
     // Hanya pelanggan (user) yang bisa membuat order
     Route::middleware('role:user')->group(function () {
         Route::post('/orders', [\App\Http\Controllers\Web\UserOrderController::class, 'store'])->name('orders.store');
