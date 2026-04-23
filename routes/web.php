@@ -23,7 +23,11 @@ Route::middleware('guest')->group(function () {
 |--------------------------------------------------------------------------
 */
 Route::middleware('auth')->group(function () {
-    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    Route::get('/dashboard', function() {
+        return auth()->user()->role === 'admin' 
+            ? redirect()->route('admin.monitoring') 
+            : redirect()->route('user.dashboard');
+    })->name('dashboard');
 
     // ── Halaman User (tiap menu halaman terpisah) ────────────────────────────
     Route::middleware('role:user')->prefix('user')->group(function () {
@@ -45,9 +49,16 @@ Route::middleware('auth')->group(function () {
         Route::patch('/transactions/{id}/status', [\App\Http\Controllers\Web\TransactionStatusController::class, 'update'])->name('transactions.status.update');
         Route::post('/orders/admin', [\App\Http\Controllers\Web\AdminOrderController::class, 'store'])->name('orders.admin.store');
 
+        // Admin Menu Routes (Aligned with User structure)
+        Route::get('/admin/monitoring', [DashboardController::class, 'index'])->name('admin.monitoring');
+        Route::get('/admin/customers',  [DashboardController::class, 'customers'])->name('admin.customers.index');
+        Route::get('/admin/services',   [DashboardController::class, 'services'])->name('admin.services.index');
+        Route::get('/admin/reports',    [DashboardController::class, 'reports'])->name('admin.reports.index');
+
         // CRUD Pelanggan
         Route::post  ('/admin/customers',           [\App\Http\Controllers\Web\CustomerController::class, 'store'])   ->name('admin.customers.store');
         Route::put   ('/admin/customers/{id}',      [\App\Http\Controllers\Web\CustomerController::class, 'update'])  ->name('admin.customers.update');
+        Route::delete('/admin/customers/bulk',      [\App\Http\Controllers\Web\CustomerController::class, 'bulkDestroy'])->name('admin.customers.bulkDestroy');
         Route::delete('/admin/customers/{id}',      [\App\Http\Controllers\Web\CustomerController::class, 'destroy']) ->name('admin.customers.destroy');
         Route::get   ('/admin/customers/{id}/trx',  [\App\Http\Controllers\Web\CustomerController::class, 'transactions'])->name('admin.customers.trx');
 

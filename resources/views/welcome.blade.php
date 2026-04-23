@@ -7,13 +7,13 @@
     <title>Rumah Laundry Tasikmalaya - Solusi Pakaian Bersih Anda</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <script>
         tailwind.config = {
             theme: {
                 extend: {
-                    fontFamily: { sans: ['Inter', 'sans-serif'] },
-                    colors: { primary: '#1e40af', secondary: '#0ea5e9' }
+                    fontFamily: { sans: ['Plus Jakarta Sans', 'sans-serif'] },
+                    colors: { brand: { DEFAULT: '#2563eb', dark: '#1d4ed8', light: '#eff6ff', ring: '#bfdbfe' } }
                 }
             }
         }
@@ -28,7 +28,15 @@
             <div class="flex justify-between h-16">
                 <div class="flex items-center">
                     <div class="flex-shrink-0 flex items-center">
-                        <img src="/images/logo.svg" alt="Rumah Laundry Logo" class="h-10 w-auto">
+                        <div class="flex items-center gap-2.5">
+                            <div class="w-9 h-9 bg-brand rounded-xl flex items-center justify-center shadow-sm shadow-blue-200">
+                                <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z"/></svg>
+                            </div>
+                            <div>
+                                <p class="text-sm font-bold text-slate-900 leading-none tracking-tight">Rumah Laundry</p>
+                                <p class="text-[10px] text-slate-400 font-medium leading-none mt-1">Tasikmalaya</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="flex items-center gap-4">
@@ -36,7 +44,7 @@
                         class="text-sm font-medium text-slate-500 hover:text-primary transition hidden sm:block">Daftar
                         Akun</button>
                     <button @click="showLogin = true"
-                        class="text-sm font-medium bg-primary text-white px-4 py-2 rounded-lg hover:bg-blue-800 transition shadow-sm">Login
+                        class="text-sm font-bold bg-brand text-white px-5 py-2.5 rounded-xl hover:bg-brand-dark transition shadow-lg shadow-blue-100">Login
                     </button>
                 </div>
             </div>
@@ -70,8 +78,10 @@
                 </button>
 
                 <div class="text-center mb-6">
-                    <div class="flex justify-center mb-4">
-                        <img src="/images/logo.svg" alt="Rumah Laundry Logo" class="h-16 w-auto">
+                    <div class="flex justify-center mb-6">
+                        <div class="w-16 h-16 bg-brand rounded-2xl flex items-center justify-center shadow-xl shadow-blue-200">
+                            <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z"/></svg>
+                        </div>
                     </div>
                     <h3 class="text-2xl font-bold text-slate-900">Selamat Datang</h3>
                     <p class="text-sm text-slate-500 mt-1">Akses sistem Rumah Laundry</p>
