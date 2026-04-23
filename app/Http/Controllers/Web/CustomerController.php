@@ -30,7 +30,7 @@ class CustomerController extends Controller
             'role'     => 'user',
         ]);
 
-        return redirect()->route('dashboard', ['tab_master' => '1'])
+        return redirect()->route('admin.customers.index')
             ->with('success', "Pelanggan '{$request->name}' berhasil ditambahkan.");
     }
 
@@ -48,7 +48,7 @@ class CustomerController extends Controller
 
         $user->update($request->only('name', 'email', 'phone', 'address'));
 
-        return redirect()->route('dashboard', ['tab_master' => '1'])
+        return redirect()->route('admin.customers.index')
             ->with('success', "Data pelanggan '{$user->name}' berhasil diperbarui.");
     }
 
@@ -59,8 +59,20 @@ class CustomerController extends Controller
         $name = $user->name;
         $user->delete();
 
-        return redirect()->route('dashboard', ['tab_master' => '1'])
+        return redirect()->route('admin.customers.index')
             ->with('success', "Pelanggan '{$name}' berhasil dihapus.");
+    }
+
+    /** Hapus banyak pelanggan sekaligus */
+    public function bulkDestroy(Request $request)
+    {
+        $ids = $request->ids;
+        if (empty($ids)) return back()->with('error', 'Pilih pelanggan yang akan dihapus.');
+
+        User::whereIn('id', $ids)->delete();
+
+        return redirect()->route('admin.customers.index')
+            ->with('success', count($ids) . " pelanggan berhasil dihapus.");
     }
 
     /** Riwayat transaksi pelanggan (JSON untuk modal) */
