@@ -21,10 +21,18 @@ class UserOrderController extends Controller
             'items'              => 'required|array|min:1',
             'items.*.service_id' => 'required|exists:services,id',
             'items.*.quantity'   => 'required|numeric|min:0.1',
+            'address'            => 'required|string',
+            'phone'              => 'required|string',
+            'payment_method'     => 'required|string',
+            'delivery_type'      => 'required|string',
         ], [
             'items.required'              => 'Pilih minimal satu layanan.',
             'items.*.service_id.required' => 'Layanan tidak valid.',
             'items.*.quantity.min'        => 'Jumlah minimal 0.1.',
+            'address.required'            => 'Alamat harus diisi.',
+            'phone.required'              => 'Nomor telepon harus diisi.',
+            'payment_method.required'     => 'Metode pembayaran harus dipilih.',
+            'delivery_type.required'      => 'Metode antar jemput harus dipilih.',
         ]);
 
         $user = $request->user();
@@ -34,9 +42,13 @@ class UserOrderController extends Controller
 
             $trx = Transaction::create([
                 'user_id'      => $user->id,
-                'invoice_code' => 'INV-' . date('Ymd') . '-' . strtoupper(substr(uniqid(), -5)),
-                'total_price'  => 0,
-                'status'       => 'baru',
+                'invoice_code'   => 'INV-' . date('Ymd') . '-' . strtoupper(substr(uniqid(), -5)),
+                'total_price'    => 0,
+                'status'         => 'baru',
+                'address'        => $request->address,
+                'phone'          => $request->phone,
+                'payment_method' => $request->payment_method,
+                'delivery_type'  => $request->delivery_type,
             ]);
 
             foreach ($request->items as $item) {
