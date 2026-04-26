@@ -11,6 +11,10 @@ class Transaction extends Model
         'invoice_code',
         'total_price',
         'status',
+        'address',
+        'phone',
+        'payment_method',
+        'delivery_type',
     ];
 
     public function user()

@@ -32,6 +32,10 @@ class TransactionController extends Controller
             'details' => 'required|array',
             'details.*.service_id' => 'required|exists:services,id',
             'details.*.quantity' => 'required|numeric|min:0.1',
+            'address' => 'required|string',
+            'phone' => 'required|string',
+            'payment_method' => 'required|string',
+            'delivery_type' => 'required|string',
         ]);
 
         $totalPrice = 0;
@@ -41,6 +45,10 @@ class TransactionController extends Controller
                 'invoice_code' => 'INV-' . strtoupper(uniqid()),
                 'total_price' => 0,
                 'status' => 'baru',
+                'address' => $request->address,
+                'phone' => $request->phone,
+                'payment_method' => $request->payment_method,
+                'delivery_type' => $request->delivery_type,
             ]);
 
             foreach ($request->details as $item) {
