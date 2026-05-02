@@ -7,13 +7,14 @@
     @media print {
         .no-print { display: none !important; }
         .print-only { display: block !important; }
-        body { background: white; }
+        body { background: white !important; color: black !important; }
     }
     .print-only { display: none; }
 </style>
 @endsection
 
 @section('content')
+{{-- Modal: Detail Transaksi --}}
 <div x-data="detailModal()" @open-detail.window="open($event.detail)" x-cloak>
     <div x-show="show" class="fixed inset-0 z-[100] flex items-center justify-center p-4"
          x-transition:enter="transition ease-out duration-200"
@@ -21,23 +22,24 @@
          x-transition:enter-end="opacity-100 scale-100"
          x-transition:leave="transition ease-in duration-150"
          x-transition:leave-start="opacity-100 scale-100"
-         x-transition:leave-end="opacity-0 scale-95">
+         x-transition:leave-end="opacity-0 scale-95"
+         role="dialog" aria-modal="true" aria-labelledby="modal-detail-title">
 
-        <div class="absolute inset-0 bg-slate-900/60 backdrop-blur-sm" @click="show = false"></div>
+        <div class="absolute inset-0 bg-slate-900/60 dark:bg-slate-900/80 backdrop-blur-sm" aria-hidden="true" @click="show = false"></div>
 
-        <div class="relative bg-white rounded-2xl shadow-2xl w-full max-w-xl z-10 overflow-hidden">
+        <div class="relative bg-white dark:bg-slate-800 rounded-3xl shadow-2xl w-full max-w-xl z-10 overflow-hidden border dark:border-slate-700">
             <div class="print-only p-6 border-b">
                 <h1 class="text-xl font-black text-slate-900">Rumah Laundry Tasikmalaya</h1>
                 <p class="text-sm text-slate-500">Jl. Laundry No.1 • 081234567890</p>
             </div>
 
-            <div class="px-6 py-5 bg-gradient-to-r from-slate-900 to-brand text-white flex justify-between items-start no-print">
+            <div class="px-6 py-5 bg-gradient-to-r from-slate-900 to-brand dark:from-slate-950 dark:to-blue-900 text-white flex justify-between items-start no-print">
                 <div>
-                    <p class="text-xs text-blue-200 font-bold uppercase tracking-widest mb-1">Nota Transaksi</p>
-                    <p class="text-xl font-black" x-text="trx.invoice_code"></p>
+                    <p class="text-xs text-blue-200 dark:text-blue-300 font-bold uppercase tracking-widest mb-1" id="modal-detail-title">Nota Transaksi</p>
+                    <h2 class="text-2xl font-black" x-text="trx.invoice_code"></h2>
                 </div>
-                <button @click="show = false" class="text-white/70 hover:text-white transition">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <button @click="show = false" aria-label="Tutup detail" class="text-white/70 hover:text-white transition p-1.5 rounded-lg focus:ring-2 focus:ring-white outline-none">
+                    <svg class="w-6 h-6" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
                     </svg>
                 </button>
@@ -46,63 +48,63 @@
             <div class="p-6">
                 <div class="grid grid-cols-2 gap-4 mb-6 text-sm">
                     <div>
-                        <p class="text-slate-400 font-medium text-[10px] uppercase tracking-wider mb-1">Pelanggan</p>
-                        <p class="font-bold text-slate-800" x-text="trx.customer"></p>
+                        <p class="text-slate-500 dark:text-slate-400 font-bold text-[11px] uppercase tracking-wider mb-1">Pelanggan</p>
+                        <p class="font-bold text-slate-900 dark:text-slate-100 text-base" x-text="trx.customer"></p>
                     </div>
                     <div>
-                        <p class="text-slate-400 font-medium text-[10px] uppercase tracking-wider mb-1">Tanggal Masuk</p>
-                        <p class="font-bold text-slate-800" x-text="trx.created_at"></p>
+                        <p class="text-slate-500 dark:text-slate-400 font-bold text-[11px] uppercase tracking-wider mb-1">Tanggal Masuk</p>
+                        <p class="font-bold text-slate-900 dark:text-slate-100" x-text="trx.created_at"></p>
                     </div>
                     <div>
-                        <p class="text-slate-400 font-medium text-[10px] uppercase tracking-wider mb-1">Status Cucian</p>
-                        <span class="px-2.5 py-1 rounded-full text-[10px] font-bold capitalize"
+                        <p class="text-slate-500 dark:text-slate-400 font-bold text-[11px] uppercase tracking-wider mb-1">Status Cucian</p>
+                        <span class="px-3 py-1.5 rounded-full text-xs font-bold capitalize inline-flex border"
                               :class="statusClass(trx.status)" x-text="trx.status"></span>
                     </div>
                     <div>
-                        <p class="text-slate-400 font-medium text-[10px] uppercase tracking-wider mb-1">Pembayaran</p>
-                        <span :class="trx.status === 'baru' ? 'bg-red-100 text-red-700' : 'bg-emerald-100 text-emerald-700'"
-                              class="px-2.5 py-1 rounded-full text-[10px] font-bold"
+                        <p class="text-slate-500 dark:text-slate-400 font-bold text-[11px] uppercase tracking-wider mb-1">Pembayaran</p>
+                        <span :class="trx.status === 'baru' ? 'bg-red-100 text-red-700 border-red-200 dark:bg-rose-900/50 dark:text-rose-300 dark:border-rose-700' : 'bg-emerald-100 text-emerald-700 border-emerald-200 dark:bg-emerald-900/50 dark:text-emerald-300 dark:border-emerald-700'"
+                              class="px-3 py-1.5 rounded-full text-xs font-bold inline-flex border"
                               x-text="trx.status === 'baru' ? 'Belum Bayar' : 'Lunas'"></span>
                     </div>
                 </div>
 
-                <div class="border border-slate-100 rounded-2xl overflow-hidden mb-6">
-                    <table class="w-full text-xs">
-                        <thead class="bg-slate-50 border-b border-slate-100">
+                <div class="border border-slate-200 dark:border-slate-700 rounded-2xl overflow-hidden mb-6">
+                    <table class="w-full text-sm">
+                        <thead class="bg-slate-50 dark:bg-slate-900/50 border-b border-slate-200 dark:border-slate-700">
                             <tr>
-                                <th class="px-4 py-3 text-left font-bold text-slate-500 uppercase tracking-wider">Layanan</th>
-                                <th class="px-4 py-3 text-center font-bold text-slate-500 uppercase tracking-wider">Jml</th>
-                                <th class="px-4 py-3 text-right font-bold text-slate-500 uppercase tracking-wider">Subtotal</th>
+                                <th scope="col" class="px-4 py-3 text-left font-bold text-slate-600 dark:text-slate-300 uppercase tracking-wider text-[11px]">Layanan</th>
+                                <th scope="col" class="px-4 py-3 text-center font-bold text-slate-600 dark:text-slate-300 uppercase tracking-wider text-[11px]">Jml</th>
+                                <th scope="col" class="px-4 py-3 text-right font-bold text-slate-600 dark:text-slate-300 uppercase tracking-wider text-[11px]">Subtotal</th>
                             </tr>
                         </thead>
-                        <tbody class="divide-y divide-slate-50">
+                        <tbody class="divide-y divide-slate-100 dark:divide-slate-700">
                             <template x-for="d in trx.details" :key="d.id">
-                                <tr>
-                                    <td class="px-4 py-3 font-semibold text-slate-700" x-text="d.service?.name ?? '-'"></td>
-                                    <td class="px-4 py-3 text-center text-slate-500" x-text="d.quantity + ' ' + (d.service?.unit ?? '')"></td>
-                                    <td class="px-4 py-3 text-right font-bold text-slate-900" x-text="'Rp ' + Number(d.subtotal).toLocaleString('id-ID')"></td>
+                                <tr class="hover:bg-slate-50/50 dark:hover:bg-slate-700/50 transition-colors">
+                                    <td class="px-4 py-3 font-semibold text-slate-800 dark:text-slate-200" x-text="d.service?.name ?? '-'"></td>
+                                    <td class="px-4 py-3 text-center text-slate-600 dark:text-slate-400" x-text="d.quantity + ' ' + (d.service?.unit ?? '')"></td>
+                                    <td class="px-4 py-3 text-right font-bold text-slate-900 dark:text-slate-100" x-text="'Rp ' + Number(d.subtotal).toLocaleString('id-ID')"></td>
                                 </tr>
                             </template>
                         </tbody>
-                        <tfoot class="bg-slate-50/50 border-t border-slate-100">
+                        <tfoot class="bg-slate-50 dark:bg-slate-900/80 border-t border-slate-200 dark:border-slate-700">
                             <tr>
-                                <td colspan="2" class="px-4 py-4 font-bold text-slate-900">TOTAL</td>
-                                <td class="px-4 py-4 text-right font-black text-brand text-sm" x-text="'Rp ' + Number(trx.total_price).toLocaleString('id-ID')"></td>
+                                <td colspan="2" class="px-4 py-4 font-bold text-slate-900 dark:text-slate-200 text-right">TOTAL</td>
+                                <td class="px-4 py-4 text-right font-black text-brand dark:text-blue-400 text-base" x-text="'Rp ' + Number(trx.total_price).toLocaleString('id-ID')"></td>
                             </tr>
                         </tfoot>
                     </table>
                 </div>
 
-                <p class="text-center text-[10px] text-slate-400 mb-6 italic">Terima kasih telah mempercayakan cucian Anda kepada Rumah Laundry 🙏</p>
+                <p class="text-center text-xs text-slate-500 dark:text-slate-400 mb-6 italic">Terima kasih telah mempercayakan cucian Anda kepada Rumah Laundry 🙏</p>
 
                 <div class="flex gap-3 no-print">
                     <button @click="show = false"
-                            class="flex-1 py-3 rounded-xl border border-slate-200 text-slate-600 font-semibold text-sm hover:bg-slate-50 transition">
+                            class="flex-1 py-3.5 rounded-xl border-2 border-slate-200 dark:border-slate-600 text-slate-600 dark:text-slate-300 font-bold text-sm hover:bg-slate-50 dark:hover:bg-slate-700 hover:border-slate-300 dark:hover:border-slate-500 transition-colors focus:ring-2 focus:ring-slate-300 dark:focus:ring-slate-600 outline-none">
                         Tutup
                     </button>
                     <button onclick="window.print()"
-                            class="flex-1 py-3 rounded-xl bg-brand text-white font-bold text-sm hover:bg-brand-dark transition shadow-lg shadow-blue-100 flex items-center justify-center gap-2">
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            class="flex-1 py-3.5 rounded-xl bg-brand text-white font-bold text-sm hover:bg-brand-dark transition-all shadow-lg shadow-blue-100 dark:shadow-none flex items-center justify-center gap-2 focus:ring-2 focus:ring-brand outline-none focus:ring-offset-2 dark:focus:ring-offset-slate-800">
+                        <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"/>
                         </svg>
                         Cetak Nota
@@ -113,6 +115,7 @@
     </div>
 </div>
 
+{{-- Modal: Tambah Transaksi --}}
 <div x-data="{ showAddModal: false }" @keydown.escape.window="showAddModal = false">
     <span x-on:open-add-modal.window="showAddModal = true"></span>
     <div x-show="showAddModal" class="fixed inset-0 z-[100] flex items-center justify-center p-4"
@@ -122,16 +125,17 @@
          x-transition:leave="transition ease-in duration-150"
          x-transition:leave-start="opacity-100 scale-100"
          x-transition:leave-end="opacity-0 scale-95"
+         role="dialog" aria-modal="true" aria-labelledby="modal-add-title"
          x-cloak>
-        <div class="absolute inset-0 bg-slate-900/60 backdrop-blur-sm" @click="showAddModal = false"></div>
-        <div class="relative bg-white rounded-2xl shadow-2xl w-full max-w-lg z-10 overflow-hidden">
-            <div class="px-6 py-5 bg-gradient-to-r from-slate-900 to-brand text-white flex justify-between items-center">
+        <div class="absolute inset-0 bg-slate-900/60 dark:bg-slate-900/80 backdrop-blur-sm" aria-hidden="true" @click="showAddModal = false"></div>
+        <div class="relative bg-white dark:bg-slate-800 rounded-3xl shadow-2xl w-full max-w-lg z-10 overflow-hidden border dark:border-slate-700">
+            <div class="px-6 py-5 bg-gradient-to-r from-slate-900 to-brand dark:from-slate-950 dark:to-blue-900 text-white flex justify-between items-center">
                 <div>
-                    <p class="text-xs text-blue-200 font-bold uppercase tracking-widest mb-1">Transaksi</p>
-                    <p class="text-lg font-black">Tambah Transaksi Baru</p>
+                    <p class="text-xs text-blue-200 dark:text-blue-300 font-bold uppercase tracking-widest mb-1">Transaksi Baru</p>
+                    <h2 id="modal-add-title" class="text-xl font-black">Buat Pesanan</h2>
                 </div>
-                <button @click="showAddModal = false" class="text-white/70 hover:text-white transition">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <button @click="showAddModal = false" aria-label="Tutup form tambah" class="text-white/70 hover:text-white transition p-1.5 rounded-lg focus:ring-2 focus:ring-white outline-none">
+                    <svg class="w-6 h-6" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
                     </svg>
                 </button>
@@ -139,8 +143,8 @@
             <form method="POST" action="{{ route('orders.admin.store') }}" class="p-6 space-y-5">
                 @csrf
                 <div>
-                    <label class="block text-xs font-bold text-slate-500 mb-1.5 uppercase tracking-wide">Pelanggan</label>
-                    <select name="user_id" required class="w-full px-4 py-3 border border-slate-200 rounded-xl text-sm focus:ring-2 focus:ring-brand focus:border-brand outline-none bg-slate-50">
+                    <label for="user_id" class="block text-xs font-bold text-slate-600 dark:text-slate-400 mb-1.5 uppercase tracking-wide">Pilih Pelanggan</label>
+                    <select id="user_id" name="user_id" required class="w-full px-4 py-3 border border-slate-300 dark:border-slate-600 rounded-xl text-sm focus:ring-2 focus:ring-brand focus:border-brand outline-none bg-slate-50 dark:bg-slate-900 transition-colors hover:bg-slate-100 dark:hover:bg-slate-800 cursor-pointer text-slate-800 dark:text-slate-200">
                         <option value="">-- Pilih Pelanggan --</option>
                         @foreach(\App\Models\User::where('role','user')->orderBy('name')->get() as $c)
                         <option value="{{ $c->id }}">{{ $c->name }} ({{ $c->phone ?? $c->email }})</option>
@@ -148,10 +152,10 @@
                     </select>
                 </div>
                 <div id="adminOrderItems" class="space-y-3">
-                    <div class="admin-order-item grid grid-cols-2 gap-3 bg-slate-50 p-4 rounded-2xl border border-slate-100">
+                    <div class="admin-order-item grid grid-cols-2 gap-3 bg-slate-50 dark:bg-slate-900/50 p-4 rounded-2xl border border-slate-200 dark:border-slate-700">
                         <div class="col-span-2 sm:col-span-1">
-                            <label class="block text-[10px] font-bold text-slate-400 mb-1 uppercase">Layanan</label>
-                            <select name="items[0][service_id]" required class="w-full px-3 py-2 border border-slate-200 rounded-lg text-xs bg-white focus:ring-2 focus:ring-brand outline-none">
+                            <label for="service_0" class="block text-[11px] font-bold text-slate-500 dark:text-slate-400 mb-1 uppercase">Layanan</label>
+                            <select id="service_0" name="items[0][service_id]" required class="w-full px-3 py-2.5 border border-slate-300 dark:border-slate-600 rounded-lg text-sm bg-white dark:bg-slate-800 focus:ring-2 focus:ring-brand outline-none transition-colors hover:border-slate-400 dark:hover:border-slate-500 text-slate-800 dark:text-slate-200">
                                 <option value="">-- Pilih Layanan --</option>
                                 @foreach($services as $s)
                                 <option value="{{ $s->id }}" data-price="{{ $s->price }}">{{ $s->name }} — Rp {{ number_format($s->price,0,',','.') }}/{{ $s->unit }}</option>
@@ -159,17 +163,17 @@
                             </select>
                         </div>
                         <div class="col-span-2 sm:col-span-1">
-                            <label class="block text-[10px] font-bold text-slate-400 mb-1 uppercase">Jumlah</label>
-                            <input type="number" name="items[0][quantity]" step="0.1" min="0.1" placeholder="2.5" required
-                                   class="w-full px-3 py-2 border border-slate-200 rounded-lg text-xs focus:ring-2 focus:ring-brand outline-none">
+                            <label for="qty_0" class="block text-[11px] font-bold text-slate-500 dark:text-slate-400 mb-1 uppercase">Jumlah</label>
+                            <input id="qty_0" type="number" name="items[0][quantity]" step="0.1" min="0.1" placeholder="Misal: 2.5" required
+                                   class="w-full px-3 py-2.5 border border-slate-300 dark:border-slate-600 rounded-lg text-sm focus:ring-2 focus:ring-brand outline-none transition-colors hover:border-slate-400 dark:hover:border-slate-500 bg-white dark:bg-slate-800 text-slate-800 dark:text-slate-200 placeholder-slate-400 dark:placeholder-slate-500">
                         </div>
                     </div>
                 </div>
-                <button type="button" onclick="addAdminItem()" class="w-full py-3 border-2 border-dashed border-slate-200 rounded-2xl text-xs font-bold text-slate-400 hover:border-brand hover:text-brand transition-all flex items-center justify-center gap-2">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"/></svg>
+                <button type="button" onclick="addAdminItem()" class="w-full py-3.5 border-2 border-dashed border-slate-300 dark:border-slate-600 rounded-2xl text-sm font-bold text-slate-500 dark:text-slate-400 hover:border-brand hover:text-brand dark:hover:border-blue-400 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-slate-800 transition-all flex items-center justify-center gap-2 focus:ring-2 focus:ring-brand outline-none">
+                    <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"/></svg>
                     Tambah Item Layanan
                 </button>
-                <button type="submit" class="w-full py-3.5 bg-brand text-white font-bold rounded-2xl hover:bg-brand-dark transition-all shadow-xl shadow-blue-100">
+                <button type="submit" class="w-full py-4 bg-brand text-white font-black text-base rounded-2xl hover:bg-brand-dark transition-all shadow-xl shadow-blue-100 dark:shadow-none focus:ring-2 focus:ring-brand outline-none focus:ring-offset-2 dark:focus:ring-offset-slate-800 transform active:scale-95">
                     Simpan Transaksi
                 </button>
             </form>
@@ -178,7 +182,30 @@
 </div>
 
 <div class="space-y-8">
-    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+    {{-- Page Header: Hierarki Visual Utama --}}
+    <header class="flex flex-col sm:flex-row sm:items-end justify-between gap-5">
+        <div>
+            <nav aria-label="Breadcrumb" class="mb-3">
+                <ol class="flex items-center space-x-2 text-xs font-bold text-slate-500 dark:text-slate-400">
+                    <li><a href="{{ route('admin.monitoring') }}" class="text-slate-600 dark:text-slate-400 hover:text-brand dark:hover:text-blue-400 transition-colors">Dashboard</a></li>
+                    <li><span class="mx-1 text-slate-300 dark:text-slate-600">/</span></li>
+                    <li class="text-slate-800 dark:text-slate-200" aria-current="page">Monitoring</li>
+                </ol>
+            </nav>
+            <h1 class="text-xl md:text-3xl lg:text-4xl font-black text-slate-900 dark:text-white tracking-tight">Monitoring Cucian</h1>
+            <p class="text-sm sm:text-base text-slate-500 dark:text-slate-400 font-medium mt-2">Pantau status, kelola pesanan, dan perbarui transaksi pelanggan secara real-time.</p>
+        </div>
+        <div class="flex-shrink-0">
+            <button @click="$dispatch('open-add-modal')"
+                    class="w-full sm:w-auto px-6 py-3.5 bg-brand text-white rounded-2xl text-sm font-bold hover:bg-brand-dark transition-all shadow-lg shadow-blue-200 dark:shadow-none flex items-center justify-center gap-2 transform active:scale-95 focus:ring-4 focus:ring-blue-100 dark:focus:ring-blue-900 outline-none">
+                <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+                Transaksi Baru
+            </button>
+        </div>
+    </header>
+
+    {{-- Section Statistik --}}
+    <section aria-label="Statistik Ringkasan" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
         @php
         $cards = [
             ['label'=>'Pendapatan Hari Ini',       'val'=>'Rp '.number_format($todayRevenue,0,',','.'),'icon'=>'M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z','color'=>'blue'],
@@ -188,123 +215,137 @@
         ];
         @endphp
         @foreach($cards as $card)
-        <div class="bg-white rounded-3xl border border-slate-100 shadow-sm p-5 flex items-center gap-4 hover:shadow-md transition-all group">
-            <div class="w-11 h-11 rounded-2xl bg-{{ $card['color'] }}-50 text-{{ $card['color'] }}-600 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <div class="bg-white dark:bg-slate-800 rounded-3xl border border-slate-200 dark:border-slate-700 shadow-md dark:shadow-none p-6 flex items-center gap-5 hover:shadow-lg dark:hover:border-slate-600 transition-all group">
+            <div class="w-14 h-14 rounded-2xl bg-{{ $card['color'] }}-50 dark:bg-{{ $card['color'] }}-900/30 text-{{ $card['color'] }}-600 dark:text-{{ $card['color'] }}-400 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform" aria-hidden="true">
+                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="{{ $card['icon'] }}"/>
                 </svg>
             </div>
             <div>
-                <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">{{ $card['label'] }}</p>
-                <p class="text-lg font-extrabold text-slate-900 mt-0.5">{{ $card['val'] }}</p>
+                <h2 class="text-[11px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest">{{ $card['label'] }}</h2>
+                <p class="text-xl sm:text-2xl font-black text-slate-900 dark:text-white mt-1">{{ $card['val'] }}</p>
             </div>
         </div>
         @endforeach
-    </div>
+    </section>
 
-    <div class="bg-white rounded-3xl border border-slate-100 shadow-sm overflow-hidden">
-        <div class="px-6 py-5 border-b border-slate-50 flex flex-wrap gap-4 items-center justify-between bg-slate-50/30">
-            <h3 class="text-lg font-bold text-slate-900 flex items-center gap-2">
-                <span class="w-2 h-2 bg-brand rounded-full animate-ping"></span>
-                Monitoring Cucian
-            </h3>
-            <div class="flex flex-wrap gap-2 items-center">
-                <form method="GET" action="{{ route('admin.monitoring') }}" class="flex gap-2" id="filterForm">
-                    <div class="relative">
-                        <svg class="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    {{-- Section Tabel Monitoring --}}
+    <section aria-label="Daftar Transaksi Aktif" class="bg-white dark:bg-slate-800 rounded-[2rem] border border-slate-100 dark:border-slate-700 shadow-sm dark:shadow-none overflow-hidden">
+        <div class="px-6 py-6 border-b border-slate-100 dark:border-slate-700 flex flex-col lg:flex-row lg:items-center justify-between gap-5 bg-slate-50/50 dark:bg-slate-800/80">
+            <h2 class="text-xl font-bold text-slate-900 dark:text-white flex items-center gap-3">
+                <span class="w-2.5 h-2.5 bg-brand dark:bg-blue-400 rounded-full animate-ping relative" aria-hidden="true">
+                    <span class="absolute inline-flex w-full h-full rounded-full bg-brand dark:bg-blue-400 opacity-75"></span>
+                </span>
+                Pesanan Berlangsung
+            </h2>
+            <div class="flex flex-wrap gap-3 items-center">
+                <form method="GET" action="{{ route('admin.monitoring') }}" class="flex flex-wrap sm:flex-nowrap gap-3 w-full sm:w-auto" role="search">
+                    <div class="relative flex-grow sm:flex-grow-0">
+                        <label for="searchInput" class="sr-only">Cari invoice atau nama pelanggan</label>
+                        <svg class="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 dark:text-slate-500" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
                         </svg>
-                        <input type="text" name="search" placeholder="Cari invoice / nama..." value="{{ request('search') }}"
-                               class="pl-10 pr-4 py-2.5 border border-slate-200 rounded-xl text-xs focus:ring-2 focus:ring-brand outline-none w-48 bg-white transition-all focus:w-60">
+                        <input id="searchInput" type="text" name="search" placeholder="Cari invoice / nama..." value="{{ request('search') }}"
+                               class="w-full sm:w-56 pl-11 pr-4 py-2.5 border border-slate-200 dark:border-slate-700 rounded-xl text-sm focus:ring-2 focus:ring-brand outline-none bg-white dark:bg-slate-800 transition-all focus:w-full sm:focus:w-64 text-slate-800 dark:text-slate-200 placeholder-slate-400 dark:placeholder-slate-500">
                     </div>
-                    <select name="status_filter" onchange="document.getElementById('filterForm').submit()"
-                            class="px-3 py-2.5 border border-slate-200 rounded-xl text-xs bg-white focus:ring-2 focus:ring-brand outline-none">
+                    
+                    <label for="statusFilter" class="sr-only">Filter Status</label>
+                    <select id="statusFilter" name="status_filter" onchange="this.form.submit()"
+                            class="flex-grow sm:flex-grow-0 px-4 py-2.5 border border-slate-200 dark:border-slate-700 rounded-xl text-sm font-semibold text-slate-600 dark:text-slate-300 bg-white dark:bg-slate-800 focus:ring-2 focus:ring-brand outline-none hover:border-slate-300 dark:hover:border-slate-600 transition-colors cursor-pointer">
                         <option value="">Semua Status</option>
                         @foreach(['baru','cuci','kering','setrika','selesai','diambil'] as $st)
                         <option value="{{ $st }}" {{ request('status_filter') === $st ? 'selected' : '' }}>{{ ucfirst($st) }}</option>
                         @endforeach
                     </select>
+                    
                     @if(request('search') || request('status_filter'))
-                    <a href="{{ route('admin.monitoring') }}" class="px-4 py-2.5 bg-slate-100 text-slate-600 rounded-xl text-xs font-bold hover:bg-slate-200 transition">Reset</a>
+                    <a href="{{ route('admin.monitoring') }}" aria-label="Reset pencarian dan filter" class="px-5 py-2.5 bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-300 rounded-xl text-sm font-bold hover:bg-slate-300 dark:hover:bg-slate-600 transition-colors focus:ring-2 focus:ring-slate-400 dark:focus:ring-slate-500 outline-none inline-flex items-center justify-center">
+                        Reset
+                    </a>
                     @endif
                 </form>
-                <button @click="$dispatch('open-add-modal')"
-                        class="px-5 py-2.5 bg-brand text-white rounded-xl text-xs font-bold hover:bg-brand-dark transition-all shadow-lg shadow-blue-100 flex items-center gap-2">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
-                    Transaksi Baru
-                </button>
             </div>
         </div>
 
-        <div class="overflow-x-auto">
-            <table class="min-w-full divide-y divide-slate-50">
-                <thead class="bg-slate-50/50">
-                    <tr>
-                        <th class="px-6 py-4 text-left text-[10px] font-bold text-slate-400 uppercase tracking-widest">Invoice</th>
-                        <th class="px-6 py-4 text-left text-[10px] font-bold text-slate-400 uppercase tracking-widest">Pelanggan</th>
-                        <th class="px-6 py-4 text-left text-[10px] font-bold text-slate-400 uppercase tracking-widest">Tanggal</th>
-                        <th class="px-6 py-4 text-left text-[10px] font-bold text-slate-400 uppercase tracking-widest">Total</th>
-                        <th class="px-6 py-4 text-left text-[10px] font-bold text-slate-400 uppercase tracking-widest">Status</th>
-                        <th class="px-6 py-4 text-left text-[10px] font-bold text-slate-400 uppercase tracking-widest">Bayar</th>
-                        <th class="px-6 py-4 text-center text-[10px] font-bold text-slate-400 uppercase tracking-widest">Update</th>
-                        <th class="px-6 py-4 text-center text-[10px] font-bold text-slate-400 uppercase tracking-widest">Aksi</th>
+        <div class="w-full overflow-x-auto scrollbar-hide rounded-lg">
+            <table class="min-w-full divide-y divide-slate-100 dark:divide-slate-700">
+                <thead class="bg-slate-50/80 dark:bg-slate-900/50">
+                    <tr class="whitespace-nowrap">
+                        <th scope="col" class="px-4 py-4 text-left text-[11px] font-semibold text-slate-700 dark:text-slate-300 uppercase tracking-widest">Invoice</th>
+                        <th scope="col" class="px-4 py-4 text-left text-[11px] font-semibold text-slate-700 dark:text-slate-300 uppercase tracking-widest">Pelanggan</th>
+                        <th scope="col" class="px-4 py-4 text-left text-[11px] font-semibold text-slate-700 dark:text-slate-300 uppercase tracking-widest">Tanggal</th>
+                        <th scope="col" class="px-4 py-4 text-left text-[11px] font-semibold text-slate-700 dark:text-slate-300 uppercase tracking-widest">Total Bayar</th>
+                        <th scope="col" class="px-4 py-4 text-left text-[11px] font-semibold text-slate-700 dark:text-slate-300 uppercase tracking-widest">Progress</th>
+                        <th scope="col" class="px-4 py-4 text-left text-[11px] font-semibold text-slate-700 dark:text-slate-300 uppercase tracking-widest">Status Uang</th>
+                        <th scope="col" class="px-4 py-4 text-center text-[11px] font-semibold text-slate-700 dark:text-slate-300 uppercase tracking-widest">Perbarui Progress</th>
+                        <th scope="col" class="px-4 py-4 text-center text-[11px] font-semibold text-slate-700 dark:text-slate-300 uppercase tracking-widest"><span class="sr-only">Aksi</span>Detail</th>
                     </tr>
                 </thead>
-                <tbody class="bg-white divide-y divide-slate-50">
+                <tbody class="bg-white dark:bg-slate-800">
                     @forelse($transactions as $trx)
-                    <tr class="hover:bg-slate-50/80 transition" id="trx-{{ $trx->id }}"
+                    <tr class="border-b border-slate-100 dark:border-slate-700 hover:bg-slate-50/80 dark:hover:bg-slate-700/50 transition-colors group" id="trx-{{ $trx->id }}"
                         x-data="{ currentStatus: '{{ $trx->status }}', loading: false }">
-                        <td class="px-6 py-5 whitespace-nowrap">
-                            <span class="font-extrabold text-brand text-sm tracking-tight">{{ $trx->invoice_code }}</span>
+                        <td class="px-4 py-4 whitespace-nowrap">
+                            <span class="font-extrabold text-brand dark:text-blue-400 text-sm tracking-tight">{{ $trx->invoice_code }}</span>
                         </td>
-                        <td class="px-6 py-5 whitespace-nowrap">
-                            <p class="text-sm font-bold text-slate-900">{{ $trx->user->name ?? '-' }}</p>
-                            <p class="text-[10px] text-slate-400 mt-0.5 italic">{{ $trx->user->phone ?? '' }}</p>
+                        <td class="px-4 py-4 whitespace-nowrap">
+                            <p class="text-sm font-bold text-slate-900 dark:text-slate-100">{{ $trx->user->name ?? '-' }}</p>
+                            <p class="text-[11px] font-medium text-slate-500 dark:text-slate-400 mt-0.5">{{ $trx->user->phone ?? 'Tidak ada nomor' }}</p>
                         </td>
-                        <td class="px-6 py-5 whitespace-nowrap">
-                            <p class="text-xs font-semibold text-slate-700">{{ $trx->created_at->format('d M Y') }}</p>
-                            <p class="text-[10px] text-slate-400 mt-0.5">{{ $trx->created_at->format('H:i') }} WIB</p>
+                        <td class="px-4 py-4 whitespace-nowrap">
+                            <p class="text-sm font-semibold text-slate-800 dark:text-slate-200">{{ $trx->created_at->format('d M Y') }}</p>
+                            <p class="text-[11px] font-medium text-slate-500 dark:text-slate-400 mt-0.5">{{ $trx->created_at->format('H:i') }} WIB</p>
                         </td>
-                        <td class="px-6 py-5 whitespace-nowrap text-sm font-black text-slate-800">
+                        <td class="px-4 py-4 whitespace-nowrap text-sm font-black text-slate-800 dark:text-slate-200">
                             Rp {{ number_format($trx->total_price, 0, ',', '.') }}
                         </td>
-                        <td class="px-6 py-5 whitespace-nowrap">
-                            <span class="px-3 py-1 rounded-full text-[10px] font-bold capitalize"
+                        <td class="px-4 py-4 whitespace-nowrap">
+                            <span class="px-3 py-1.5 rounded-full text-[11px] font-bold capitalize inline-flex border"
                                   :class="{
-                                      'bg-amber-100 text-amber-700': currentStatus === 'baru',
-                                      'bg-blue-100 text-blue-700 animate-pulse': ['cuci','kering','setrika'].includes(currentStatus),
-                                      'bg-emerald-100 text-emerald-700': ['selesai','diambil'].includes(currentStatus)
+                                      'bg-amber-100 text-amber-800 border-amber-200 dark:bg-amber-900/50 dark:text-amber-400 dark:border-amber-800': currentStatus === 'baru',
+                                      'bg-blue-100 text-blue-800 border-blue-200 dark:bg-blue-900/50 dark:text-blue-400 dark:border-blue-800': ['cuci','kering','setrika'].includes(currentStatus),
+                                      'bg-emerald-100 text-emerald-800 border-emerald-200 dark:bg-emerald-900/50 dark:text-emerald-400 dark:border-emerald-800': ['selesai','diambil'].includes(currentStatus)
                                   }"
-                                  x-text="currentStatus"></span>
+                                  x-text="currentStatus">
+                            </span>
                         </td>
-                        <td class="px-6 py-5 whitespace-nowrap">
-                            <span :class="currentStatus === 'baru' ? 'bg-red-50 text-red-600' : 'bg-emerald-50 text-emerald-600'"
-                                  class="px-2.5 py-1 rounded-lg text-[10px] font-extrabold"
-                                  x-text="currentStatus === 'baru' ? 'BELUM' : 'LUNAS'"></span>
+                        <td class="px-4 py-4 whitespace-nowrap">
+                            <span :class="currentStatus === 'baru' ? 'bg-red-100 text-red-800 border-red-200 dark:bg-rose-900/50 dark:text-rose-400 dark:border-rose-800' : 'bg-emerald-100 text-emerald-800 border-emerald-200 dark:bg-emerald-900/50 dark:text-emerald-400 dark:border-emerald-800'"
+                                  class="px-3 py-1.5 rounded-full text-[11px] font-bold border"
+                                  x-text="currentStatus === 'baru' ? 'BELUM LUNAS' : 'LUNAS'"></span>
                         </td>
-                        <td class="px-6 py-5 whitespace-nowrap text-center">
-                            <select x-model="currentStatus"
+                        <td class="px-4 py-4 whitespace-nowrap text-center">
+                            <label :for="'update-status-' + {{ $trx->id }}" class="sr-only">Perbarui Status {{ $trx->invoice_code }}</label>
+                            <select :id="'update-status-' + {{ $trx->id }}" x-model="currentStatus"
                                     @change="updateStatus({{ $trx->id }}, $event.target.value, $el)"
                                     :disabled="loading"
-                                    class="py-1.5 px-2 border border-slate-200 bg-white rounded-xl text-[10px] font-bold focus:ring-2 focus:ring-brand outline-none disabled:opacity-50">
+                                    class="py-2 px-3 border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 rounded-xl text-xs font-bold focus:ring-2 focus:ring-brand outline-none disabled:opacity-50 cursor-pointer hover:border-brand dark:hover:border-blue-400 transition-colors text-slate-700 dark:text-slate-200">
                                 @foreach(['baru','cuci','kering','setrika','selesai','diambil'] as $st)
                                 <option value="{{ $st }}">{{ ucfirst($st) }}</option>
                                 @endforeach
                             </select>
                         </td>
-                        <td class="px-6 py-5 whitespace-nowrap text-center">
+                        <td class="px-4 py-4 whitespace-nowrap text-center">
                             <button onclick="openDetail({{ $trx->id }})"
-                                    class="w-8 h-8 flex items-center justify-center bg-slate-50 hover:bg-brand hover:text-white text-slate-400 rounded-xl transition-all shadow-sm">
-                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
+                                    aria-label="Lihat detail pesanan {{ $trx->invoice_code }}"
+                                    title="Lihat Detail"
+                                    class="w-10 h-10 inline-flex items-center justify-center bg-transparent hover:bg-blue-50 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-400 hover:text-brand dark:hover:text-blue-400 rounded-xl transition-all focus:ring-2 focus:ring-brand focus:outline-none">
+                                <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
+                                </svg>
                             </button>
                         </td>
                     </tr>
                     @empty
                     <tr>
-                        <td colspan="8" class="px-6 py-20 text-center">
-                            <div class="text-5xl mb-4">🧺</div>
-                            <p class="font-bold text-slate-800">Tidak ada transaksi ditemukan</p>
-                            <p class="text-xs text-slate-400 mt-1">Gunakan kata kunci lain atau ubah filter status.</p>
+                        <td colspan="8" class="px-6 py-24 text-center">
+                            <div class="text-6xl mb-5" aria-hidden="true">🧺</div>
+                            <h3 class="text-xl font-bold text-slate-800 dark:text-slate-200 mb-2">Tidak ada transaksi ditemukan</h3>
+                            <p class="text-sm text-slate-500 dark:text-slate-400 max-w-sm mx-auto">Gunakan kata kunci pencarian yang lain atau ubah filter status untuk menemukan pesanan.</p>
+                            @if(request('search') || request('status_filter'))
+                            <a href="{{ route('admin.monitoring') }}" class="inline-block mt-4 text-brand dark:text-blue-400 font-bold text-sm hover:underline focus:ring-2 focus:ring-brand outline-none rounded p-1">Reset Filter</a>
+                            @endif
                         </td>
                     </tr>
                     @endforelse
@@ -313,17 +354,17 @@
         </div>
         
         @if($transactions->hasPages())
-        <div class="px-6 py-5 border-t border-slate-50 flex flex-wrap items-center justify-between gap-4 bg-slate-50/20">
-            <p class="text-xs text-slate-400 font-medium">
-                Menampilkan <span class="font-bold text-slate-700">{{ $transactions->firstItem() }}–{{ $transactions->lastItem() }}</span>
-                dari <span class="font-bold text-slate-700">{{ $transactions->total() }}</span> transaksi
+        <div class="px-6 py-5 border-t border-slate-100 dark:border-slate-700 flex flex-wrap items-center justify-between gap-4 bg-slate-50/50 dark:bg-slate-800/80">
+            <p class="text-sm text-slate-500 dark:text-slate-400 font-medium">
+                Menampilkan <span class="font-bold text-slate-900 dark:text-slate-100">{{ $transactions->firstItem() }}–{{ $transactions->lastItem() }}</span>
+                dari <span class="font-bold text-slate-900 dark:text-slate-100">{{ $transactions->total() }}</span> pesanan
             </p>
-            <div class="flex gap-2">
+            <nav aria-label="Navigasi Halaman" class="flex gap-2">
                 {{ $transactions->links() }}
-            </div>
+            </nav>
         </div>
         @endif
-    </div>
+    </section>
 </div>
 
 @php
@@ -366,9 +407,9 @@
                 this.show = true;
             },
             statusClass(s) {
-                if (s === 'baru') return 'bg-amber-100 text-amber-700';
-                if (['cuci','kering','setrika'].includes(s)) return 'bg-blue-100 text-blue-700';
-                return 'bg-emerald-100 text-emerald-700';
+                if (s === 'baru') return 'bg-amber-100 text-amber-800 border-amber-200 dark:bg-amber-900/50 dark:text-amber-300 dark:border-amber-700/50';
+                if (['cuci','kering','setrika'].includes(s)) return 'bg-blue-100 text-blue-800 border-blue-200 dark:bg-blue-900/50 dark:text-blue-300 dark:border-blue-700/50';
+                return 'bg-emerald-100 text-emerald-800 border-emerald-200 dark:bg-emerald-900/50 dark:text-emerald-300 dark:border-emerald-700/50';
             }
         };
     }
@@ -398,8 +439,8 @@
                 const trx = allTransactions.find(t => t.id === id);
                 if (trx) trx.status = newStatus;
                 if (row) {
-                    row.classList.add('bg-emerald-50');
-                    setTimeout(() => row.classList.remove('bg-emerald-50'), 2000);
+                    row.classList.add('bg-emerald-50', 'dark:bg-emerald-900/30', 'transition-colors', 'duration-500');
+                    setTimeout(() => row.classList.remove('bg-emerald-50', 'dark:bg-emerald-900/30'), 2000);
                 }
             } else {
                 const err = await res.json().catch(() => ({}));
@@ -418,19 +459,19 @@
         const idx = adminItemCount++;
         const opts = adminServices.map(s => `<option value="${s.id}" data-price="${s.price}">${s.name} — Rp ${s.price.toLocaleString('id-ID')}/${s.unit}</option>`).join('');
         const div = document.createElement('div');
-        div.className = 'admin-order-item grid grid-cols-2 gap-3 bg-slate-50 p-4 rounded-2xl border border-slate-100 relative';
+        div.className = 'admin-order-item grid grid-cols-2 gap-3 bg-slate-50 dark:bg-slate-900/50 p-4 rounded-2xl border border-slate-200 dark:border-slate-700 relative mt-3';
         div.innerHTML = `
-            <button type="button" onclick="this.parentElement.remove()" class="absolute -top-2 -right-2 w-6 h-6 bg-red-500 text-white rounded-full text-xs flex items-center justify-center hover:bg-red-700 shadow-sm transition-colors">✕</button>
+            <button type="button" aria-label="Hapus layanan ini" onclick="this.parentElement.remove()" class="absolute -top-2.5 -right-2.5 w-7 h-7 bg-red-500 text-white rounded-full text-xs flex items-center justify-center hover:bg-red-600 shadow-sm transition-colors focus:ring-2 focus:ring-red-300 outline-none">✕</button>
             <div class="col-span-2 sm:col-span-1">
-                <label class="block text-[10px] font-bold text-slate-400 mb-1 uppercase">Layanan</label>
-                <select name="items[${idx}][service_id]" required class="w-full px-3 py-2 border border-slate-200 rounded-lg text-xs bg-white focus:ring-2 focus:ring-brand outline-none">
+                <label for="service_${idx}" class="block text-[11px] font-bold text-slate-500 dark:text-slate-400 mb-1 uppercase">Layanan</label>
+                <select id="service_${idx}" name="items[${idx}][service_id]" required class="w-full px-3 py-2.5 border border-slate-300 dark:border-slate-600 rounded-lg text-sm bg-white dark:bg-slate-800 focus:ring-2 focus:ring-brand outline-none transition-colors hover:border-slate-400 dark:hover:border-slate-500 text-slate-800 dark:text-slate-200">
                     <option value="">-- Pilih --</option>${opts}
                 </select>
             </div>
             <div class="col-span-2 sm:col-span-1">
-                <label class="block text-[10px] font-bold text-slate-400 mb-1 uppercase">Jumlah</label>
-                <input type="number" name="items[${idx}][quantity]" step="0.1" min="0.1" placeholder="2.5" required
-                       class="w-full px-3 py-2 border border-slate-200 rounded-lg text-xs focus:ring-2 focus:ring-brand outline-none">
+                <label for="qty_${idx}" class="block text-[11px] font-bold text-slate-500 dark:text-slate-400 mb-1 uppercase">Jumlah</label>
+                <input id="qty_${idx}" type="number" name="items[${idx}][quantity]" step="0.1" min="0.1" placeholder="Misal: 2.5" required
+                       class="w-full px-3 py-2.5 border border-slate-300 dark:border-slate-600 rounded-lg text-sm focus:ring-2 focus:ring-brand outline-none transition-colors hover:border-slate-400 dark:hover:border-slate-500 bg-white dark:bg-slate-800 text-slate-800 dark:text-slate-200 placeholder-slate-400 dark:placeholder-slate-500">
             </div>`;
         document.getElementById('adminOrderItems').appendChild(div);
     }

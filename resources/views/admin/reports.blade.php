@@ -6,29 +6,29 @@
 <div class="space-y-8">
     <div class="flex items-center justify-between gap-4 flex-wrap">
         <div>
-            <h2 class="text-2xl font-black text-slate-900 tracking-tight">Laporan Keuangan</h2>
-            <p class="text-sm text-slate-500 mt-1">Ikhtisar pendapatan dan riwayat transaksi sukses.</p>
+            <h2 class="text-xl md:text-2xl lg:text-3xl font-black text-slate-900 dark:text-white tracking-tight">Laporan Keuangan</h2>
+            <p class="text-sm text-slate-500 dark:text-slate-400 mt-1">Ikhtisar pendapatan dan riwayat transaksi sukses.</p>
         </div>
         <button onclick="window.print()"
-                class="px-6 py-3 bg-slate-900 text-white font-bold rounded-2xl hover:bg-slate-800 transition shadow-sm flex items-center gap-2 no-print">
+                class="px-6 py-3 bg-slate-900 dark:bg-slate-800 text-white font-bold rounded-2xl hover:bg-slate-800 dark:hover:bg-slate-700 transition shadow-sm flex items-center gap-2 no-print focus:ring-4 focus:ring-slate-200 dark:focus:ring-slate-700 outline-none">
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"/></svg>
             Cetak Laporan
         </button>
     </div>
 
     <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <div class="bg-white rounded-3xl border border-slate-100 shadow-sm p-8 text-center md:col-span-2 flex flex-col justify-center">
-            <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-2">Total Akumulasi Pendapatan</p>
-            <p class="text-5xl font-black text-brand tracking-tighter">Rp {{ number_format($yearlyRevenue, 0, ',', '.') }}</p>
-            <p class="text-xs text-slate-400 mt-3 font-medium">Berdasarkan semua transaksi berstatus <span class="text-slate-900 font-bold">Selesai</span> / <span class="text-slate-900 font-bold">Diambil</span></p>
+        <div class="bg-white dark:bg-slate-800 rounded-3xl border border-slate-100 dark:border-slate-700 shadow-sm dark:shadow-none p-8 text-center md:col-span-2 flex flex-col justify-center">
+            <p class="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-2">Total Akumulasi Pendapatan</p>
+            <p class="text-5xl font-black text-brand dark:text-blue-400 tracking-tighter">Rp {{ number_format($yearlyRevenue, 0, ',', '.') }}</p>
+            <p class="text-xs text-slate-400 dark:text-slate-500 mt-3 font-medium">Berdasarkan semua transaksi berstatus <span class="text-slate-900 dark:text-slate-200 font-bold">Selesai</span> / <span class="text-slate-900 dark:text-slate-200 font-bold">Diambil</span></p>
         </div>
-        <div class="bg-brand rounded-3xl shadow-xl shadow-blue-100 p-8 text-white flex flex-col justify-center relative overflow-hidden">
+        <div class="bg-brand dark:bg-blue-900 rounded-3xl shadow-xl shadow-blue-100 dark:shadow-none p-8 text-white flex flex-col justify-center relative overflow-hidden">
             <div class="relative z-10">
-                <p class="text-[10px] font-bold text-blue-100 uppercase tracking-widest mb-2">Bulan Ini</p>
+                <p class="text-[10px] font-bold text-blue-100 dark:text-blue-300 uppercase tracking-widest mb-2">Bulan Ini</p>
                 <p class="text-3xl font-black">Rp {{ number_format($monthlyRevenue, 0, ',', '.') }}</p>
                 <div class="mt-6 flex items-center gap-2">
                     <span class="w-2 h-2 bg-emerald-400 rounded-full animate-pulse"></span>
-                    <span class="text-[10px] font-bold text-blue-50 uppercase">{{ now()->format('F Y') }}</span>
+                    <span class="text-[10px] font-bold text-blue-50 dark:text-blue-200 uppercase">{{ now()->format('F Y') }}</span>
                 </div>
             </div>
             {{-- Decorative SVG --}}
@@ -36,45 +36,45 @@
         </div>
     </div>
 
-    <div class="bg-white rounded-3xl border border-slate-100 shadow-sm overflow-hidden">
-        <div class="px-6 py-5 border-b border-slate-50 flex justify-between items-center bg-slate-50/30">
-            <h3 class="text-lg font-bold text-slate-900">Riwayat Pendapatan Terbaru</h3>
-            <span class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">10 Transaksi Terakhir</span>
+    <div class="bg-white dark:bg-slate-800 rounded-3xl border border-slate-100 dark:border-slate-700 shadow-sm dark:shadow-none overflow-hidden">
+        <div class="px-6 py-5 border-b border-slate-50 dark:border-slate-700 flex justify-between items-center bg-slate-50/30 dark:bg-slate-800/80">
+            <h3 class="text-lg font-bold text-slate-900 dark:text-white">Riwayat Pendapatan Terbaru</h3>
+            <span class="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest">10 Transaksi Terakhir</span>
         </div>
-        <div class="overflow-x-auto">
-            <table class="w-full divide-y divide-slate-50">
-                <thead class="bg-slate-50/50">
-                    <tr>
-                        <th class="px-6 py-4 text-left text-[10px] font-bold text-slate-400 uppercase tracking-widest">Waktu Selesai</th>
-                        <th class="px-6 py-4 text-left text-[10px] font-bold text-slate-400 uppercase tracking-widest">Invoice</th>
-                        <th class="px-6 py-4 text-left text-[10px] font-bold text-slate-400 uppercase tracking-widest">Pelanggan</th>
-                        <th class="px-6 py-4 text-left text-[10px] font-bold text-slate-400 uppercase tracking-widest">Rincian Layanan</th>
-                        <th class="px-6 py-4 text-right text-[10px] font-bold text-slate-400 uppercase tracking-widest">Total</th>
+        <div class="w-full overflow-x-auto scrollbar-hide rounded-lg">
+            <table class="w-full min-w-max divide-y divide-slate-50 dark:divide-slate-700">
+                <thead class="bg-slate-50/50 dark:bg-slate-900/50">
+                    <tr class="whitespace-nowrap">
+                        <th class="px-6 py-4 text-left text-[10px] font-bold text-slate-400 dark:text-slate-400 uppercase tracking-widest">Waktu Selesai</th>
+                        <th class="px-6 py-4 text-left text-[10px] font-bold text-slate-400 dark:text-slate-400 uppercase tracking-widest">Invoice</th>
+                        <th class="px-6 py-4 text-left text-[10px] font-bold text-slate-400 dark:text-slate-400 uppercase tracking-widest">Pelanggan</th>
+                        <th class="px-6 py-4 text-left text-[10px] font-bold text-slate-400 dark:text-slate-400 uppercase tracking-widest">Rincian Layanan</th>
+                        <th class="px-6 py-4 text-right text-[10px] font-bold text-slate-400 dark:text-slate-400 uppercase tracking-widest">Total</th>
                     </tr>
                 </thead>
-                <tbody class="divide-y divide-slate-50 bg-white">
+                <tbody class="divide-y divide-slate-50 dark:divide-slate-700 bg-white dark:bg-slate-800">
                     @forelse($latestIncomes as $trx)
-                    <tr class="hover:bg-slate-50/50 transition">
+                    <tr class="hover:bg-slate-50/50 dark:hover:bg-slate-700/50 transition">
                         <td class="px-6 py-5 whitespace-nowrap">
-                            <p class="text-xs font-semibold text-slate-700">{{ $trx->updated_at->format('d M Y') }}</p>
-                            <p class="text-[10px] text-slate-400 mt-0.5">{{ $trx->updated_at->format('H:i') }} WIB</p>
+                            <p class="text-xs font-semibold text-slate-700 dark:text-slate-300">{{ $trx->updated_at->format('d M Y') }}</p>
+                            <p class="text-[10px] text-slate-400 dark:text-slate-500 mt-0.5">{{ $trx->updated_at->format('H:i') }} WIB</p>
                         </td>
                         <td class="px-6 py-5 whitespace-nowrap">
-                            <span class="font-extrabold text-brand text-xs tracking-tight">{{ $trx->invoice_code }}</span>
+                            <span class="font-extrabold text-brand dark:text-blue-400 text-xs tracking-tight">{{ $trx->invoice_code }}</span>
                         </td>
                         <td class="px-6 py-5 whitespace-nowrap">
-                            <p class="text-sm font-bold text-slate-900">{{ $trx->user->name ?? '-' }}</p>
+                            <p class="text-sm font-bold text-slate-900 dark:text-white">{{ $trx->user->name ?? '-' }}</p>
                         </td>
                         <td class="px-6 py-5">
                             <div class="flex flex-wrap gap-1">
                                 @foreach($trx->details as $d)
-                                <span class="inline-flex px-2 py-0.5 rounded-lg bg-slate-100 text-slate-600 text-[10px] font-medium border border-slate-200">
+                                <span class="inline-flex px-2 py-0.5 rounded-lg bg-slate-100 dark:bg-slate-900 text-slate-600 dark:text-slate-400 text-[10px] font-medium border border-slate-200 dark:border-slate-600">
                                     {{ $d->service->name }} ({{ $d->quantity }})
                                 </span>
                                 @endforeach
                             </div>
                         </td>
-                        <td class="px-6 py-5 whitespace-nowrap text-right font-black text-slate-900">
+                        <td class="px-6 py-5 whitespace-nowrap text-right font-black text-slate-900 dark:text-white">
                             Rp {{ number_format($trx->total_price, 0, ',', '.') }}
                         </td>
                     </tr>
@@ -82,8 +82,8 @@
                     <tr>
                         <td colspan="5" class="px-6 py-20 text-center">
                             <div class="text-5xl mb-4">📈</div>
-                            <p class="font-bold text-slate-800">Belum ada data pendapatan</p>
-                            <p class="text-xs text-slate-400 mt-1">Selesaikan transaksi untuk melihat laporan di sini.</p>
+                            <p class="font-bold text-slate-800 dark:text-slate-200">Belum ada data pendapatan</p>
+                            <p class="text-xs text-slate-400 dark:text-slate-500 mt-1">Selesaikan transaksi untuk melihat laporan di sini.</p>
                         </td>
                     </tr>
                     @endforelse
