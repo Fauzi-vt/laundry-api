@@ -10,13 +10,28 @@
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     @yield('styles')
 </head>
-<body class="bg-surface dark:bg-slate-900 font-sans antialiased min-h-screen text-slate-800 dark:text-slate-200 transition-colors duration-300" x-data="{ sidebarOpen: true }">
+<body class="bg-surface dark:bg-slate-900 font-sans antialiased min-h-screen text-slate-800 dark:text-slate-200 transition-colors duration-300" 
+      x-data="{ sidebarOpen: window.innerWidth > 1024 }"
+      @resize.window="if(window.innerWidth > 1024) sidebarOpen = true">
 
     {{-- ══════════════════════════════════════════════
          SIDEBAR
     ══════════════════════════════════════════════ --}}
-    <aside :class="sidebarOpen ? 'w-64' : 'w-20'" 
-           class="fixed inset-y-0 left-0 z-50 bg-white dark:bg-slate-800 border-r border-slate-100 dark:border-slate-700 transition-all duration-300 flex flex-col hidden md:flex">
+    {{-- Backdrop Mobile --}}
+    <div x-show="sidebarOpen" 
+         x-transition:enter="transition ease-out duration-300"
+         x-transition:enter-start="opacity-0"
+         x-transition:enter-end="opacity-100"
+         x-transition:leave="transition ease-in duration-200"
+         x-transition:leave-start="opacity-100"
+         x-transition:leave-end="opacity-0"
+         @click="sidebarOpen = false" 
+         class="fixed inset-0 z-40 bg-slate-900/60 backdrop-blur-sm md:hidden"
+         x-cloak>
+    </div>
+
+    <aside :class="sidebarOpen ? 'translate-x-0 w-64' : '-translate-x-full lg:translate-x-0 lg:w-20'" 
+           class="fixed inset-y-0 left-0 z-50 bg-white dark:bg-slate-800 border-r border-slate-100 dark:border-slate-700 transition-all duration-300 flex flex-col">
         
         {{-- Sidebar Logo --}}
         <div class="h-20 flex items-center px-6 border-b border-slate-50 dark:border-slate-700 overflow-hidden">
@@ -81,18 +96,23 @@
     {{-- ══════════════════════════════════════════════
          MAIN CONTENT AREA
     ══════════════════════════════════════════════ --}}
-    <div :class="sidebarOpen ? 'md:pl-64' : 'md:pl-20'" class="transition-all duration-300 min-h-screen flex flex-col">
+    <div :class="sidebarOpen ? 'lg:pl-64' : 'lg:pl-20'" class="transition-all duration-300 min-h-screen flex flex-col">
         
         {{-- Top Header --}}
         <header class="h-20 bg-white/80 dark:bg-slate-800/80 backdrop-blur-md border-b border-slate-100 dark:border-slate-700 sticky top-0 z-40 px-6 flex items-center justify-between">
             <div class="flex items-center gap-4">
-                <button @click="sidebarOpen = !sidebarOpen" class="p-2 rounded-xl text-slate-400 dark:text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-700 hover:text-slate-600 dark:hover:text-slate-300 hidden md:block transition-colors">
+                <button @click="sidebarOpen = !sidebarOpen" class="p-2 rounded-xl text-slate-400 dark:text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-700 hover:text-slate-600 dark:hover:text-slate-300 hidden lg:block transition-colors">
                     <svg x-show="sidebarOpen" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
                     <svg x-show="!sidebarOpen" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"/></svg>
                 </button>
 
+                {{-- Mobile Toggle --}}
+                <button @click="sidebarOpen = !sidebarOpen" class="p-2 -ml-2 rounded-xl text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-700 lg:hidden">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+                </button>
+
                 {{-- Mobile Brand --}}
-                <div class="flex items-center gap-2 md:hidden">
+                <div class="flex items-center gap-2 lg:hidden">
                     <div class="w-8 h-8 bg-brand rounded-lg flex items-center justify-center">
                         <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z"/></svg>
                     </div>

@@ -1,0 +1,9 @@
+id,name,email,email_verified_at,password,role,phone,whatsapp,address,latitude,longitude,remember_token,created_at,updated_at
+1,Administrator,admin@example.com,,$2y$04$BMZS4VvxmtcUP.pNTY73OO3GS8OMK5rrt62gEnFC1yI.HmTLdT2ju,admin,081234567890,,"Jl. Laundry No. 1",,,,"2026-04-02 09:41:52","2026-04-26 14:12:50"
+2,"Pelanggan Setia",user@example.com,,$2y$04$gFo0uMC3AH6hNMTuysPbnum2B9WN2RNagzYnzgsmfV11DVK1tVGfq,user,089876543210,,"Jl. Pelanggan No. 2",,,,"2026-04-02 09:41:53","2026-04-26 14:12:50"
+3,rifa,rifa@coba.com,,$2y$04$gwalNYqqovM1AP3UUmeZG.mITmydbHc.DCTMgI6XQJy.e.Ig/b/5C,user,,,,,,,"2026-04-15 01:23:31","2026-04-26 14:12:50"
+4,febi,febi@gmail.com,,$2y$04$qfD20vAMdoqgoXeUIM874OMEkiDIPy4uifS2.ofbTcNOfJxNDPuzy,user,0815423668585,,,,,,"2026-04-17 02:26:32","2026-05-02 14:54:55"
+5,rif,rif12@gmail.com,,$2y$04$qSfRgRybszdslvGuFcwNS.Nesukzvt/ewl7dQmLDVq5JP9IosT9JO,user,,,,,,,"2026-04-25 18:28:11","2026-04-26 14:12:50"
+6,rifafauzi,rifa12@gmail.com,,$2y$04$bxZ1yR6qe.MPKaYOHxaBqO6n4P4TR/BhdMze7IxA1MLZG/G9euSRK,user,,,,,,,"2026-04-25 18:48:11","2026-04-26 14:12:50"
+7,rifafauzi,rifafauzi044@gmail.com,,$2y$04$6hCHNdVSlRoC.wnATm1imu4w.zr8MIyskL4FbVEMeTAegfUjdXYqe,user,081223513917,,,,,,"2026-05-02 03:30:51","2026-05-02 03:30:51"
+8,"sela am",selaawaliyam25@gmail.com,,$2y$04$dDFtXv11lMRbSXs2T3N.X.ml9kA1btRCNDlOoVIQrfBOdpJvRXNte,user,0852134691848,,,,,,"2026-05-02 14:48:55","2026-05-02 14:48:55"

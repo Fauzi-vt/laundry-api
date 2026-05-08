@@ -1,0 +1,13 @@
+id,name,category,price,unit,description,created_at,updated_at
+1,"Cuci Kiloan Standar",Kiloan,6000.00,kg,,"2026-04-02 09:41:53","2026-04-02 09:41:53"
+2,"Cuci Kiloan Kilat",Kiloan,10000.00,kg,,"2026-04-02 09:41:53","2026-04-02 09:41:53"
+3,"Cuci Selimut / Bedcover","Linen & Selimut",25000.00,pcs,,"2026-04-02 09:41:53","2026-04-02 09:41:53"
+4,"Cuci Sepatu Premium","Sepatu & Tas",35000.00,pasang,,"2026-04-02 09:41:53","2026-04-02 09:41:53"
+5,"Cuci + Setrika Kiloan",Kiloan,8000.00,kg,"Cuci bersih sekaligus disetrika rapi. Siap pakai!","2026-04-22 12:56:12","2026-04-22 12:56:12"
+7,"Cuci Bedcover / Selimut Tebal","Linen & Selimut",25000.00,pcs,"Bedcover, selimut tebal, sprei queen & king.","2026-04-22 12:56:12","2026-04-22 12:56:12"
+8,"Cuci Bantal /","Linen & Selimut",10000.00,pcs,"Bersih, fluffy, wangi seperti baru.","2026-04-22 12:56:12","2026-04-23 07:16:12"
+9,"Cuci Sepatu Standar","Sepatu & Tas",20000.00,pasang,"Sepatu kanvas, sneakers, olahraga.","2026-04-22 12:56:12","2026-04-22 12:56:12"
+10,"Cuci Tas","Sepatu & Tas",30000.00,pcs,"Tas kain, kanvas, ransel. Bersih & tidak merusak bahan.","2026-04-22 12:56:12","2026-04-22 12:56:12"
+11,"Setrika Saja (Kiloan)",Setrika,4000.00,kg,"Hanya setrika, tanpa cuci. Rapi & bebas kusut.","2026-04-22 12:56:12","2026-04-22 12:56:12"
+12,"Setrika Saja (Satuan)",Setrika,3000.00,pcs,"Per lembar pakaian, cocok untuk baju formal.","2026-04-22 12:56:12","2026-04-22 12:56:12"
+13,baju,Umum,6500.00,kg,,"2026-04-23 07:15:39","2026-04-23 07:15:39"
