@@ -10,7 +10,11 @@ class ServiceController extends Controller
 {
     public function index()
     {
-        $services = Service::orderBy('category')->orderBy('name')->get();
+        $services = Service::select('services.*')
+            ->join('categories', 'services.category_id', '=', 'categories.id')
+            ->orderBy('categories.name')
+            ->orderBy('services.name')
+            ->get();
 
         return response()->json([
             'message' => 'success',

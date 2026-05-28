@@ -67,7 +67,7 @@
 
 {{-- ══ LAYANAN PER KATEGORI ══ --}}
 @if($services->count())
-@php $grouped = $services->groupBy('category'); @endphp
+@php $grouped = $services->groupBy('category_id'); @endphp
 <div class="mb-6">
     <div class="flex items-center justify-between mb-4">
         <div>
@@ -77,28 +77,22 @@
         <a href="{{ route('user.layanan') }}" class="text-xs font-semibold text-brand hover:underline">Lihat semua →</a>
     </div>
 
-    @php
-    $catCfg = [
-        'Kiloan'          => ['accent' => '#2563eb', 'bg' => 'bg-blue-50',   'text' => 'text-blue-600',   'icon' => '👕', 'border' => 'border-blue-100'],
-        'Linen & Selimut' => ['accent' => '#7c3aed', 'bg' => 'bg-violet-50', 'text' => 'text-violet-600', 'icon' => '🛏️', 'border' => 'border-violet-100'],
-        'Sepatu & Tas'    => ['accent' => '#ea580c', 'bg' => 'bg-orange-50', 'text' => 'text-orange-600', 'icon' => '👟', 'border' => 'border-orange-100'],
-        'Setrika'         => ['accent' => '#059669', 'bg' => 'bg-emerald-50','text' => 'text-emerald-600','icon' => '👔', 'border' => 'border-emerald-100'],
-    ];
-    @endphp
-
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
-        @foreach($grouped as $catName => $items)
-        @php $c = $catCfg[$catName] ?? ['accent'=>'#64748b','bg'=>'bg-slate-50','text'=>'text-slate-600','icon'=>'🧺','border'=>'border-slate-100']; @endphp
+        @foreach($grouped as $catId => $items)
+        @php 
+            $cat = $items->first()->categoryRelation; 
+        @endphp
+        @if($cat)
         <div class="bg-white rounded-2xl border border-slate-100 shadow-sm overflow-hidden">
             {{-- Category header --}}
-            <div class="flex items-center gap-3 px-5 py-3.5 border-b {{ $c['border'] }} {{ $c['bg'] }}">
-                <span class="text-xl">{{ $c['icon'] }}</span>
+            <div class="flex items-center gap-3 px-5 py-3.5 border-b {{ $cat->border_class }} {{ $cat->bg_class }}">
+                <span class="text-xl">{{ $cat->icon ?? '🧺' }}</span>
                 <div class="flex-1">
-                    <p class="text-sm font-bold {{ $c['text'] }}">{{ $catName }}</p>
+                    <p class="text-sm font-bold {{ $cat->text_class }}">{{ $cat->name }}</p>
                     <p class="text-[11px] text-slate-400">{{ $items->count() }} layanan</p>
                 </div>
                 <a href="{{ route('user.order') }}"
-                   class="text-[11px] font-semibold {{ $c['text'] }} px-2.5 py-1 rounded-lg {{ $c['bg'] }} border {{ $c['border'] }} hover:opacity-80 transition">
+                   class="text-[11px] font-semibold {{ $cat->text_class }} px-2.5 py-1 rounded-lg {{ $cat->bg_class }} border {{ $cat->border_class }} hover:opacity-80 transition">
                     Pesan →
                 </a>
             </div>
@@ -119,7 +113,7 @@
                             <p class="text-[11px] text-slate-400">/ {{ $svc->unit }}</p>
                         </div>
                         <a href="{{ route('user.order', ['service_id' => $svc->id]) }}"
-                           class="hidden sm:flex w-8 h-8 items-center justify-center {{ $c['bg'] }} {{ $c['text'] }} rounded-lg border {{ $c['border'] }} hover:opacity-70 transition opacity-0 group-hover:opacity-100">
+                           class="hidden sm:flex w-8 h-8 items-center justify-center {{ $cat->bg_class }} {{ $cat->text_class }} rounded-lg border {{ $cat->border_class }} hover:opacity-70 transition opacity-0 group-hover:opacity-100">
                             <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
                         </a>
                     </div>
@@ -127,6 +121,7 @@
                 @endforeach
             </div>
         </div>
+        @endif
         @endforeach
     </div>
 </div>

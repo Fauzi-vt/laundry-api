@@ -62,7 +62,7 @@
                     </div>
                     <div>
                         <p class="text-slate-500 dark:text-slate-400 font-bold text-[11px] uppercase tracking-wider mb-1">Pembayaran</p>
-                        <span :class="trx.status === 'baru' ? 'bg-red-100 text-red-700 border-red-200 dark:bg-rose-900/50 dark:text-rose-300 dark:border-rose-700' : 'bg-emerald-100 text-emerald-700 border-emerald-200 dark:bg-emerald-900/50 dark:text-emerald-300 dark:border-emerald-700'"
+                        <span :class="trx.status === 'baru' ? 'bg-red-100 text-red-700 border-red-200 dark:bg-rose-900/50 dark:text-rose-300 dark:border-rose-700' : 'bg-emerald-50 text-emerald-900 border-emerald-200 dark:bg-emerald-950/40 dark:text-emerald-300 dark:border-emerald-800/80'"
                               class="px-3 py-1.5 rounded-full text-xs font-bold inline-flex border"
                               x-text="trx.status === 'baru' ? 'Belum Bayar' : 'Lunas'"></span>
                     </div>
@@ -181,158 +181,160 @@
     </div>
 </div>
 
-<div class="space-y-8">
+<div class="space-y-6">
     {{-- Page Header: Hierarki Visual Utama --}}
-    <header class="flex flex-col sm:flex-row sm:items-end justify-between gap-5">
+    <header class="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
         <div>
-            <nav aria-label="Breadcrumb" class="mb-3">
-                <ol class="flex items-center space-x-2 text-xs font-bold text-slate-500 dark:text-slate-400">
-                    <li><a href="{{ route('admin.monitoring') }}" class="text-slate-600 dark:text-slate-400 hover:text-brand dark:hover:text-blue-400 transition-colors">Dashboard</a></li>
+            <nav aria-label="Breadcrumb" class="mb-2">
+                <ol class="flex items-center space-x-2 text-[10px] font-bold text-slate-400 dark:text-slate-500">
+                    <li><a href="{{ route('admin.monitoring') }}" class="hover:text-brand transition-colors">Dashboard</a></li>
                     <li><span class="mx-1 text-slate-300 dark:text-slate-600">/</span></li>
-                    <li class="text-slate-800 dark:text-slate-200" aria-current="page">Monitoring</li>
+                    <li class="text-slate-700 dark:text-slate-300" aria-current="page">Monitoring</li>
                 </ol>
             </nav>
-            <h1 class="text-xl md:text-3xl lg:text-4xl font-black text-slate-900 dark:text-white tracking-tight">Monitoring Cucian</h1>
-            <p class="text-sm sm:text-base text-slate-500 dark:text-slate-400 font-medium mt-2">Pantau status, kelola pesanan, dan perbarui transaksi pelanggan secara real-time.</p>
+            <h1 class="text-xl md:text-2xl lg:text-3xl font-black text-slate-900 dark:text-white tracking-tight">Monitoring Cucian</h1>
+            <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">Pantau status, kelola pesanan, dan perbarui transaksi pelanggan secara real-time.</p>
         </div>
         <div class="flex-shrink-0">
             <button @click="$dispatch('open-add-modal')"
-                    class="w-full sm:w-auto px-6 py-3.5 bg-brand text-white rounded-2xl text-sm font-bold hover:bg-brand-dark transition-all shadow-lg shadow-blue-200 dark:shadow-none flex items-center justify-center gap-2 transform active:scale-95 focus:ring-4 focus:ring-blue-100 dark:focus:ring-blue-900 outline-none">
-                <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+                    class="w-full sm:w-auto px-4.5 py-2.5 bg-brand text-white rounded-lg text-xs font-bold hover:bg-brand-dark transition-all shadow-md shadow-brand/10 dark:shadow-none flex items-center justify-center gap-2 transform active:scale-95 focus:ring-2 focus:ring-brand/20 outline-none">
+                <svg class="w-4.5 h-4.5" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15"/></svg>
                 Transaksi Baru
             </button>
         </div>
     </header>
 
     {{-- Section Statistik --}}
-    <section aria-label="Statistik Ringkasan" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
+    <section aria-label="Statistik Ringkasan" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         @php
         $cards = [
-            ['label'=>'Pendapatan Hari Ini',       'val'=>'Rp '.number_format($todayRevenue,0,',','.'),'icon'=>'M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z','color'=>'blue'],
-            ['label'=>'Total Selesai',              'val'=>$totalDone.' Order',   'icon'=>'M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z','color'=>'emerald'],
-            ['label'=>'Sedang Diproses',            'val'=>$totalActive.' Cucian','icon'=>'M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z','color'=>'amber'],
-            ['label'=>'Total Pelanggan',            'val'=>$customers.' Orang',   'icon'=>'M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z','color'=>'indigo'],
+            ['label'=>'Pendapatan Hari Ini',       'val'=>'Rp '.number_format($todayRevenue,0,',','.'),'icon'=>'M21 12a2.25 2.25 0 0 0-2.25-2.25H15a3 3 0 1 1-6 0H5.25A2.25 2.25 0 0 0 3 12m18 0v6a2.25 2.25 0 0 1-2.25 2.25H5.25A2.25 2.25 0 0 1 3 18v-6m18 0V9M3 12V9m18 0a2.25 2.25 0 0 0-2.25-2.25H5.25A2.25 2.25 0 0 0 3 9m18 0V6a2.25 2.25 0 0 0-2.25-2.25H5.25A2.25 2.25 0 0 0 3 6v3','color'=>'brand'],
+            ['label'=>'Total Selesai',              'val'=>$totalDone.' Order',   'icon'=>'M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z','color'=>'emerald'],
+            ['label'=>'Sedang Diproses',            'val'=>$totalActive.' Cucian','icon'=>'M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z','color'=>'cyan'],
+            ['label'=>'Total Pelanggan',            'val'=>$customers.' Orang',   'icon'=>'M15 19.128a9.38 9.38 0 002.625.372 9.337 9.337 0 004.121-.952 4.125 4.125 0 00-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.109A11.386 11.386 0 0110.089 20c-2.213 0-4.3-.632-6.09-1.735a4.125 4.125 0 010-7.03 11.414 11.414 0 0111.083 0 4.125 4.125 0 013.918 3.52M8 7a3 3 0 11-6 0 3 3 0 016 0zm14 0a3 3 0 11-6 0 3 3 0 016 0z','color'=>'indigo'],
         ];
         @endphp
         @foreach($cards as $card)
-        <div class="bg-white dark:bg-slate-800 rounded-3xl border border-slate-200 dark:border-slate-700 shadow-md dark:shadow-none p-6 flex items-center gap-5 hover:shadow-lg dark:hover:border-slate-600 transition-all group">
-            <div class="w-14 h-14 rounded-2xl bg-{{ $card['color'] }}-50 dark:bg-{{ $card['color'] }}-900/30 text-{{ $card['color'] }}-600 dark:text-{{ $card['color'] }}-400 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform" aria-hidden="true">
-                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="{{ $card['icon'] }}"/>
+        <div class="bg-white dark:bg-slate-800 rounded-xl border border-slate-200/50 dark:border-slate-700/50 shadow-sm p-6 flex items-center gap-4.5 hover:shadow-md dark:hover:border-slate-600/60 transition-all group">
+            <div class="w-12 h-12 rounded-xl bg-{{ $card['color'] }}-50 dark:bg-{{ $card['color'] }}-900/30 text-{{ $card['color'] }}-600 dark:text-{{ $card['color'] }}-400 flex items-center justify-center flex-shrink-0 group-hover:scale-105 transition-transform" aria-hidden="true">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="{{ $card['icon'] }}"/>
                 </svg>
             </div>
             <div>
-                <h2 class="text-[11px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest">{{ $card['label'] }}</h2>
-                <p class="text-xl sm:text-2xl font-black text-slate-900 dark:text-white mt-1">{{ $card['val'] }}</p>
+                <h2 class="text-[10px] font-black text-slate-400 dark:text-brand/70 uppercase tracking-wider">{{ $card['label'] }}</h2>
+                <p class="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white mt-0.5 tracking-tight">{{ $card['val'] }}</p>
             </div>
         </div>
         @endforeach
     </section>
 
     {{-- Section Tabel Monitoring --}}
-    <section aria-label="Daftar Transaksi Aktif" class="bg-white dark:bg-slate-800 rounded-[2rem] border border-slate-100 dark:border-slate-700 shadow-sm dark:shadow-none overflow-hidden">
-        <div class="px-6 py-6 border-b border-slate-100 dark:border-slate-700 flex flex-col lg:flex-row lg:items-center justify-between gap-5 bg-slate-50/50 dark:bg-slate-800/80">
-            <h2 class="text-xl font-bold text-slate-900 dark:text-white flex items-center gap-3">
-                <span class="w-2.5 h-2.5 bg-brand dark:bg-blue-400 rounded-full animate-ping relative" aria-hidden="true">
-                    <span class="absolute inline-flex w-full h-full rounded-full bg-brand dark:bg-blue-400 opacity-75"></span>
+    <section aria-label="Daftar Transaksi Aktif" class="bg-white dark:bg-slate-800 rounded-xl border border-slate-200/50 dark:border-slate-700/50 shadow-sm overflow-hidden">
+        <div class="px-6 py-5 border-b border-slate-100 dark:border-slate-700/40 flex flex-col md:flex-row md:items-center justify-between gap-4 bg-slate-50/50 dark:bg-slate-800/40">
+            <h2 class="text-sm font-bold text-slate-900 dark:text-white flex items-center gap-2.5">
+                <span class="relative flex h-2 w-2">
+                    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand opacity-75"></span>
+                    <span class="relative inline-flex rounded-full h-2 w-2 bg-brand"></span>
                 </span>
                 Pesanan Berlangsung
             </h2>
-            <div class="flex flex-wrap gap-3 items-center">
-                <form method="GET" action="{{ route('admin.monitoring') }}" class="flex flex-wrap sm:flex-nowrap gap-3 w-full sm:w-auto" role="search">
-                    <div class="relative flex-grow sm:flex-grow-0">
-                        <label for="searchInput" class="sr-only">Cari invoice atau nama pelanggan</label>
-                        <svg class="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 dark:text-slate-500" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
-                        </svg>
-                        <input id="searchInput" type="text" name="search" placeholder="Cari invoice / nama..." value="{{ request('search') }}"
-                               class="w-full sm:w-56 pl-11 pr-4 py-2.5 border border-slate-200 dark:border-slate-700 rounded-xl text-sm focus:ring-2 focus:ring-brand outline-none bg-white dark:bg-slate-800 transition-all focus:w-full sm:focus:w-64 text-slate-800 dark:text-slate-200 placeholder-slate-400 dark:placeholder-slate-500">
-                    </div>
-                    
+            
+            <form method="GET" action="{{ route('admin.monitoring') }}" class="flex flex-wrap sm:flex-nowrap items-center gap-2" role="search">
+                <div class="relative">
+                    <label for="searchInput" class="sr-only">Cari invoice atau nama pelanggan</label>
+                    <svg class="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 dark:text-slate-500" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.602 10.602z"/>
+                    </svg>
+                    <input id="searchInput" type="text" name="search" placeholder="Cari invoice / nama..." value="{{ request('search') }}"
+                           class="w-full sm:w-52 pl-10 pr-4 py-2 border-[0.5px] border-slate-200 dark:border-slate-700 rounded-lg text-xs focus:ring-1 focus:ring-brand focus:border-brand outline-none bg-white dark:bg-slate-900 text-slate-800 dark:text-slate-200 placeholder-slate-400 dark:placeholder-slate-500 transition-all">
+                </div>
+                
+                <div class="relative">
                     <label for="statusFilter" class="sr-only">Filter Status</label>
                     <select id="statusFilter" name="status_filter" onchange="this.form.submit()"
-                            class="flex-grow sm:flex-grow-0 px-4 py-2.5 border border-slate-200 dark:border-slate-700 rounded-xl text-sm font-semibold text-slate-600 dark:text-slate-300 bg-white dark:bg-slate-800 focus:ring-2 focus:ring-brand outline-none hover:border-slate-300 dark:hover:border-slate-600 transition-colors cursor-pointer">
+                            class="px-3 py-2 border-[0.5px] border-slate-200 dark:border-slate-700 rounded-lg text-xs font-semibold text-slate-600 dark:text-slate-300 bg-white dark:bg-slate-900 focus:ring-1 focus:ring-brand focus:border-brand outline-none hover:border-slate-300 dark:hover:border-slate-600 transition-colors cursor-pointer">
                         <option value="">Semua Status</option>
                         @foreach(['baru','cuci','kering','setrika','selesai','diambil'] as $st)
                         <option value="{{ $st }}" {{ request('status_filter') === $st ? 'selected' : '' }}>{{ ucfirst($st) }}</option>
                         @endforeach
                     </select>
-                    
-                    @if(request('search') || request('status_filter'))
-                    <a href="{{ route('admin.monitoring') }}" aria-label="Reset pencarian dan filter" class="px-5 py-2.5 bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-300 rounded-xl text-sm font-bold hover:bg-slate-300 dark:hover:bg-slate-600 transition-colors focus:ring-2 focus:ring-slate-400 dark:focus:ring-slate-500 outline-none inline-flex items-center justify-center">
-                        Reset
-                    </a>
-                    @endif
-                </form>
-            </div>
+                </div>
+                
+                @if(request('search') || request('status_filter'))
+                <a href="{{ route('admin.monitoring') }}" aria-label="Reset" class="px-4 py-2 bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 rounded-lg text-xs font-bold hover:bg-slate-200 dark:hover:bg-slate-600 transition-colors inline-flex items-center justify-center">
+                    Reset
+                </a>
+                @endif
+            </form>
         </div>
 
         <div class="w-full overflow-x-auto scrollbar-hide rounded-lg">
             <table class="min-w-full divide-y divide-slate-100 dark:divide-slate-700">
                 <thead class="bg-slate-50/80 dark:bg-slate-900/50">
                     <tr class="whitespace-nowrap">
-                        <th scope="col" class="px-4 py-4 text-left text-[11px] font-semibold text-slate-700 dark:text-slate-300 uppercase tracking-widest">Invoice</th>
-                        <th scope="col" class="px-4 py-4 text-left text-[11px] font-semibold text-slate-700 dark:text-slate-300 uppercase tracking-widest">Pelanggan</th>
-                        <th scope="col" class="px-4 py-4 text-left text-[11px] font-semibold text-slate-700 dark:text-slate-300 uppercase tracking-widest">Tanggal</th>
-                        <th scope="col" class="px-4 py-4 text-left text-[11px] font-semibold text-slate-700 dark:text-slate-300 uppercase tracking-widest">Total Bayar</th>
-                        <th scope="col" class="px-4 py-4 text-left text-[11px] font-semibold text-slate-700 dark:text-slate-300 uppercase tracking-widest">Progress</th>
-                        <th scope="col" class="px-4 py-4 text-left text-[11px] font-semibold text-slate-700 dark:text-slate-300 uppercase tracking-widest">Status Uang</th>
-                        <th scope="col" class="px-4 py-4 text-center text-[11px] font-semibold text-slate-700 dark:text-slate-300 uppercase tracking-widest">Perbarui Progress</th>
-                        <th scope="col" class="px-4 py-4 text-center text-[11px] font-semibold text-slate-700 dark:text-slate-300 uppercase tracking-widest"><span class="sr-only">Aksi</span>Detail</th>
+                        <th scope="col" class="px-6 py-4 text-left text-[11px] font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Invoice</th>
+                        <th scope="col" class="px-6 py-4 text-left text-[11px] font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Pelanggan</th>
+                        <th scope="col" class="px-6 py-4 text-left text-[11px] font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Tanggal</th>
+                        <th scope="col" class="px-6 py-4 text-left text-[11px] font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Total Bayar</th>
+                        <th scope="col" class="px-6 py-4 text-left text-[11px] font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Progress</th>
+                        <th scope="col" class="px-6 py-4 text-left text-[11px] font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Status Uang</th>
+                        <th scope="col" class="px-6 py-4 text-center text-[11px] font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Perbarui Progress</th>
+                        <th scope="col" class="px-6 py-4 text-center text-[11px] font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider"><span class="sr-only">Aksi</span>Detail</th>
                     </tr>
                 </thead>
                 <tbody class="bg-white dark:bg-slate-800">
                     @forelse($transactions as $trx)
-                    <tr class="border-b border-slate-100 dark:border-slate-700 hover:bg-slate-50/80 dark:hover:bg-slate-700/50 transition-colors group" id="trx-{{ $trx->id }}"
+                    <tr class="border-b border-slate-100 dark:border-slate-700/60 hover:bg-slate-50/50 dark:hover:bg-brand/5 hover:shadow-sm transition-all duration-200 group" id="trx-{{ $trx->id }}"
                         x-data="{ currentStatus: '{{ $trx->status }}', loading: false }">
-                        <td class="px-4 py-4 whitespace-nowrap">
-                            <span class="font-extrabold text-brand dark:text-blue-400 text-sm tracking-tight">{{ $trx->invoice_code }}</span>
+                        <td class="px-6 py-4.5 whitespace-nowrap">
+                            <span class="font-extrabold text-brand dark:text-brand text-sm tracking-tight">{{ $trx->invoice_code }}</span>
                         </td>
-                        <td class="px-4 py-4 whitespace-nowrap">
-                            <p class="text-sm font-bold text-slate-900 dark:text-slate-100">{{ $trx->user->name ?? '-' }}</p>
-                            <p class="text-[11px] font-medium text-slate-500 dark:text-slate-400 mt-0.5">{{ $trx->user->phone ?? 'Tidak ada nomor' }}</p>
+                        <td class="px-6 py-4.5 whitespace-nowrap">
+                            <p class="text-sm font-bold text-slate-900 dark:text-white leading-tight">{{ $trx->user->name ?? '-' }}</p>
+                            <p class="text-[10px] font-medium text-slate-400 dark:text-slate-500 mt-1">{{ $trx->user->phone ?? 'Tidak ada nomor' }}</p>
                         </td>
-                        <td class="px-4 py-4 whitespace-nowrap">
+                        <td class="px-6 py-4.5 whitespace-nowrap">
                             <p class="text-sm font-semibold text-slate-800 dark:text-slate-200">{{ $trx->created_at->format('d M Y') }}</p>
-                            <p class="text-[11px] font-medium text-slate-500 dark:text-slate-400 mt-0.5">{{ $trx->created_at->format('H:i') }} WIB</p>
+                            <p class="text-[10px] font-medium text-slate-400 dark:text-slate-500 mt-1">{{ $trx->created_at->format('H:i') }} WIB</p>
                         </td>
-                        <td class="px-4 py-4 whitespace-nowrap text-sm font-black text-slate-800 dark:text-slate-200">
+                        <td class="px-6 py-4.5 whitespace-nowrap text-sm font-extrabold text-slate-900 dark:text-white">
                             Rp {{ number_format($trx->total_price, 0, ',', '.') }}
                         </td>
-                        <td class="px-4 py-4 whitespace-nowrap">
-                            <span class="px-3 py-1.5 rounded-full text-[11px] font-bold capitalize inline-flex border"
+                        <td class="px-6 py-4.5 whitespace-nowrap">
+                            <span class="px-2.5 py-1 rounded-full text-[10px] font-bold capitalize inline-flex border"
                                   :class="{
-                                      'bg-amber-100 text-amber-800 border-amber-200 dark:bg-amber-900/50 dark:text-amber-400 dark:border-amber-800': currentStatus === 'baru',
-                                      'bg-blue-100 text-blue-800 border-blue-200 dark:bg-blue-900/50 dark:text-blue-400 dark:border-blue-800': ['cuci','kering','setrika'].includes(currentStatus),
-                                      'bg-emerald-100 text-emerald-800 border-emerald-200 dark:bg-emerald-900/50 dark:text-emerald-400 dark:border-emerald-800': ['selesai','diambil'].includes(currentStatus)
+                                      'bg-amber-50 text-amber-600 border-amber-100 dark:bg-amber-950/30 dark:text-amber-400 dark:border-amber-900/50': currentStatus === 'baru',
+                                      'bg-cyan-50 text-cyan-700 border-cyan-100 dark:bg-cyan-950/30 dark:text-cyan-400 dark:border-cyan-800/50': ['cuci','kering','setrika'].includes(currentStatus),
+                                      'bg-emerald-50 text-emerald-900 border-emerald-200 dark:bg-emerald-950/40 dark:text-emerald-300 dark:border-emerald-800/80': ['selesai','diambil'].includes(currentStatus)
                                   }"
                                   x-text="currentStatus">
                             </span>
                         </td>
-                        <td class="px-4 py-4 whitespace-nowrap">
-                            <span :class="currentStatus === 'baru' ? 'bg-red-100 text-red-800 border-red-200 dark:bg-rose-900/50 dark:text-rose-400 dark:border-rose-800' : 'bg-emerald-100 text-emerald-800 border-emerald-200 dark:bg-emerald-900/50 dark:text-emerald-400 dark:border-emerald-800'"
-                                  class="px-3 py-1.5 rounded-full text-[11px] font-bold border"
+                        <td class="px-6 py-4.5 whitespace-nowrap">
+                            <span :class="currentStatus === 'baru' ? 'bg-rose-50 text-rose-700 border-rose-100 dark:bg-rose-950/30 dark:text-rose-400 dark:border-rose-800/50' : 'bg-emerald-50 text-emerald-900 border-emerald-200 dark:bg-emerald-950/40 dark:text-emerald-300 dark:border-emerald-800/80'"
+                                  class="px-2.5 py-1 rounded-full text-[10px] font-bold border"
                                   x-text="currentStatus === 'baru' ? 'BELUM LUNAS' : 'LUNAS'"></span>
                         </td>
-                        <td class="px-4 py-4 whitespace-nowrap text-center">
+                        <td class="px-6 py-4.5 whitespace-nowrap text-center">
                             <label :for="'update-status-' + {{ $trx->id }}" class="sr-only">Perbarui Status {{ $trx->invoice_code }}</label>
                             <select :id="'update-status-' + {{ $trx->id }}" x-model="currentStatus"
                                     @change="updateStatus({{ $trx->id }}, $event.target.value, $el)"
                                     :disabled="loading"
-                                    class="py-2 px-3 border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 rounded-xl text-xs font-bold focus:ring-2 focus:ring-brand outline-none disabled:opacity-50 cursor-pointer hover:border-brand dark:hover:border-blue-400 transition-colors text-slate-700 dark:text-slate-200">
+                                    class="py-1.5 px-3.5 border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 rounded-lg text-[11px] font-bold focus:ring-1 focus:ring-brand outline-none disabled:opacity-50 cursor-pointer hover:border-brand dark:hover:border-brand transition-colors text-slate-700 dark:text-slate-300">
                                 @foreach(['baru','cuci','kering','setrika','selesai','diambil'] as $st)
                                 <option value="{{ $st }}">{{ ucfirst($st) }}</option>
                                 @endforeach
                             </select>
                         </td>
-                        <td class="px-4 py-4 whitespace-nowrap text-center">
+                        <td class="px-6 py-4.5 whitespace-nowrap text-center">
                             <button onclick="openDetail({{ $trx->id }})"
                                     aria-label="Lihat detail pesanan {{ $trx->invoice_code }}"
                                     title="Lihat Detail"
-                                    class="w-10 h-10 inline-flex items-center justify-center bg-transparent hover:bg-blue-50 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-400 hover:text-brand dark:hover:text-blue-400 rounded-xl transition-all focus:ring-2 focus:ring-brand focus:outline-none">
-                                <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
+                                    class="w-8 h-8 inline-flex items-center justify-center bg-transparent hover:bg-slate-50 dark:hover:bg-slate-700 text-slate-400 hover:text-brand dark:hover:text-brand rounded-lg transition-all focus:ring-1 focus:ring-brand focus:outline-none">
+                                <svg class="w-4.5 h-4.5" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z"/>
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
                                 </svg>
                             </button>
                         </td>
@@ -408,8 +410,8 @@
             },
             statusClass(s) {
                 if (s === 'baru') return 'bg-amber-100 text-amber-800 border-amber-200 dark:bg-amber-900/50 dark:text-amber-300 dark:border-amber-700/50';
-                if (['cuci','kering','setrika'].includes(s)) return 'bg-blue-100 text-blue-800 border-blue-200 dark:bg-blue-900/50 dark:text-blue-300 dark:border-blue-700/50';
-                return 'bg-emerald-100 text-emerald-800 border-emerald-200 dark:bg-emerald-900/50 dark:text-emerald-300 dark:border-emerald-700/50';
+                if (['cuci','kering','setrika'].includes(s)) return 'bg-cyan-50 text-cyan-700 border-cyan-100 dark:bg-cyan-950/30 dark:text-cyan-400 dark:border-cyan-800/50';
+                return 'bg-emerald-50 text-emerald-900 border-emerald-200 dark:bg-emerald-950/40 dark:text-emerald-300 dark:border-emerald-800/80';
             }
         };
     }
@@ -444,11 +446,29 @@
                 }
             } else {
                 const err = await res.json().catch(() => ({}));
-                alert('Gagal: ' + (err.message ?? 'Unknown error'));
+                const isDark = localStorage.getItem('darkMode') === 'true';
+                Swal.fire({
+                    title: 'Gagal!',
+                    text: (err.message ?? 'Unknown error'),
+                    icon: 'error',
+                    confirmButtonColor: '#c5a373',
+                    background: isDark ? '#1a1c24' : '#ffffff',
+                    color: isDark ? '#f8fafc' : '#1e293b',
+                    customClass: { popup: 'rounded-2xl border border-slate-100 dark:border-slate-700' }
+                });
                 if (selectEl) selectEl.value = allTransactions.find(t => t.id === id)?.status ?? newStatus;
             }
         } catch (e) {
-            alert('Kesalahan jaringan.');
+            const isDark = localStorage.getItem('darkMode') === 'true';
+            Swal.fire({
+                title: 'Error!',
+                text: 'Kesalahan jaringan.',
+                icon: 'error',
+                confirmButtonColor: '#c5a373',
+                background: isDark ? '#1a1c24' : '#ffffff',
+                color: isDark ? '#f8fafc' : '#1e293b',
+                customClass: { popup: 'rounded-2xl border border-slate-100 dark:border-slate-700' }
+            });
         } finally {
             if (comp) comp.loading = false;
         }

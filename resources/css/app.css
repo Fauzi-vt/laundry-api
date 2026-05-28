@@ -11,12 +11,19 @@
     --font-sans: 'Plus Jakarta Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
         'Segoe UI Symbol', 'Noto Color Emoji';
         
-    --color-brand: #2563eb;
-    --color-brand-dark: #1d4ed8;
-    --color-brand-light: #eff6ff;
-    --color-brand-ring: #bfdbfe;
+    --color-brand: #c5a373;
+    --color-brand-dark: #a98453;
+    --color-brand-light: #fbf9f4;
+    --color-brand-ring: #ebdcb9;
     
     --color-surface: #f8fafc;
+    
+    /* Premium Dark Mode Colors Override */
+    --color-slate-900: #121212;      /* Deep Charcoal main background */
+    --color-slate-800: #1a1c24;      /* Midnight Blue-Black for panels/cards */
+    --color-slate-950: #0d0e12;      /* Midnight Black for header/top values */
+    --color-slate-700: #292d3a;      /* Thin borders in dark mode */
+    --color-slate-600: #3a3f52;      /* Active state/lines */
 }
 
 [x-cloak] { display: none !important; }

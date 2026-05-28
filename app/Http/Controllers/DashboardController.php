@@ -107,9 +107,16 @@ class DashboardController extends Controller
     public function services(): View
     {
         $user = Auth::user();
-        $services = \App\Models\Service::orderBy('category')->orderBy('name')->get();
         
-        return view('admin.services', compact('user', 'services'));
+        $services = \App\Models\Service::select('services.*')
+            ->join('categories', 'services.category_id', '=', 'categories.id')
+            ->orderBy('categories.name')
+            ->orderBy('services.name')
+            ->get();
+            
+        $categories = \App\Models\Category::orderBy('name')->get();
+        
+        return view('admin.services', compact('user', 'services', 'categories'));
     }
 
     public function reports(): View

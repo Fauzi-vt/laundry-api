@@ -7,6 +7,7 @@
     <title>@yield('title', 'Dashboard') — Rumah Laundry</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <script>
         tailwind.config = {
@@ -309,20 +310,34 @@
 </header>
 
 {{-- Flash messages --}}
-@if(session('success'))
-<div class="max-w-6xl mx-auto px-4 sm:px-6 pt-4">
-    <div class="flex items-center gap-3 bg-emerald-50 border border-emerald-200 text-emerald-700 text-sm font-medium px-4 py-3 rounded-xl">
-        <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-        {{ session('success') }}
-    </div>
-</div>
-@endif
-@if($errors->any())
-<div class="max-w-6xl mx-auto px-4 sm:px-6 pt-4">
-    <div class="bg-red-50 border border-red-200 text-red-600 text-sm px-4 py-3 rounded-xl">
-        <ul class="space-y-0.5">@foreach($errors->all() as $e)<li>• {{ $e }}</li>@endforeach</ul>
-    </div>
-</div>
+@if(session('success') || $errors->any())
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const customSwal = Swal.mixin({
+            confirmButtonColor: '#2563eb',
+            cancelButtonColor: '#ef4444',
+            customClass: {
+                popup: 'rounded-2xl border border-slate-100'
+            }
+        });
+
+        @if(session('success'))
+            customSwal.fire({
+                title: 'Berhasil!',
+                text: "{{ session('success') }}",
+                icon: 'success'
+            });
+        @endif
+
+        @if($errors->any())
+            customSwal.fire({
+                title: 'Kesalahan!',
+                html: `{!! implode('<br>', $errors->all()) !!}`,
+                icon: 'error'
+            });
+        @endif
+    });
+</script>
 @endif
 
 {{-- Page Content --}}
@@ -369,7 +384,16 @@ function updateInputs(lat, lng) {
 }
 
 function getLocation() {
-    if (!navigator.geolocation) return alert('Browser tidak mendukung GPS.');
+    if (!navigator.geolocation) {
+        Swal.fire({
+            title: 'Info',
+            text: 'Browser tidak mendukung GPS.',
+            icon: 'info',
+            confirmButtonColor: '#2563eb',
+            customClass: { popup: 'rounded-2xl border border-slate-100' }
+        });
+        return;
+    }
     navigator.geolocation.getCurrentPosition(pos => {
         const { latitude, longitude } = pos.coords;
         const newPos = [latitude, longitude];
@@ -378,7 +402,15 @@ function getLocation() {
             marker.setLatLng(newPos);
         }
         updateInputs(latitude, longitude);
-    }, () => alert('Gagal mendapatkan lokasi. Aktifkan izin lokasi di browser.'));
+    }, () => {
+        Swal.fire({
+            title: 'Gagal!',
+            text: 'Gagal mendapatkan lokasi. Aktifkan izin lokasi di browser.',
+            icon: 'warning',
+            confirmButtonColor: '#2563eb',
+            customClass: { popup: 'rounded-2xl border border-slate-100' }
+        });
+    });
 }
 </script>
 @yield('scripts')

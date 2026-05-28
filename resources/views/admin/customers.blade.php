@@ -395,7 +395,7 @@
                                     <p class="text-[10px] text-slate-400 dark:text-slate-500 font-bold mt-0.5 uppercase" x-text="t.created_at"></p>
                                 </div>
                                 <span class="px-3 py-1 rounded-full text-[9px] font-black uppercase tracking-widest"
-                                      :class="t.status === 'baru' ? 'bg-amber-100 text-amber-600 dark:bg-amber-900/50 dark:text-amber-300' : 'bg-emerald-100 text-emerald-600 dark:bg-emerald-900/50 dark:text-emerald-300'"
+                                      :class="t.status === 'baru' ? 'bg-amber-50 text-amber-800 border border-amber-200/60 dark:bg-amber-950/30 dark:text-amber-400 dark:border-amber-900/50' : 'bg-emerald-50 text-emerald-900 border border-emerald-200 dark:bg-emerald-950/40 dark:text-emerald-300 dark:border-emerald-800/80'"
                                       x-text="t.status"></span>
                             </div>
                             <div class="space-y-2 mb-4 border-b border-slate-200 dark:border-slate-700 pb-4">

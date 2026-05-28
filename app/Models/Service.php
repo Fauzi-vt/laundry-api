@@ -6,13 +6,37 @@ use Illuminate\Database\Eloquent\Model;
 
 class Service extends Model
 {
-    protected $fillable = ['name', 'category', 'price', 'unit', 'description'];
+    protected $fillable = ['name', 'category_id', 'price', 'unit', 'description', 'image'];
+
+    protected $with = ['categoryRelation'];
+
+    protected $appends = ['category', 'icon'];
 
     /**
-     * Ikon emoji berdasarkan nama/kategori layanan.
+     * Relasi ke model Category
+     */
+    public function categoryRelation()
+    {
+        return $this->belongsTo(Category::class, 'category_id');
+    }
+
+    /**
+     * Accessor untuk category (kembalikan string nama kategori demi kompatibilitas)
+     */
+    public function getCategoryAttribute(): string
+    {
+        return $this->categoryRelation ? $this->categoryRelation->name : 'Umum';
+    }
+
+    /**
+     * Ikon emoji berdasarkan kategori atau nama layanan.
      */
     public function getIconAttribute(): string
     {
+        if ($this->categoryRelation && $this->categoryRelation->icon) {
+            return $this->categoryRelation->icon;
+        }
+
         $name = strtolower($this->name);
         $cat  = strtolower($this->category ?? '');
 

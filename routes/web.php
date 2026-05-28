@@ -66,6 +66,12 @@ Route::middleware('auth')->group(function () {
         Route::post  ('/admin/services',            [\App\Http\Controllers\Web\ServiceController::class, 'store'])    ->name('admin.services.store');
         Route::put   ('/admin/services/{id}',       [\App\Http\Controllers\Web\ServiceController::class, 'update'])   ->name('admin.services.update');
         Route::delete('/admin/services/{id}',       [\App\Http\Controllers\Web\ServiceController::class, 'destroy'])  ->name('admin.services.destroy');
+
+        // CRUD Kategori
+        Route::get   ('/admin/categories',          [\App\Http\Controllers\Web\CategoryController::class, 'index'])   ->name('admin.categories.index');
+        Route::post  ('/admin/categories',          [\App\Http\Controllers\Web\CategoryController::class, 'store'])   ->name('admin.categories.store');
+        Route::put   ('/admin/categories/{id}',      [\App\Http\Controllers\Web\CategoryController::class, 'update'])  ->name('admin.categories.update');
+        Route::delete('/admin/categories/{id}',      [\App\Http\Controllers\Web\CategoryController::class, 'destroy']) ->name('admin.categories.destroy');
     });
 
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');

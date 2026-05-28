@@ -37,6 +37,19 @@ class DatabaseSeeder extends Seeder
             ]
         );
 
+        // Create initial categories
+        $defaultCategories = [
+            ['name' => 'Kiloan', 'icon' => '👕', 'accent_color' => 'blue', 'description' => 'Layanan cuci per kilogram, ekonomis & praktis'],
+            ['name' => 'Linen & Selimut', 'icon' => '🛏️', 'accent_color' => 'violet', 'description' => 'Selimut, bedcover, sprei, bantal & guling'],
+            ['name' => 'Sepatu & Tas', 'icon' => '👟', 'accent_color' => 'orange', 'description' => 'Sepatu, sneakers, tas kain dan ransel'],
+            ['name' => 'Setrika', 'icon' => '👔', 'accent_color' => 'emerald', 'description' => 'Khusus setrika tanpa cuci, rapi & bebas kusut'],
+            ['name' => 'Umum', 'icon' => '🧺', 'accent_color' => 'slate', 'description' => 'Layanan laundry umum lainnya'],
+        ];
+
+        foreach ($defaultCategories as $cat) {
+            \App\Models\Category::firstOrCreate(['name' => $cat['name']], $cat);
+        }
+
         // Services dengan kategori
         $services = [
             // Kategori: Kiloan
@@ -57,10 +70,11 @@ class DatabaseSeeder extends Seeder
         ];
 
         foreach ($services as $srv) {
+            $category = \App\Models\Category::where('name', $srv['category'])->first();
             \App\Models\Service::firstOrCreate(
                 ['name' => $srv['name']],
                 [
-                    'category'    => $srv['category'],
+                    'category_id' => $category->id,
                     'price'       => $srv['price'],
                     'unit'        => $srv['unit'],
                     'description' => $srv['description'],

@@ -8,29 +8,26 @@
 </div>
 
 @php
-$catCfg = [
-    'Kiloan'          => ['accent' => 'brand',   'bg' => 'bg-blue-50',    'text' => 'text-blue-600',    'border' => 'border-blue-100',   'icon' => '👕', 'desc' => 'Layanan cuci per kilogram, ekonomis & praktis'],
-    'Linen & Selimut' => ['accent' => 'violet',  'bg' => 'bg-violet-50',  'text' => 'text-violet-600',  'border' => 'border-violet-100', 'icon' => '🛏️','desc' => 'Selimut, bedcover, sprei, bantal & guling'],
-    'Sepatu & Tas'    => ['accent' => 'orange',  'bg' => 'bg-orange-50',  'text' => 'text-orange-600',  'border' => 'border-orange-100', 'icon' => '👟', 'desc' => 'Sepatu, sneakers, tas kain dan ransel'],
-    'Setrika'         => ['accent' => 'emerald', 'bg' => 'bg-emerald-50', 'text' => 'text-emerald-600', 'border' => 'border-emerald-100','icon' => '👔', 'desc' => 'Khusus setrika tanpa cuci, rapi & bebas kusut'],
-];
-$grouped = $services->groupBy('category');
+$grouped = $services->groupBy('category_id');
 @endphp
 
 <div class="space-y-6">
-@foreach($grouped as $catName => $items)
-@php $c = $catCfg[$catName] ?? ['bg'=>'bg-slate-50','text'=>'text-slate-600','border'=>'border-slate-100','icon'=>'🧺','desc'=>'']; @endphp
+@foreach($grouped as $catId => $items)
+@php 
+    $cat = $items->first()->categoryRelation; 
+@endphp
+@if($cat)
 <div class="bg-white rounded-2xl border border-slate-100 shadow-sm overflow-hidden">
     {{-- Category Header --}}
-    <div class="flex items-center gap-4 px-6 py-5 {{ $c['bg'] }} border-b {{ $c['border'] }}">
-        <div class="w-12 h-12 rounded-xl {{ $c['bg'] }} border {{ $c['border'] }} flex items-center justify-center text-2xl shadow-sm">
-            {{ $c['icon'] }}
+    <div class="flex items-center gap-4 px-6 py-5 {{ $cat->bg_class }} border-b {{ $cat->border_class }}">
+        <div class="w-12 h-12 rounded-xl {{ $cat->bg_class }} border {{ $cat->border_class }} flex items-center justify-center text-2xl shadow-sm">
+            {{ $cat->icon ?? '🧺' }}
         </div>
         <div class="flex-1">
-            <h2 class="text-base font-bold {{ $c['text'] }}">{{ $catName }}</h2>
-            <p class="text-xs text-slate-400 mt-0.5">{{ $c['desc'] ?? '' }}</p>
+            <h2 class="text-base font-bold {{ $cat->text_class }}">{{ $cat->name }}</h2>
+            <p class="text-xs text-slate-400 mt-0.5">{{ $cat->description }}</p>
         </div>
-        <span class="text-xs font-semibold {{ $c['text'] }} {{ $c['bg'] }} border {{ $c['border'] }} px-3 py-1 rounded-full">
+        <span class="text-xs font-semibold {{ $cat->text_class }} {{ $cat->bg_class }} border {{ $cat->border_class }} px-3 py-1 rounded-full">
             {{ $items->count() }} layanan
         </span>
     </div>
@@ -40,8 +37,12 @@ $grouped = $services->groupBy('category');
         <div class="group relative bg-slate-50 hover:bg-white border border-slate-100 hover:border-brand/30 hover:shadow-md rounded-xl p-4 transition-all duration-200 cursor-pointer"
              onclick="window.location='{{ route('user.order', ['service_id' => $svc->id]) }}'">
             <div class="flex items-start justify-between mb-3">
-                <span class="text-2xl">{{ $svc->icon }}</span>
-                <span class="text-[11px] font-semibold {{ $c['text'] }} {{ $c['bg'] }} border {{ $c['border'] }} px-2 py-0.5 rounded-full opacity-0 group-hover:opacity-100 transition">
+                @if($svc->image)
+                    <img src="{{ asset('images/services/' . $svc->image) }}" class="w-12 h-12 rounded-xl object-cover shadow-sm group-hover:scale-105 transition-transform duration-300">
+                @else
+                    <span class="text-2xl">{{ $svc->icon }}</span>
+                @endif
+                <span class="text-[11px] font-semibold {{ $cat->text_class }} {{ $cat->bg_class }} border {{ $cat->border_class }} px-2 py-0.5 rounded-full opacity-0 group-hover:opacity-100 transition">
                     Pesan
                 </span>
             </div>
@@ -55,7 +56,7 @@ $grouped = $services->groupBy('category');
                     <p class="text-[11px] text-slate-400">per {{ $svc->unit }}</p>
                 </div>
                 <a href="{{ route('user.order', ['service_id' => $svc->id]) }}"
-                   class="flex items-center gap-1.5 text-xs font-semibold {{ $c['text'] }} hover:underline">
+                   class="flex items-center gap-1.5 text-xs font-semibold {{ $cat->text_class }} hover:underline">
                     Pesan sekarang
                     <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
                 </a>
@@ -64,6 +65,7 @@ $grouped = $services->groupBy('category');
         @endforeach
     </div>
 </div>
+@endif
 @endforeach
 
 @if($services->isEmpty())
