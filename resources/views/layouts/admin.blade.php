@@ -109,8 +109,8 @@
         {{-- Sidebar Logo --}}
         <div class="h-20 flex items-center px-6 border-b border-slate-50 dark:border-slate-700 overflow-hidden">
             <div class="flex items-center gap-3 flex-shrink-0">
-                <div class="w-9 h-9 bg-brand rounded-lg flex items-center justify-center shadow-sm">
-                    <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z"/></svg>
+                <div class="w-9 h-9 rounded-lg overflow-hidden flex items-center justify-center shadow-sm bg-white border border-slate-100">
+                    <img src="{{ asset('images/logo.png') }}" alt="Logo" class="w-full h-full object-cover">
                 </div>
                 <div x-show="sidebarOpen" x-transition:enter="delay-150" class="flex-shrink-0">
                     <p class="text-sm font-extrabold text-slate-900 dark:text-white leading-none tracking-tight uppercase">RUMAH LAUNDRY</p>

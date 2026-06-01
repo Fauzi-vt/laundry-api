@@ -163,8 +163,8 @@
 
         {{-- Brand --}}
         <a href="{{ route('user.dashboard') }}" class="flex items-center gap-2.5 flex-shrink-0">
-            <div class="w-8 h-8 bg-brand rounded-lg flex items-center justify-center shadow-sm shadow-blue-300">
-                <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z"/></svg>
+            <div class="w-8 h-8 rounded-lg overflow-hidden flex items-center justify-center shadow-sm bg-white border border-slate-100">
+                <img src="{{ asset('images/logo.png') }}" alt="Logo" class="w-full h-full object-cover">
             </div>
             <div class="hidden sm:block">
                 <p class="text-sm font-bold text-slate-900 leading-none">Rumah Laundry</p>
