@@ -227,8 +227,8 @@
                             <p class="text-xs font-black text-slate-900 dark:text-white leading-none group-hover:text-brand transition-colors">{{ auth()->user()->name }}</p>
                             <p class="text-[9px] text-slate-400 dark:text-slate-500 font-bold uppercase mt-1">Administrator</p>
                         </div>
-                        <div class="w-8 h-8 rounded-full overflow-hidden border border-slate-200 dark:border-slate-700 shadow-sm">
-                            <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="Avatar" class="w-full h-full object-cover">
+                        <div class="w-8 h-8 rounded-full flex items-center justify-center bg-slate-100 dark:bg-slate-700 border border-slate-200 dark:border-slate-700 shadow-sm text-slate-500 dark:text-slate-400">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z"/></svg>
                         </div>
                     </button>
 
