@@ -19,9 +19,19 @@ class ProfileController extends Controller
             'phone'   => ['nullable', 'string', 'max:20'],
             'address' => ['nullable', 'string', 'max:500'],
             'password'=> ['nullable', 'confirmed', 'min:6'],
+            'avatar'  => ['nullable', 'image', 'max:2048'],
         ]);
 
         $data = $request->only('name', 'email', 'phone', 'address');
+
+        if ($request->hasFile('avatar')) {
+            // Delete old avatar file if exists
+            if ($user->avatar) {
+                \Illuminate\Support\Facades\Storage::disk('public')->delete($user->avatar);
+            }
+            $path = $request->file('avatar')->store('avatars', 'public');
+            $data['avatar'] = $path;
+        }
 
         if ($request->filled('password')) {
             $data['password'] = Hash::make($request->password);

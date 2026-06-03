@@ -15,7 +15,17 @@ class Transaction extends Model
         'phone',
         'payment_method',
         'delivery_type',
+        'payment_proof',
     ];
+
+    protected $appends = [
+        'payment_proof_url',
+    ];
+
+    public function getPaymentProofUrlAttribute()
+    {
+        return $this->payment_proof ? url($this->payment_proof) : null;
+    }
 
     public function user()
     {

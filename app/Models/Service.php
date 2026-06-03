@@ -10,7 +10,7 @@ class Service extends Model
 
     protected $with = ['categoryRelation'];
 
-    protected $appends = ['category', 'icon'];
+    protected $appends = ['category', 'icon', 'image_url'];
 
     /**
      * Relasi ke model Category
@@ -47,5 +47,19 @@ class Service extends Model
         if (str_contains($name, 'setrika') || str_contains($cat, 'setrika')) return '👔';
         if (str_contains($name, 'tas') || str_contains($cat, 'tas'))         return '👜';
         return '👕';
+    }
+
+    /**
+     * Accessor untuk image_url layanan.
+     */
+    public function getImageUrlAttribute()
+    {
+        if ($this->image) {
+            if (filter_var($this->image, FILTER_VALIDATE_URL)) {
+                return $this->image;
+            }
+            return url('api/services/image/' . $this->image);
+        }
+        return null;
     }
 }

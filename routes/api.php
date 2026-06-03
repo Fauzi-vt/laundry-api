@@ -14,6 +14,14 @@ Route::post('/register', [AuthController::class, 'register']);
 
 Route::get('/track/{invoice_code}', [TransactionController::class, 'track']);
 
+Route::get('/services/image/{filename}', function ($filename) {
+    $path = public_path('images/services/' . $filename);
+    if (!file_exists($path)) {
+        abort(404);
+    }
+    return response()->file($path);
+});
+
 // ── Authenticated routes ───────────────────────────────────────────────────
 Route::middleware('auth:sanctum')->group(function () {
 
@@ -32,6 +40,7 @@ Route::middleware('auth:sanctum')->group(function () {
     // Order baru — hanya user biasa
     Route::middleware('role:user')->group(function () {
         Route::post('/orders', [UserOrderController::class, 'store']);
+        Route::post('/transactions/{id}/payment-proof', [UserOrderController::class, 'uploadPaymentProof']);
     });
 
     // Admin only

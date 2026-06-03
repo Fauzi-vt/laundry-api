@@ -74,4 +74,42 @@ class UserOrderController extends Controller
             'data'    => $transaction,
         ], 201);
     }
+
+    public function uploadPaymentProof(Request $request, $id)
+    {
+        $request->validate([
+            'payment_proof' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+        ], [
+            'payment_proof.required' => 'Bukti pembayaran harus diunggah.',
+            'payment_proof.image'    => 'File harus berupa gambar.',
+            'payment_proof.mimes'    => 'Format gambar harus jpeg, png, jpg, atau gif.',
+            'payment_proof.max'      => 'Ukuran gambar maksimal 2MB.',
+        ]);
+
+        $user = $request->user();
+        $transaction = Transaction::where('id', $id)->where('user_id', $user->id)->firstOrFail();
+
+        if ($request->hasFile('payment_proof')) {
+            $file = $request->file('payment_proof');
+            $filename = 'proof_' . $transaction->invoice_code . '_' . time() . '.' . $file->getClientOriginalExtension();
+            
+            $destPath = public_path('images/proofs');
+            if (!file_exists($destPath)) {
+                mkdir($destPath, 0755, true);
+            }
+            
+            $file->move($destPath, $filename);
+            
+            $transaction->update([
+                'payment_proof' => 'images/proofs/' . $filename,
+            ]);
+
+            return response()->json([
+                'message' => 'Bukti pembayaran berhasil diunggah.',
+                'data'    => $transaction->load('details.service'),
+            ]);
+        }
+
+        return response()->json(['message' => 'File tidak ditemukan.'], 400);
+    }
 }

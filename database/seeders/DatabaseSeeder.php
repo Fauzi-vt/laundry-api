@@ -50,34 +50,35 @@ class DatabaseSeeder extends Seeder
             \App\Models\Category::firstOrCreate(['name' => $cat['name']], $cat);
         }
 
-        // Services dengan kategori
+        // Services dengan kategori dan gambar
         $services = [
             // Kategori: Kiloan
-            ['category' => 'Kiloan', 'name' => 'Cuci Kiloan Standar',    'price' => 6000,  'unit' => 'kg',     'description' => 'Dicuci bersih, dikeringkan, dilipat rapi. Durasi 2-3 hari.'],
-            ['category' => 'Kiloan', 'name' => 'Cuci Kiloan Kilat',      'price' => 10000, 'unit' => 'kg',     'description' => 'Proses cepat selesai dalam 1 hari. Cocok untuk kebutuhan mendesak.'],
-            ['category' => 'Kiloan', 'name' => 'Cuci + Setrika Kiloan',  'price' => 8000,  'unit' => 'kg',     'description' => 'Cuci bersih sekaligus disetrika rapi. Siap pakai!'],
+            ['category' => 'Kiloan', 'name' => 'Cuci Kiloan Standar',    'price' => 6000,  'unit' => 'kg',     'image' => 'cuci_kiloan_standar.png',  'description' => 'Dicuci bersih, dikeringkan, dilipat rapi. Durasi 2-3 hari.'],
+            ['category' => 'Kiloan', 'name' => 'Cuci Kiloan Kilat',      'price' => 10000, 'unit' => 'kg',     'image' => 'cuci_kiloan_kilat.png',    'description' => 'Proses cepat selesai dalam 1 hari. Cocok untuk kebutuhan mendesak.'],
+            ['category' => 'Kiloan', 'name' => 'Cuci + Setrika Kiloan',  'price' => 8000,  'unit' => 'kg',     'image' => 'cuci_setrika_kiloan.png',  'description' => 'Cuci bersih sekaligus disetrika rapi. Siap pakai!'],
             // Kategori: Linen & Selimut
-            ['category' => 'Linen & Selimut', 'name' => 'Cuci Selimut Tipis',  'price' => 15000, 'unit' => 'pcs', 'description' => 'Selimut ukuran standar hingga single.'],
-            ['category' => 'Linen & Selimut', 'name' => 'Cuci Bedcover / Selimut Tebal', 'price' => 25000, 'unit' => 'pcs', 'description' => 'Bedcover, selimut tebal, sprei queen & king.'],
-            ['category' => 'Linen & Selimut', 'name' => 'Cuci Bantal / Guling', 'price' => 10000, 'unit' => 'pcs', 'description' => 'Bersih, fluffy, wangi seperti baru.'],
+            ['category' => 'Linen & Selimut', 'name' => 'Cuci Selimut Tipis',  'price' => 15000, 'unit' => 'pcs', 'image' => 'cuci_selimut_tipis.png', 'description' => 'Selimut ukuran standar hingga single.'],
+            ['category' => 'Linen & Selimut', 'name' => 'Cuci Bedcover / Selimut Tebal', 'price' => 25000, 'unit' => 'pcs', 'image' => 'cuci_bedcover.png',      'description' => 'Bedcover, selimut tebal, sprei queen & king.'],
+            ['category' => 'Linen & Selimut', 'name' => 'Cuci Bantal / Guling', 'price' => 10000, 'unit' => 'pcs', 'image' => 'cuci_bantal.png',        'description' => 'Bersih, fluffy, wangi seperti baru.'],
             // Kategori: Sepatu & Tas
-            ['category' => 'Sepatu & Tas', 'name' => 'Cuci Sepatu Standar',  'price' => 20000, 'unit' => 'pasang', 'description' => 'Sepatu kanvas, sneakers, olahraga.'],
-            ['category' => 'Sepatu & Tas', 'name' => 'Cuci Sepatu Premium',   'price' => 35000, 'unit' => 'pasang', 'description' => 'Sepatu kulit, suede, atau sepatu branded. Perawatan ekstra.'],
-            ['category' => 'Sepatu & Tas', 'name' => 'Cuci Tas',             'price' => 30000, 'unit' => 'pcs',    'description' => 'Tas kain, kanvas, ransel. Bersih & tidak merusak bahan.'],
+            ['category' => 'Sepatu & Tas', 'name' => 'Cuci Sepatu Standar',  'price' => 20000, 'unit' => 'pasang', 'image' => 'cuci_sepatu_standar.png',  'description' => 'Sepatu kanvas, sneakers, olahraga.'],
+            ['category' => 'Sepatu & Tas', 'name' => 'Cuci Sepatu Premium',   'price' => 35000, 'unit' => 'pasang', 'image' => 'cuci_sepatu_premium.png',  'description' => 'Sepatu kulit, suede, atau sepatu branded. Perawatan ekstra.'],
+            ['category' => 'Sepatu & Tas', 'name' => 'Cuci Tas',             'price' => 30000, 'unit' => 'pcs',    'image' => 'cuci_tas.png',             'description' => 'Tas kain, kanvas, ransel. Bersih & tidak merusak bahan.'],
             // Kategori: Setrika
-            ['category' => 'Setrika', 'name' => 'Setrika Saja (Kiloan)',   'price' => 4000,  'unit' => 'kg',  'description' => 'Hanya setrika, tanpa cuci. Rapi & bebas kusut.'],
-            ['category' => 'Setrika', 'name' => 'Setrika Saja (Satuan)',   'price' => 3000,  'unit' => 'pcs', 'description' => 'Per lembar pakaian, cocok untuk baju formal.'],
+            ['category' => 'Setrika', 'name' => 'Setrika Saja (Kiloan)',   'price' => 4000,  'unit' => 'kg',  'image' => 'setrika_kiloan.png',       'description' => 'Hanya setrika, tanpa cuci. Rapi & bebas kusut.'],
+            ['category' => 'Setrika', 'name' => 'Setrika Saja (Satuan)',   'price' => 3000,  'unit' => 'pcs', 'image' => 'setrika_satuan.png',       'description' => 'Per lembar pakaian, cocok untuk baju formal.'],
         ];
 
         foreach ($services as $srv) {
             $category = \App\Models\Category::where('name', $srv['category'])->first();
-            \App\Models\Service::firstOrCreate(
+            \App\Models\Service::updateOrCreate(
                 ['name' => $srv['name']],
                 [
                     'category_id' => $category->id,
                     'price'       => $srv['price'],
                     'unit'        => $srv['unit'],
                     'description' => $srv['description'],
+                    'image'       => $srv['image'],
                 ]
             );
         }
