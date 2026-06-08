@@ -13,7 +13,10 @@
             theme: {
                 extend: {
                     fontFamily: { sans: ['Plus Jakarta Sans', 'sans-serif'] },
-                    colors: { brand: { DEFAULT: '#2563eb', dark: '#1d4ed8', light: '#eff6ff', ring: '#bfdbfe' } }
+                    colors: { 
+                        brand: { DEFAULT: '#2563eb', dark: '#1d4ed8', light: '#eff6ff', ring: '#bfdbfe' },
+                        primary: { DEFAULT: '#2563eb', dark: '#1d4ed8', light: '#eff6ff', ring: '#bfdbfe' }
+                    }
                 }
             }
         }
@@ -29,8 +32,8 @@
                 <div class="flex items-center">
                     <div class="flex-shrink-0 flex items-center">
                         <div class="flex items-center gap-2.5">
-                            <div class="w-9 h-9 bg-brand rounded-xl flex items-center justify-center shadow-sm shadow-blue-200">
-                                <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z"/></svg>
+                            <div class="w-9 h-9 rounded-lg overflow-hidden flex items-center justify-center shadow-sm border border-slate-100 bg-white">
+                                <img src="{{ asset('images/logo.png') }}" alt="Logo" class="w-full h-full object-cover">
                             </div>
                             <div>
                                 <p class="text-sm font-bold text-slate-900 leading-none tracking-tight">Rumah Laundry</p>
@@ -41,11 +44,9 @@
                 </div>
                 <div class="flex items-center gap-4">
                     <button @click="showRegister = true"
-                        class="text-sm font-medium text-slate-500 hover:text-primary transition hidden sm:block">Daftar
-                        Akun</button>
+                        class="text-sm font-semibold text-slate-600 hover:text-blue-600 transition-colors duration-300 hidden sm:block">Daftar Akun</button>
                     <button @click="showLogin = true"
-                        class="text-sm font-bold bg-brand text-white px-5 py-2.5 rounded-xl hover:bg-brand-dark transition shadow-lg shadow-blue-100">Login
-                    </button>
+                        class="text-sm font-bold bg-blue-600 text-white px-5.5 py-2.5 rounded-xl hover:bg-blue-700 hover:shadow-xl hover:shadow-blue-500/25 active:scale-95 transition-all duration-300 shadow-lg shadow-blue-500/15">Login</button>
                 </div>
             </div>
         </div>
@@ -79,8 +80,8 @@
 
                 <div class="text-center mb-6">
                     <div class="flex justify-center mb-6">
-                        <div class="w-16 h-16 bg-brand rounded-2xl flex items-center justify-center shadow-xl shadow-blue-200">
-                            <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z"/></svg>
+                        <div class="w-16 h-16 rounded-2xl overflow-hidden flex items-center justify-center shadow-xl border border-slate-100 bg-white">
+                            <img src="{{ asset('images/logo.png') }}" alt="Logo" class="w-full h-full object-cover">
                         </div>
                     </div>
                     <h3 class="text-2xl font-bold text-slate-900">Selamat Datang</h3>
@@ -115,7 +116,7 @@
                         </label>
                     </div>
                     <button type="submit"
-                        class="w-full bg-primary text-white font-medium py-2.5 rounded-lg hover:bg-blue-800 transition shadow-md mt-2">Masuk</button>
+                        class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 rounded-xl shadow-lg shadow-blue-500/10 hover:shadow-xl hover:shadow-blue-500/20 active:scale-95 transition-all duration-300 mt-2">Masuk</button>
 
                     <p class="text-center text-sm text-slate-600 mt-4">
                         Belum punya akun? <button type="button"
@@ -198,8 +199,7 @@
                     </div>
 
                     <button type="submit"
-                        class="w-full bg-primary text-white font-medium py-2.5 rounded-lg hover:bg-blue-800 transition shadow-md mt-2">Buat
-                        Akun</button>
+                        class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 rounded-xl shadow-lg shadow-blue-500/10 hover:shadow-xl hover:shadow-blue-500/20 active:scale-95 transition-all duration-300 mt-2">Buat Akun</button>
 
                     <p class="text-center text-sm text-slate-600 mt-4">
                         Sudah punya akun? <button type="button"
@@ -212,108 +212,142 @@
     </div>
 
     <!-- Hero Section -->
-    <div class="relative bg-white overflow-hidden">
-        <div class="max-w-7xl mx-auto">
-            <div
-                class="relative z-10 pb-8 bg-white sm:pb-16 md:pb-20 lg:max-w-2xl lg:w-full lg:pb-28 xl:pb-32 pt-16 lg:pt-24 px-4 sm:px-6 lg:px-8">
-                <main class="mx-auto max-w-7xl">
-                    <div class="sm:text-center lg:text-left">
-                        <h1
-                            class="text-4xl tracking-tight font-extrabold text-slate-900 sm:text-5xl md:text-6xl text-balance">
-                            <span class="block xl:inline">Cuci Bersih, Cepat, dan</span>
-                            <span class="block text-primary">Wangi Sepanjang Hari</span>
+    <div class="relative bg-slate-50/60 overflow-hidden border-b border-slate-200/50">
+        <!-- Soft decorative background gradients for a premium feel -->
+        <div class="absolute top-0 left-1/4 w-96 h-96 bg-blue-100/40 rounded-full filter blur-3xl -translate-x-1/2 -translate-y-1/2"></div>
+        <div class="absolute bottom-0 right-1/4 w-96 h-96 bg-indigo-100/40 rounded-full filter blur-3xl translate-x-1/2 translate-y-1/2"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="grid lg:grid-cols-2 gap-12 lg:gap-8 items-center py-12 lg:py-20">
+                <!-- Left Column: Headline and Info -->
+                <div class="space-y-8 text-center lg:text-left">
+                    <div class="space-y-4">
+                        <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-slate-900 tracking-tight leading-[1.1] text-balance">
+                            Cuci Bersih, Cepat, & <br class="hidden sm:inline">
+                            <span class="text-blue-600">Wangi Sepanjang Hari</span>
                         </h1>
-                        <p
-                            class="mt-3 text-base text-slate-500 sm:mt-5 sm:text-lg sm:max-w-xl sm:mx-auto md:mt-5 md:text-xl lg:mx-0">
+                        <p class="text-base text-slate-500 sm:text-lg max-w-xl mx-auto lg:mx-0 leading-relaxed">
                             Kami ahlinya dalam merawat pakaian Anda. Mulai dari cuci kiloan, sepatu, hingga selimut.
-                            Nikmati layanan premium kami di Singaparna, Tasikmalaya.
+                            Nikmati layanan laundry premium berkualitas tinggi dengan hasil cucian harum higienis di Singaparna, Tasikmalaya.
                         </p>
                     </div>
-                </main>
-            </div>
-        </div>
-        <div class="lg:absolute lg:inset-y-0 lg:right-0 lg:w-1/2">
-            <div
-                class="h-56 w-full object-cover sm:h-72 md:h-96 lg:w-full lg:h-full bg-gradient-to-bl from-blue-100 to-indigo-50 flex items-center justify-center relative overflow-hidden">
-                <!-- Abstract decorative element -->
-                <div class="absolute w-96 h-96 bg-primary/10 rounded-full blur-3xl -top-10 -right-10"></div>
-                <div class="absolute w-72 h-72 bg-secondary/20 rounded-full blur-3xl bottom-10 left-10"></div>
 
-                <div
-                    class="relative z-10 bg-white/60 backdrop-blur-md p-8 rounded-2xl shadow-xl border border-white/50 w-3/4 max-w-md">
-                    <h3 class="text-xl font-bold text-slate-800 mb-2">Pelacakan Status Cucian</h3>
-                    <p class="text-sm text-slate-600 mb-6">Masukkan Nomor Nota / Invoice Code Anda untuk melihat
-                        perkembangan cucian.</p>
-
-                    <div>
-                        <form @submit.prevent="track" class="flex gap-2">
-                            <input type="text" x-model="invoice" placeholder="Contoh: INV-DUMMY123"
-                                class="flex-1 rounded-lg border border-slate-300 shadow-sm focus:border-primary focus:ring focus:ring-primary focus:ring-opacity-50 px-4 py-2 outline-none"
-                                required>
-                            <button type="submit"
-                                class="bg-primary hover:bg-blue-800 text-white px-4 py-2 rounded-lg font-medium transition flex items-center justify-center w-24">
-                                <span x-show="!loading">Lacak</span>
-                                <svg x-show="loading" class="animate-spin h-5 w-5 text-white"
-                                    xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                    style="display: none;">
-                                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor"
-                                        stroke-width="4"></circle>
-                                    <path class="opacity-75" fill="currentColor"
-                                        d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
-                                    </path>
+                    <!-- Trust Badges (Horizontal Flow) -->
+                    <div class="flex flex-wrap items-center gap-3.5 justify-center lg:justify-start">
+                        <!-- Badge 1: Truck -->
+                        <div class="flex items-center gap-2 bg-white border border-slate-100 rounded-full pl-2 pr-4.5 py-1.5 shadow-sm hover:shadow-md hover:border-blue-100 transition-all duration-300 group">
+                            <span class="w-8 h-8 rounded-full bg-blue-50 flex items-center justify-center text-blue-600 group-hover:bg-blue-100 transition-colors">
+                                <svg class="w-4.5 h-4.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17a2 2 0 11-4 0 2 2 0 014 0zM19 17a2 2 0 11-4 0 2 2 0 014 0z"></path>
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16V6a1 1 0 00-1-1H4a1 1 0 00-1 1v10a1 1 0 001 1h1m8-1a1 1 0 01-1 1H9m4-1V8a1 1 0 011-1h2.586a1 1 0 01.707.293l3.414 3.414a1 1 0 01.293.707V16a1 1 0 01-1 1h-1m-6-1a1 1 0 001 1h1M5 17a2 2 0 104 0m-4 0a2 2 0 114 0m6 0a2 2 0 104 0m-4 0a2 2 0 114 0"></path>
                                 </svg>
-                            </button>
-                        </form>
+                            </span>
+                            <span class="text-xs font-bold text-slate-700">Gratis Antar-Jemput</span>
+                        </div>
+                        <!-- Badge 2: Star -->
+                        <div class="flex items-center gap-2 bg-white border border-slate-100 rounded-full pl-2 pr-4.5 py-1.5 shadow-sm hover:shadow-md hover:border-amber-100 transition-all duration-300 group">
+                            <span class="w-8 h-8 rounded-full bg-amber-50 flex items-center justify-center text-amber-500 group-hover:bg-amber-100 transition-colors">
+                                <svg class="w-4.5 h-4.5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                                </svg>
+                            </span>
+                            <span class="text-xs font-bold text-slate-700">Top Rated Service</span>
+                        </div>
+                        <!-- Badge 3: Shield -->
+                        <div class="flex items-center gap-2 bg-white border border-slate-100 rounded-full pl-2 pr-4.5 py-1.5 shadow-sm hover:shadow-md hover:border-emerald-100 transition-all duration-300 group">
+                            <span class="w-8 h-8 rounded-full bg-emerald-50 flex items-center justify-center text-emerald-600 group-hover:bg-emerald-100 transition-colors">
+                                <svg class="w-4.5 h-4.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
+                                </svg>
+                            </span>
+                            <span class="text-xs font-bold text-slate-700">100% Higienis</span>
+                        </div>
+                    </div>
+                </div>
 
-                        <div x-show="error" class="mt-4 p-3 bg-red-50 text-red-700 rounded-lg text-sm"
-                            style="display: none;" x-text="errorMsg"></div>
+                <!-- Right Column: Interactive Card floating over Background Image -->
+                <div class="relative w-full aspect-[4/3] sm:aspect-[16/10] lg:aspect-[4/3] rounded-3xl overflow-hidden shadow-2xl border border-slate-200/50 bg-slate-100 flex items-center justify-center p-4 sm:p-6 lg:p-8">
+                    <!-- Background image with scale effect -->
+                    <div class="absolute inset-0 bg-cover bg-center transition-transform duration-700 hover:scale-105" 
+                         style="background-image: url('https://images.unsplash.com/photo-1545173168-9f1947eebd01?auto=format&fit=crop&w=1200&q=80');">
+                    </div>
+                    
+                    <!-- Smooth high-quality gradient overlay -->
+                    <div class="absolute inset-0 bg-gradient-to-tr from-slate-950/80 via-slate-900/40 to-blue-900/10"></div>
 
-                        <div x-show="result" class="mt-6 border-t border-slate-200 pt-4" style="display: none;">
-                            <div class="flex justify-between items-center mb-4">
-                                <div>
-                                    <p class="text-xs text-slate-500 uppercase font-semibold">Pelanggan</p>
-                                    <p class="font-medium text-slate-800" x-text="result?.user?.name"></p>
-                                </div>
-                                <div class="text-right">
-                                    <span
-                                        class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium capitalize"
-                                        :class="{
-                                            'bg-yellow-100 text-yellow-800': result?.status === 'baru',
-                                            'bg-blue-100 text-blue-800': result?.status === 'cuci' || result?.status === 'kering' || result?.status === 'setrika',
-                                            'bg-green-100 text-green-800': result?.status === 'selesai' || result?.status === 'diambil'
-                                        }" x-text="result?.status"></span>
-                                </div>
-                            </div>
+                    <!-- Glassmorphism Card -->
+                    <div class="relative z-10 bg-white/70 backdrop-blur-md p-6 sm:p-8 rounded-2xl shadow-2xl border border-white/40 w-full max-w-md transform hover:scale-[1.01] transition-all duration-300">
+                        <h3 class="text-lg sm:text-xl font-extrabold text-slate-900 mb-2">Pelacakan Status Cucian</h3>
+                        <p class="text-xs text-slate-600 mb-5 sm:mb-6 font-medium leading-relaxed">Masukkan Nomor Nota / Invoice Code Anda untuk melihat perkembangan cucian Anda secara real-time.</p>
 
-                            <!-- Timeline Status -->
-                            <div class="relative mt-5">
-                                <div class="overflow-hidden h-2 mb-4 text-xs flex rounded bg-slate-100">
-                                    <div :style="`width: ${getProgress()}%`"
-                                        class="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-primary transition-all duration-500">
+                        <div>
+                            <form @submit.prevent="track" class="flex gap-2">
+                                <input type="text" x-model="invoice" placeholder="Contoh: INV-DUMMY123"
+                                    class="flex-1 rounded-xl border border-slate-300/80 bg-white/90 shadow-inner px-4 py-3 text-xs outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-600 transition-all placeholder-slate-400"
+                                    required>
+                                <button type="submit"
+                                    class="bg-blue-600 hover:bg-blue-700 text-white font-bold px-5 py-3 rounded-xl shadow-lg hover:shadow-xl hover:shadow-blue-500/20 transform hover:-translate-y-0.5 active:translate-y-0 transition-all duration-300 flex items-center justify-center w-24">
+                                    <span x-show="!loading" class="text-xs">Lacak</span>
+                                    <svg x-show="loading" class="animate-spin h-5 w-5 text-white"
+                                        xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                        style="display: none;">
+                                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor"
+                                            stroke-width="4"></circle>
+                                        <path class="opacity-75" fill="currentColor"
+                                            d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
+                                        </path>
+                                    </svg>
+                                </button>
+                            </form>
+
+                            <div x-show="error" class="mt-4 p-3 bg-red-50 text-red-700 rounded-lg text-sm border border-red-100"
+                                style="display: none;" x-text="errorMsg"></div>
+
+                            <div x-show="result" class="mt-6 border-t border-slate-200/80 pt-4" style="display: none;">
+                                <div class="flex justify-between items-center mb-4">
+                                    <div>
+                                        <p class="text-xs text-slate-500 uppercase font-semibold">Pelanggan</p>
+                                        <p class="font-medium text-slate-800" x-text="result?.user?.name"></p>
+                                    </div>
+                                    <div class="text-right">
+                                        <span
+                                            class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium capitalize"
+                                            :class="{
+                                                'bg-yellow-100 text-yellow-800': result?.status === 'baru',
+                                                'bg-blue-100 text-blue-800': result?.status === 'cuci' || result?.status === 'kering' || result?.status === 'setrika',
+                                                'bg-green-100 text-green-800': result?.status === 'selesai' || result?.status === 'diambil'
+                                            }" x-text="result?.status"></span>
                                     </div>
                                 </div>
-                                <div class="flex justify-between text-xs text-slate-500">
-                                    <span :class="{'text-primary font-semibold': getProgress() >= 20}">Baru</span>
-                                    <span :class="{'text-primary font-semibold': getProgress() >= 40}">Cuci</span>
-                                    <span :class="{'text-primary font-semibold': getProgress() >= 60}">Kering</span>
-                                    <span :class="{'text-primary font-semibold': getProgress() >= 80}">Setrika</span>
-                                    <span :class="{'text-primary font-semibold': getProgress() >= 100}">Selesai</span>
-                                </div>
-                            </div>
 
-                            <div class="mt-4 bg-slate-50 rounded p-3 text-sm">
-                                <p class="font-semibold mb-2">Detail Pakaian</p>
-                                <template x-for="detail in result?.details" :key="detail.id">
-                                    <div class="flex justify-between mb-1">
-                                        <span class="text-slate-600"
-                                            x-text="`${detail.service.name} (${detail.quantity} ${detail.service.unit})`"></span>
-                                        <span class="font-medium text-slate-800"
-                                            x-text="formatRupiah(detail.subtotal)"></span>
+                                <!-- Timeline Status -->
+                                <div class="relative mt-5">
+                                    <div class="overflow-hidden h-2 mb-4 text-xs flex rounded bg-slate-200/60">
+                                        <div :style="`width: ${getProgress()}%`"
+                                            class="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-blue-600 transition-all duration-500">
+                                        </div>
                                     </div>
-                                </template>
-                                <div class="border-t border-slate-200 mt-2 pt-2 flex justify-between font-bold">
-                                    <span>Total</span>
-                                    <span class="text-primary" x-text="formatRupiah(result?.total_price)"></span>
+                                    <div class="flex justify-between text-[10px] font-bold text-slate-500">
+                                        <span :class="{'text-blue-600': getProgress() >= 20}">Baru</span>
+                                        <span :class="{'text-blue-600': getProgress() >= 40}">Cuci</span>
+                                        <span :class="{'text-blue-600': getProgress() >= 60}">Kering</span>
+                                        <span :class="{'text-blue-600': getProgress() >= 80}">Setrika</span>
+                                        <span :class="{'text-blue-600': getProgress() >= 100}">Selesai</span>
+                                    </div>
+                                </div>
+
+                                <div class="mt-4 bg-slate-50/80 rounded-xl p-3 text-xs border border-slate-100">
+                                    <p class="font-bold mb-2 text-slate-900">Detail Pakaian</p>
+                                    <template x-for="detail in result?.details" :key="detail.id">
+                                        <div class="flex justify-between mb-1.5 text-slate-700">
+                                            <span x-text="`${detail.service.name} (${detail.quantity} ${detail.service.unit})`"></span>
+                                            <span class="font-bold text-slate-900" x-text="formatRupiah(detail.subtotal)"></span>
+                                        </div>
+                                    </template>
+                                    <div class="border-t border-slate-200 mt-2.5 pt-2 flex justify-between font-extrabold text-slate-900">
+                                        <span>Total</span>
+                                        <span class="text-blue-600 text-sm" x-text="formatRupiah(result?.total_price)"></span>
+                                    </div>
                                 </div>
                             </div>
                         </div>

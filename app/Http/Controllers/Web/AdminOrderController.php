@@ -55,7 +55,7 @@ class AdminOrderController extends Controller
             $trx->update(['total_price' => $totalPrice]);
         });
 
-        return redirect()->route('dashboard')
+        return redirect()->route('admin.orders.index')
             ->with('success', 'Transaksi baru berhasil dibuat!');
     }
 }

@@ -25,7 +25,7 @@ Route::middleware('guest')->group(function () {
 Route::middleware('auth')->group(function () {
     Route::get('/dashboard', function() {
         return auth()->user()->role === 'admin' 
-            ? redirect()->route('admin.monitoring') 
+            ? redirect()->route('admin.dashboard') 
             : redirect()->route('user.dashboard');
     })->name('dashboard');
 
@@ -49,29 +49,42 @@ Route::middleware('auth')->group(function () {
         Route::patch('/transactions/{id}/status', [\App\Http\Controllers\Web\TransactionStatusController::class, 'update'])->name('transactions.status.update');
         Route::post('/orders/admin', [\App\Http\Controllers\Web\AdminOrderController::class, 'store'])->name('orders.admin.store');
 
-        // Admin Menu Routes (Aligned with User structure)
-        Route::get('/admin/monitoring', [DashboardController::class, 'index'])->name('admin.monitoring');
-        Route::get('/admin/customers',  [DashboardController::class, 'customers'])->name('admin.customers.index');
-        Route::get('/admin/services',   [DashboardController::class, 'services'])->name('admin.services.index');
-        Route::get('/admin/reports',    [DashboardController::class, 'reports'])->name('admin.reports.index');
+        // 1. Dashboard (Ganti nama 'Monitoring' menjadi Dashboard)
+        Route::get('/admin/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
 
-        // CRUD Pelanggan
+        // 2. Pelanggan (CRUD Pelanggan)
+        Route::get('/admin/customers',  [DashboardController::class, 'customers'])->name('admin.customers.index');
         Route::post  ('/admin/customers',           [\App\Http\Controllers\Web\CustomerController::class, 'store'])   ->name('admin.customers.store');
         Route::put   ('/admin/customers/{id}',      [\App\Http\Controllers\Web\CustomerController::class, 'update'])  ->name('admin.customers.update');
         Route::delete('/admin/customers/bulk',      [\App\Http\Controllers\Web\CustomerController::class, 'bulkDestroy'])->name('admin.customers.bulkDestroy');
         Route::delete('/admin/customers/{id}',      [\App\Http\Controllers\Web\CustomerController::class, 'destroy']) ->name('admin.customers.destroy');
         Route::get   ('/admin/customers/{id}/trx',  [\App\Http\Controllers\Web\CustomerController::class, 'transactions'])->name('admin.customers.trx');
 
-        // CRUD Layanan
+        // 3. Pesanan & Transaksi (Menu baru)
+        Route::get('/admin/orders', [\App\Http\Controllers\Web\AdminTransactionController::class, 'index'])->name('admin.orders.index');
+        Route::post('/admin/orders/{id}/accept', [\App\Http\Controllers\Web\AdminTransactionController::class, 'accept'])->name('admin.orders.accept');
+
+        // 4. Layanan & Harga (Gabungkan 'Layanan' dan 'Kategori')
+        Route::get('/admin/services',   [DashboardController::class, 'services'])->name('admin.services.index');
         Route::post  ('/admin/services',            [\App\Http\Controllers\Web\ServiceController::class, 'store'])    ->name('admin.services.store');
         Route::put   ('/admin/services/{id}',       [\App\Http\Controllers\Web\ServiceController::class, 'update'])   ->name('admin.services.update');
         Route::delete('/admin/services/{id}',       [\App\Http\Controllers\Web\ServiceController::class, 'destroy'])  ->name('admin.services.destroy');
-
+        
         // CRUD Kategori
         Route::get   ('/admin/categories',          [\App\Http\Controllers\Web\CategoryController::class, 'index'])   ->name('admin.categories.index');
         Route::post  ('/admin/categories',          [\App\Http\Controllers\Web\CategoryController::class, 'store'])   ->name('admin.categories.store');
         Route::put   ('/admin/categories/{id}',      [\App\Http\Controllers\Web\CategoryController::class, 'update'])  ->name('admin.categories.update');
         Route::delete('/admin/categories/{id}',      [\App\Http\Controllers\Web\CategoryController::class, 'destroy']) ->name('admin.categories.destroy');
+
+        // 5. Antar-Jemput (Menu baru)
+        Route::get('/admin/shuttles', [\App\Http\Controllers\Web\AdminShuttleController::class, 'index'])->name('admin.shuttles.index');
+
+        // 6. Pembayaran (Menu baru)
+        Route::get('/admin/payments', [\App\Http\Controllers\Web\AdminPaymentController::class, 'index'])->name('admin.payments.index');
+        Route::post('/admin/payments/{id}/verify', [\App\Http\Controllers\Web\AdminPaymentController::class, 'verify'])->name('admin.payments.verify');
+
+        // 7. Laporan
+        Route::get('/admin/reports',    [DashboardController::class, 'reports'])->name('admin.reports.index');
     });
 
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
@@ -83,14 +96,6 @@ Route::middleware('auth')->group(function () {
 | Redirect Root
 |--------------------------------------------------------------------------
 */
-use App\Http\Controllers\Web\PackageController;
-
 Route::get('/', function () {
     return view('welcome');
-});
-
-// Admin Package Management — diproteksi oleh auth + role:admin
-Route::middleware(['auth', 'role:admin'])->prefix('admin/packages')->group(function () {
-    Route::get('/', [PackageController::class, 'index']);
-    Route::post('/', [PackageController::class, 'store']);
 });

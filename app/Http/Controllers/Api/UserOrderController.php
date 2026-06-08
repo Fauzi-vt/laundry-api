@@ -65,6 +65,10 @@ class UserOrderController extends Controller
                 ]);
             }
 
+            if ($request->delivery_type === 'antar_jemput') {
+                $totalPrice += 10000;
+            }
+
             $trx->update(['total_price' => $totalPrice]);
             return $trx->load('details.service');
         });

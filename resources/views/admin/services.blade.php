@@ -167,7 +167,7 @@
                     </div>
                 </div>
 
-                <button type="submit" class="w-full py-3 bg-amber-500 text-white font-bold rounded-xl hover:bg-amber-650 transition-all shadow-md focus:ring-2 focus:ring-amber-500 outline-none mt-2">
+                <button type="submit" class="w-full py-3 bg-amber-500 text-white font-bold rounded-xl hover:bg-amber-600 transition-all shadow-md focus:ring-2 focus:ring-amber-500 outline-none mt-2">
                     Simpan Perubahan
                 </button>
             </form>

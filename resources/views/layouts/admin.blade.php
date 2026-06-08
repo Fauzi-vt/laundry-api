@@ -122,17 +122,50 @@
         <nav class="flex-1 p-4 space-y-1.5 overflow-y-auto">
             @php
             $navItems = [
-                ['route' => 'admin.monitoring', 'label' => 'Monitoring', 'icon' => 'M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 013 19.875v-6.75z M9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V8.625z M16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V4.125z'],
-                ['route' => 'admin.customers.index', 'label' => 'Pelanggan', 'icon' => 'M15 19.128a9.38 9.38 0 002.625.372 9.337 9.337 0 004.121-.952 4.125 4.125 0 00-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.109A11.386 11.386 0 0110.089 20c-2.213 0-4.3-.632-6.09-1.735a4.125 4.125 0 010-7.03 11.414 11.414 0 0111.083 0 4.125 4.125 0 013.918 3.52M8 7a3 3 0 11-6 0 3 3 0 016 0zm14 0a3 3 0 11-6 0 3 3 0 016 0z'],
-                ['route' => 'admin.services.index',  'label' => 'Layanan', 'icon' => 'M8.25 6.75h12M8.25 12h12M8.25 17.25h12M3.75 6.75h.007v.008H3.75V6.75zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zM3.75 12h.007v.008H3.75V12zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm-.375 5.25h.007v.008H3.75v-.008zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z'],
-                ['route' => 'admin.categories.index', 'label' => 'Kategori', 'icon' => 'M2.25 13.5h3.86a2.25 2.25 0 012.008 1.24l.885 1.77a2.25 2.25 0 002.007 1.24H15a2.25 2.25 0 002.007-1.24l.885-1.77a2.25 2.25 0 012.007-1.24h3.86m-18 0h18M2.25 13.5v-6a2.25 2.25 0 012.25-2.25h3.184c.597 0 1.17.237 1.591.659l2.25 2.25a2.25 2.25 0 001.591.659H19.5A2.25 2.25 0 0121.75 11.25v2.25m-18 0v6a2.25 2.25 0 002.25 2.25h15a2.25 2.25 0 002.25-2.25v-6'],
-                ['route' => 'admin.reports.index',   'label' => 'Laporan', 'icon' => 'M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m3.75 9v6m3-3v3m-6-6v6M1.5 5.625c0-1.036.84-1.875 1.875-1.875h9.75c1.036 0 1.875.84 1.875 1.875v12.75c0 1.036-.84 1.875-1.875 1.875h-9.75a1.875 1.875 0 01-1.875-1.875V5.625z'],
+                [
+                    'route' => 'admin.dashboard',
+                    'label' => 'Dashboard',
+                    'icon' => 'M3.75 6A2.25 2.25 0 016 3.75h2.25A2.25 2.25 0 0110.5 6v2.25a2.25 2.25 0 01-2.25 2.25H6a2.25 2.25 0 01-2.25-2.25V6zM3.75 15.75A2.25 2.25 0 016 13.5h2.25a2.25 2.25 0 012.25 2.25V18a2.25 2.25 0 01-2.25 2.25H6a2.25 2.25 0 01-2.25-2.25v-2.25zM13.5 6a2.25 2.25 0 012.25-2.25H18A2.25 2.25 0 0120.25 6v2.25A2.25 2.25 0 0118 10.5h-2.25a2.25 2.25 0 01-2.25-2.25V6zM13.5 15.75a2.25 2.25 0 012.25-2.25H18a2.25 2.25 0 012.25 2.25V18A2.25 2.25 0 0118 20.25h-2.25A2.25 2.25 0 0113.5 18v-2.25z'
+                ],
+                [
+                    'route' => 'admin.customers.index',
+                    'label' => 'Pelanggan',
+                    'icon' => 'M15 19.128a9.38 9.38 0 002.625.372 9.337 9.337 0 004.121-.952 4.125 4.125 0 00-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.109A11.386 11.386 0 0110.089 20c-2.213 0-4.3-.632-6.09-1.735a4.125 4.125 0 010-7.03 11.414 11.414 0 0111.083 0 4.125 4.125 0 013.918 3.52M8 7a3 3 0 11-6 0 3 3 0 016 0zm14 0a3 3 0 11-6 0 3 3 0 016 0z'
+                ],
+                [
+                    'route' => 'admin.orders.index',
+                    'label' => 'Pesanan & Transaksi',
+                    'icon' => 'M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z'
+                ],
+                [
+                    'route' => 'admin.services.index',
+                    'label' => 'Layanan & Harga',
+                    'icon' => 'M9.568 3H5.25A2.25 2.25 0 003 5.25v4.318c0 .597.237 1.17.659 1.591l9.581 9.581a1.44 1.44 0 002.036 0l4.318-4.318a1.44 1.44 0 000-2.036L11.159 3.659A2.25 2.25 0 009.568 3z M6 7.5h.008v.008H6V7.5z'
+                ],
+                [
+                    'route' => 'admin.shuttles.index',
+                    'label' => 'Antar-Jemput',
+                    'icon' => 'M15 10.5a3 3 0 11-6 0 3 3 0 016 0z M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z'
+                ],
+                [
+                    'route' => 'admin.payments.index',
+                    'label' => 'Pembayaran',
+                    'icon' => 'M2.25 8.25h19.5M2.25 9h19.5m-16.5 5.25h6m-6 2.25h3m-6.75-8.25h17.25c.621 0 1.125.504 1.125 1.125v9.75c0 .621-.504 1.125-1.125 1.125H3.375a1.125 1.125 0 01-1.125-1.125V6.375c0-.621.504-1.125 1.125-1.125z'
+                ],
+                [
+                    'route' => 'admin.reports.index',
+                    'label' => 'Laporan',
+                    'icon' => 'M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m3.75 9v6m3-3v3m-6-6v6M1.5 5.625c0-1.036.84-1.875 1.875-1.875h9.75c1.036 0 1.875.84 1.875 1.875v12.75c0 1.036-.84 1.875-1.875 1.875h-9.75a1.875 1.875 0 01-1.875-1.875V5.625z'
+                ],
             ];
-            $cur = request()->route()->getName();
+            $cur = request()->route() ? request()->route()->getName() : '';
             @endphp
 
             @foreach($navItems as $n)
-            @php $active = ($cur === $n['route']); @endphp
+            @php 
+            $active = ($cur === $n['route']) || 
+                      ($n['route'] === 'admin.services.index' && str_contains($cur ?? '', 'categories')); 
+            @endphp
             <a href="{{ route($n['route']) }}" 
                class="flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-200 group relative
                       {{ $active 
@@ -186,8 +219,8 @@
 
                 {{-- Mobile Brand --}}
                 <div class="flex items-center gap-2 lg:hidden">
-                    <div class="w-8 h-8 bg-brand rounded-lg flex items-center justify-center">
-                        <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z"/></svg>
+                    <div class="w-8 h-8 rounded-lg overflow-hidden flex items-center justify-center border border-slate-100 dark:border-slate-700 bg-white">
+                        <img src="{{ asset('images/logo.png') }}" alt="Logo" class="w-full h-full object-cover">
                     </div>
                     <span class="text-sm font-bold text-slate-900 dark:text-white">Admin</span>
                 </div>
@@ -201,19 +234,51 @@
                 </button>
 
                 {{-- Notification Button --}}
+                @php
+                    $newOrdersCount = \App\Models\Transaction::where('status', 'baru')->count();
+                    $newOrders = \App\Models\Transaction::with('user')
+                        ->where('status', 'baru')
+                        ->orderBy('created_at', 'desc')
+                        ->take(5)
+                        ->get();
+                @endphp
                 <div class="relative" x-data="{ open: false }">
                     <button @click="open = !open" class="p-1.5 rounded-xl text-slate-400 dark:text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors relative">
                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75v-.7V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 01-5.714 0m5.714 0a3 3 0 11-5.714 0"/>
                         </svg>
+                        @if($newOrdersCount > 0)
+                        <span class="absolute -top-0.5 -right-0.5 w-5 h-5 bg-rose-500 text-white rounded-full text-[9px] font-black flex items-center justify-center border-2 border-white dark:border-slate-800 animate-pulse">{{ $newOrdersCount }}</span>
+                        @else
                         <span class="absolute top-2.5 right-2.5 w-1.5 h-1.5 bg-brand rounded-full"></span>
+                        @endif
                     </button>
                     {{-- Dropdown Notifications --}}
-                    <div x-show="open" @click.away="open = false" x-transition class="absolute right-0 mt-2 w-64 bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700 rounded-xl shadow-xl py-2 z-50">
-                        <p class="px-4 py-2 text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase border-b dark:border-slate-700/60">Notifikasi</p>
-                        <div class="px-4 py-3 text-xs text-slate-600 dark:text-slate-300">
-                            <p class="font-bold">Sistem Berjalan Lancar</p>
-                            <p class="text-[10px] text-slate-400 mt-1">Semua layanan aktif dan termonitor.</p>
+                    <div x-show="open" @click.away="open = false" x-transition 
+                         class="absolute right-0 mt-2 w-80 bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700 rounded-xl shadow-xl py-2 z-50 overflow-hidden"
+                         x-cloak>
+                        <p class="px-4 py-2 text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase border-b dark:border-slate-700/60">Notifikasi ({{ $newOrdersCount }} Pesanan Baru)</p>
+                        <div class="max-h-64 overflow-y-auto divide-y divide-slate-50 dark:divide-slate-700/60">
+                            @forelse($newOrders as $ord)
+                            <div class="px-4 py-3 text-xs hover:bg-slate-50 dark:hover:bg-slate-700/40 transition-colors flex justify-between items-start gap-2">
+                                <div class="flex-grow">
+                                    <p class="font-bold text-slate-800 dark:text-slate-200">{{ $ord->user->name ?? 'Pelanggan' }}</p>
+                                    <p class="text-[10px] text-slate-400 mt-0.5">Invoice: <span class="font-bold text-brand">{{ $ord->invoice_code }}</span></p>
+                                    <p class="text-[9px] text-slate-500 mt-1">{{ $ord->created_at->diffForHumans() }}</p>
+                                </div>
+                                <div class="flex-shrink-0 flex flex-col items-end gap-1">
+                                    <span class="font-extrabold text-[11px] text-slate-800 dark:text-slate-100">Rp{{ number_format($ord->total_price, 0, ',', '.') }}</span>
+                                    <a href="{{ route('admin.orders.index', ['search' => $ord->invoice_code]) }}" 
+                                       class="text-[9px] bg-brand/10 text-brand dark:bg-brand/20 hover:bg-brand hover:text-white px-2 py-0.5 rounded font-black transition-all">
+                                        Lihat Detail
+                                    </a>
+                                </div>
+                            </div>
+                            @empty
+                            <div class="px-4 py-6 text-center text-xs text-slate-400 dark:text-slate-500">
+                                🧺 Tidak ada pesanan baru menanti.
+                            </div>
+                            @endforelse
                         </div>
                     </div>
                 </div>
@@ -262,7 +327,7 @@
                     const customSwal = Swal.mixin({
                         background: isDark ? '#1a1c24' : '#ffffff',
                         color: isDark ? '#f8fafc' : '#1e293b',
-                        confirmButtonColor: '#c5a373',
+                        confirmButtonColor: '#2563eb',
                         cancelButtonColor: '#ef4444',
                         customClass: {
                             popup: 'rounded-2xl border border-slate-100 dark:border-slate-700'

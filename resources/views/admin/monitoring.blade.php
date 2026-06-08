@@ -1,6 +1,6 @@
 @extends('layouts.admin')
 
-@section('title', 'Monitoring Cucian')
+@section('title', 'Dashboard')
 
 @section('styles')
 <style>
@@ -187,13 +187,13 @@
         <div>
             <nav aria-label="Breadcrumb" class="mb-2">
                 <ol class="flex items-center space-x-2 text-[10px] font-bold text-slate-400 dark:text-slate-500">
-                    <li><a href="{{ route('admin.monitoring') }}" class="hover:text-brand transition-colors">Dashboard</a></li>
+                    <li><a href="{{ route('admin.dashboard') }}" class="hover:text-brand transition-colors">Admin</a></li>
                     <li><span class="mx-1 text-slate-300 dark:text-slate-600">/</span></li>
-                    <li class="text-slate-700 dark:text-slate-300" aria-current="page">Monitoring</li>
+                    <li class="text-slate-700 dark:text-slate-300" aria-current="page">Dashboard</li>
                 </ol>
             </nav>
-            <h1 class="text-xl md:text-2xl lg:text-3xl font-black text-slate-900 dark:text-white tracking-tight">Monitoring Cucian</h1>
-            <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">Pantau status, kelola pesanan, dan perbarui transaksi pelanggan secara real-time.</p>
+            <h1 class="text-xl md:text-2xl lg:text-3xl font-black text-slate-900 dark:text-white tracking-tight">Dashboard Operasional</h1>
+            <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">Ringkasan operasional, pantau status cucian, kelola pesanan secara real-time.</p>
         </div>
         <div class="flex-shrink-0">
             <button @click="$dispatch('open-add-modal')"
@@ -240,7 +240,7 @@
                 Pesanan Berlangsung
             </h2>
             
-            <form method="GET" action="{{ route('admin.monitoring') }}" class="flex flex-wrap sm:flex-nowrap items-center gap-2" role="search">
+            <form method="GET" action="{{ route('admin.dashboard') }}" class="flex flex-wrap sm:flex-nowrap items-center gap-2" role="search">
                 <div class="relative">
                     <label for="searchInput" class="sr-only">Cari invoice atau nama pelanggan</label>
                     <svg class="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 dark:text-slate-500" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
@@ -262,7 +262,7 @@
                 </div>
                 
                 @if(request('search') || request('status_filter'))
-                <a href="{{ route('admin.monitoring') }}" aria-label="Reset" class="px-4 py-2 bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 rounded-lg text-xs font-bold hover:bg-slate-200 dark:hover:bg-slate-600 transition-colors inline-flex items-center justify-center">
+                <a href="{{ route('admin.dashboard') }}" aria-label="Reset" class="px-4 py-2 bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 rounded-lg text-xs font-bold hover:bg-slate-200 dark:hover:bg-slate-600 transition-colors inline-flex items-center justify-center">
                     Reset
                 </a>
                 @endif
@@ -346,7 +346,7 @@
                             <h3 class="text-xl font-bold text-slate-800 dark:text-slate-200 mb-2">Tidak ada transaksi ditemukan</h3>
                             <p class="text-sm text-slate-500 dark:text-slate-400 max-w-sm mx-auto">Gunakan kata kunci pencarian yang lain atau ubah filter status untuk menemukan pesanan.</p>
                             @if(request('search') || request('status_filter'))
-                            <a href="{{ route('admin.monitoring') }}" class="inline-block mt-4 text-brand dark:text-blue-400 font-bold text-sm hover:underline focus:ring-2 focus:ring-brand outline-none rounded p-1">Reset Filter</a>
+                            <a href="{{ route('admin.dashboard') }}" class="inline-block mt-4 text-brand dark:text-blue-400 font-bold text-sm hover:underline focus:ring-2 focus:ring-brand outline-none rounded p-1">Reset Filter</a>
                             @endif
                         </td>
                     </tr>

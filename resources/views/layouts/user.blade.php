@@ -182,7 +182,7 @@
                 ['route' => 'user.pembayaran', 'label' => 'Pembayaran'],
                 ['route' => 'user.status',     'label' => 'Status'],
             ];
-            $cur = request()->route()->getName();
+            $cur = request()->route() ? request()->route()->getName() : '';
             @endphp
             @foreach($navItems as $n)
             @php $active = $cur === $n['route']; @endphp
@@ -298,7 +298,7 @@
                     @foreach($mobileNavItems as $n)
                     <a href="{{ route($n['route']) }}" @click="mob=false"
                        class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition
-                              {{ request()->route()->getName() === $n['route'] ? 'bg-brand-light text-brand' : 'text-slate-600 hover:bg-slate-100' }}">
+                              {{ $cur === $n['route'] ? 'bg-brand-light text-brand' : 'text-slate-600 hover:bg-slate-100' }}">
                         <span>{{ $n['emoji'] }}</span>
                         {{ $n['label'] }}
                     </a>
