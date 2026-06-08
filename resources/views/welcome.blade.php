@@ -43,10 +43,21 @@
                     </div>
                 </div>
                 <div class="flex items-center gap-4">
-                    <button @click="showRegister = true"
-                        class="text-sm font-semibold text-slate-600 hover:text-blue-600 transition-colors duration-300 hidden sm:block">Daftar Akun</button>
-                    <button @click="showLogin = true"
-                        class="text-sm font-bold bg-blue-600 text-white px-5.5 py-2.5 rounded-xl hover:bg-blue-700 hover:shadow-xl hover:shadow-blue-500/25 active:scale-95 transition-all duration-300 shadow-lg shadow-blue-500/15">Login</button>
+                    @auth
+                        <a href="{{ route('dashboard') }}"
+                            class="text-sm font-bold bg-blue-600 text-white px-5.5 py-2.5 rounded-xl hover:bg-blue-700 hover:shadow-xl hover:shadow-blue-500/25 active:scale-95 transition-all duration-300 shadow-lg shadow-blue-500/15">Dashboard</a>
+                        
+                        <form method="POST" action="{{ route('logout') }}" class="inline">
+                            @csrf
+                            <button type="submit" 
+                                class="text-sm font-semibold text-slate-600 hover:text-red-600 transition-colors duration-300">Keluar</button>
+                        </form>
+                    @else
+                        <a href="{{ route('register') }}"
+                            class="text-sm font-semibold text-slate-600 hover:text-blue-600 transition-colors duration-300 hidden sm:block">Daftar Akun</a>
+                        <a href="{{ route('login') }}"
+                            class="text-sm font-bold bg-blue-600 text-white px-5.5 py-2.5 rounded-xl hover:bg-blue-700 hover:shadow-xl hover:shadow-blue-500/25 active:scale-95 transition-all duration-300 shadow-lg shadow-blue-500/15">Login</a>
+                    @endauth
                 </div>
             </div>
         </div>
@@ -408,10 +419,13 @@
 
     <!-- Footer -->
     <footer class="bg-white border-t border-slate-200 py-8">
-        <div
-            class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center sm:text-left sm:flex justify-between items-center">
-            <p class="text-slate-500 text-sm">© 2026 Rumah Laundry Tasikmalaya - Singaparna. All rights reserved.</p>
-            <p class="text-slate-400 text-sm mt-2 sm:mt-0">Tugas Kuliah Project System - Univ. Cipasung.</p>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center sm:text-left sm:flex justify-between items-center">
+            <div>
+                <p class="text-slate-700 font-bold text-sm">Rumah Laundry Tasikmalaya</p>
+                <p class="text-slate-500 text-xs mt-1">M42G+RHR, Jl. Muktamar NU. XXIX, Cipakat, Kec. Singaparna, Kabupaten Tasikmalaya, Jawa Barat 46417</p>
+                <p class="text-slate-400 text-xs mt-2">© 2026 Rumah Laundry Tasikmalaya - Singaparna. All rights reserved.</p>
+            </div>
+            <p class="text-slate-400 text-sm mt-4 sm:mt-0">Tugas Kuliah Project System - Univ. Cipasung.</p>
         </div>
     </footer>
 

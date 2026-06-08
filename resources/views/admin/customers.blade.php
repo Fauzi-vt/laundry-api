@@ -53,7 +53,7 @@
     {{-- ══════════ Stat Cards ══════════ --}}
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 mb-8">
         <div class="bg-white dark:bg-slate-800 rounded-3xl p-6 border border-slate-100 dark:border-slate-700 shadow-sm dark:shadow-none flex items-center gap-4 group hover:shadow-md dark:hover:border-slate-600 transition-all">
-            <div class="w-12 h-12 rounded-2xl bg-blue-50 dark:bg-blue-900/30 text-brand dark:text-blue-400 flex items-center justify-center group-hover:scale-110 transition-transform">
+            <div class="w-12 h-12 rounded-2xl bg-brand-light dark:bg-brand-dark/20 text-brand dark:text-brand flex items-center justify-center group-hover:scale-110 transition-transform">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
             </div>
             <div>
@@ -80,7 +80,7 @@
             </div>
         </div>
         <div class="bg-white dark:bg-slate-800 rounded-3xl p-6 border border-slate-100 dark:border-slate-700 shadow-sm dark:shadow-none flex items-center gap-4 group hover:shadow-md dark:hover:border-slate-600 transition-all">
-            <div class="w-12 h-12 rounded-2xl bg-indigo-50 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400 flex items-center justify-center group-hover:scale-110 transition-transform">
+            <div class="w-12 h-12 rounded-2xl bg-brand-light dark:bg-brand-dark/20 text-brand dark:text-brand-dark flex items-center justify-center group-hover:scale-110 transition-transform">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04M12 2.944a11.955 11.955 0 018.618 3.04M12 2.944V12.5"/></svg>
             </div>
             <div>
@@ -109,7 +109,7 @@
                 </button>
             </div>
             <button @click="showAddCustomer = true"
-                    class="px-6 py-3 bg-brand text-white font-bold rounded-2xl hover:bg-brand-dark transition-all shadow-lg shadow-blue-100 dark:shadow-none flex items-center gap-2 transform active:scale-95">
+                    class="px-6 py-3 bg-brand text-white font-bold rounded-2xl hover:bg-brand-dark transition-all shadow-lg shadow-brand/10 dark:shadow-none flex items-center gap-2 transform active:scale-95">
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"/></svg>
                 Tambah Pelanggan
             </button>
@@ -167,7 +167,7 @@
                         </th>
                         <th class="px-6 py-4 text-left">
                              <a href="{{ request()->fullUrlWithQuery(['sort' => 'name', 'order' => request('order') == 'asc' ? 'desc' : 'asc']) }}" 
-                                class="flex items-center gap-1.5 text-[10px] font-bold text-slate-400 dark:text-slate-400 uppercase tracking-widest hover:text-brand dark:hover:text-blue-400 transition">
+                                class="flex items-center gap-1.5 text-[10px] font-bold text-slate-400 dark:text-slate-400 uppercase tracking-widest hover:text-brand dark:hover:text-brand transition">
                                 Pelanggan
                                 @if(request('sort') == 'name')
                                     <svg class="w-3 h-3 {{ request('order') == 'asc' ? '' : 'rotate-180' }}" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
@@ -176,7 +176,7 @@
                         </th>
                         <th class="px-6 py-4 text-left">
                              <a href="{{ request()->fullUrlWithQuery(['sort' => 'email', 'order' => request('order') == 'asc' ? 'desc' : 'asc']) }}"
-                                class="flex items-center gap-1.5 text-[10px] font-bold text-slate-400 dark:text-slate-400 uppercase tracking-widest hover:text-brand dark:hover:text-blue-400 transition">
+                                class="flex items-center gap-1.5 text-[10px] font-bold text-slate-400 dark:text-slate-400 uppercase tracking-widest hover:text-brand dark:hover:text-brand transition">
                                 Kontak
                                 @if(request('sort') == 'email')
                                     <svg class="w-3 h-3 {{ request('order') == 'asc' ? '' : 'rotate-180' }}" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
@@ -186,7 +186,7 @@
                         <th class="px-6 py-4 text-left text-[10px] font-bold text-slate-400 dark:text-slate-400 uppercase tracking-widest">Alamat</th>
                         <th class="px-6 py-4 text-center">
                              <a href="{{ request()->fullUrlWithQuery(['sort' => 'transactions_count', 'order' => request('order') == 'asc' ? 'desc' : 'asc']) }}"
-                                class="flex items-center justify-center gap-1.5 text-[10px] font-bold text-slate-400 dark:text-slate-400 uppercase tracking-widest hover:text-brand dark:hover:text-blue-400 transition">
+                                class="flex items-center justify-center gap-1.5 text-[10px] font-bold text-slate-400 dark:text-slate-400 uppercase tracking-widest hover:text-brand dark:hover:text-brand transition">
                                 Transaksi
                                 @if(request('sort') == 'transactions_count')
                                     <svg class="w-3 h-3 {{ request('order') == 'asc' ? '' : 'rotate-180' }}" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
@@ -198,18 +198,18 @@
                 </thead>
                 <tbody class="divide-y divide-slate-50 dark:divide-slate-700">
                     @forelse($customers as $c)
-                    <tr class="group hover:bg-slate-50 dark:hover:bg-slate-700/50 transition-colors relative" :class="selectedItems.includes('{{ $c->id }}') ? 'bg-blue-50/50 dark:bg-blue-900/20' : ''">
+                    <tr class="group hover:bg-slate-50 dark:hover:bg-slate-700/50 transition-colors relative" :class="selectedItems.includes('{{ $c->id }}') ? 'bg-brand-light/50 dark:bg-brand-dark/10' : ''">
                         <td class="px-8 py-5">
                             <input type="checkbox" value="{{ $c->id }}" x-model="selectedItems"
                                    class="row-checkbox w-4 h-4 rounded border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 text-brand focus:ring-brand cursor-pointer">
                         </td>
                         <td class="px-6 py-5 whitespace-nowrap">
                             <div class="flex items-center gap-4">
-                                <div class="w-10 h-10 rounded-2xl bg-gradient-to-br from-brand to-blue-400 text-white flex items-center justify-center font-bold shadow-sm shadow-blue-100 dark:shadow-none group-hover:scale-110 transition-transform">
+                                <div class="w-10 h-10 rounded-2xl bg-gradient-to-br from-brand to-brand-dark text-white flex items-center justify-center font-bold shadow-sm shadow-brand/10 dark:shadow-none group-hover:scale-110 transition-transform">
                                     {{ strtoupper(substr($c->name, 0, 1)) }}
                                 </div>
                                 <button @click="openCustomerTrx({{ $c->id }})" class="text-left group/btn">
-                                    <p class="text-sm font-bold text-slate-900 dark:text-slate-100 group-hover/btn:text-brand dark:group-hover/btn:text-blue-400 transition">{{ $c->name }}</p>
+                                    <p class="text-sm font-bold text-slate-900 dark:text-slate-100 group-hover/btn:text-brand dark:group-hover/btn:text-brand transition">{{ $c->name }}</p>
                                     <p class="text-[10px] text-slate-400 dark:text-slate-500 mt-0.5">{{ $c->email }}</p>
                                 </button>
                             </div>
@@ -232,7 +232,7 @@
                             </p>
                         </td>
                         <td class="px-6 py-5 whitespace-nowrap text-center">
-                            <span class="inline-flex items-center px-3 py-1 rounded-full {{ $c->transactions_count > 0 ? 'bg-blue-50 text-brand dark:bg-blue-900/50 dark:text-blue-300' : 'bg-slate-50 text-slate-400 dark:bg-slate-700 dark:text-slate-400' }} text-[10px] font-black uppercase">
+                            <span class="inline-flex items-center px-3 py-1 rounded-full {{ $c->transactions_count > 0 ? 'bg-brand-light text-brand dark:bg-brand-dark/20 dark:text-brand-ring' : 'bg-slate-50 text-slate-400 dark:bg-slate-700 dark:text-slate-400' }} text-[10px] font-black uppercase">
                                 {{ $c->transactions_count }} Order
                             </span>
                         </td>
@@ -258,7 +258,7 @@
                                 </div>
                                 <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-1">Data tidak ditemukan</h3>
                                 <p class="text-sm text-slate-400 dark:text-slate-500">Kami tidak menemukan pelanggan dengan kata kunci "{{ request('cust_search') }}".</p>
-                                <a href="{{ route('admin.customers.index') }}" class="mt-6 inline-flex items-center text-brand dark:text-blue-400 text-xs font-bold hover:underline">Reset Pencarian</a>
+                                <a href="{{ route('admin.customers.index') }}" class="mt-6 inline-flex items-center text-brand dark:text-brand text-xs font-bold hover:underline">Reset Pencarian</a>
                             </div>
                         </td>
                     </tr>
@@ -289,7 +289,7 @@
     <div x-show="showAddCustomer" class="fixed inset-0 z-[100] flex items-center justify-center p-4" x-transition>
         <div class="absolute inset-0 bg-slate-900/60 dark:bg-slate-900/80 backdrop-blur-sm" @click="showAddCustomer = false"></div>
         <div class="relative bg-white dark:bg-slate-800 rounded-[2.5rem] shadow-2xl w-full max-w-md z-10 overflow-hidden border dark:border-slate-700">
-            <div class="px-8 py-6 bg-brand dark:bg-blue-900 text-white flex justify-between items-center">
+            <div class="px-8 py-6 bg-brand dark:bg-brand-dark text-white flex justify-between items-center">
                 <p class="text-xl font-black">Pelanggan Baru</p>
                 <button @click="showAddCustomer = false" class="text-white/60 hover:text-white transition"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg></button>
             </div>
@@ -302,7 +302,7 @@
                     <div><label class="block text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-2">Password</label><input type="password" name="password" required class="w-full px-5 py-3.5 bg-slate-50 dark:bg-slate-900 border border-slate-100 dark:border-slate-600 text-slate-800 dark:text-slate-200 rounded-2xl outline-none focus:ring-2 focus:ring-brand transition"></div>
                 </div>
                 <div><label class="block text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-2">Alamat</label><textarea name="address" rows="2" class="w-full px-5 py-3.5 bg-slate-50 dark:bg-slate-900 border border-slate-100 dark:border-slate-600 text-slate-800 dark:text-slate-200 rounded-2xl outline-none focus:ring-2 focus:ring-brand transition resize-none"></textarea></div>
-                <button type="submit" class="w-full py-4 bg-brand text-white font-black rounded-2xl shadow-xl shadow-blue-100 dark:shadow-none hover:bg-brand-dark transition transform active:scale-95">Simpan Data</button>
+                <button type="submit" class="w-full py-4 bg-brand text-white font-black rounded-2xl shadow-xl shadow-brand/10 dark:shadow-none hover:bg-brand-dark transition transform active:scale-95">Simpan Data</button>
             </form>
         </div>
     </div>
@@ -391,7 +391,7 @@
                         <div class="bg-slate-50 dark:bg-slate-700/30 rounded-[2rem] border border-slate-100 dark:border-slate-700 p-6">
                             <div class="flex justify-between items-start mb-4">
                                 <div>
-                                    <p class="text-xs font-black text-brand dark:text-blue-400 tracking-tight" x-text="t.invoice_code"></p>
+                                    <p class="text-xs font-black text-brand dark:text-brand tracking-tight" x-text="t.invoice_code"></p>
                                     <p class="text-[10px] text-slate-400 dark:text-slate-500 font-bold mt-0.5 uppercase" x-text="t.created_at"></p>
                                 </div>
                                 <span class="px-3 py-1 rounded-full text-[9px] font-black uppercase tracking-widest"

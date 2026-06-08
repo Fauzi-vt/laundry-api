@@ -327,7 +327,7 @@
                     const customSwal = Swal.mixin({
                         background: isDark ? '#1a1c24' : '#ffffff',
                         color: isDark ? '#f8fafc' : '#1e293b',
-                        confirmButtonColor: '#2563eb',
+                        confirmButtonColor: '#c5a373',
                         cancelButtonColor: '#ef4444',
                         customClass: {
                             popup: 'rounded-2xl border border-slate-100 dark:border-slate-700'

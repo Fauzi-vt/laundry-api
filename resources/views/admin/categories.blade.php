@@ -214,7 +214,7 @@
                 <div class="w-px h-8 bg-slate-200 dark:bg-slate-700"></div>
                 <div>
                     <p class="text-[10px] text-slate-400 font-bold uppercase tracking-wider font-sans">Total Layanan</p>
-                    <p class="text-2xl font-black text-brand dark:text-blue-400 mt-0.5">{{ \App\Models\Service::count() }}</p>
+                    <p class="text-2xl font-black text-brand dark:text-brand mt-0.5">{{ \App\Models\Service::count() }}</p>
                 </div>
             </div>
 

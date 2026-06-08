@@ -84,7 +84,7 @@
                             </template>
                         </div>
                         <div class="flex-grow">
-                            <input type="file" name="image" accept="image/*" class="w-full text-xs text-slate-500 file:mr-3 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:text-[11px] file:font-bold file:bg-blue-50 file:text-brand dark:file:bg-slate-700 dark:file:text-blue-400 hover:file:bg-blue-100 cursor-pointer"
+                            <input type="file" name="image" accept="image/*" class="w-full text-xs text-slate-500 file:mr-3 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:text-[11px] file:font-bold file:bg-brand-light file:text-brand dark:file:bg-slate-700 dark:file:text-brand hover:file:bg-brand-light/80 cursor-pointer"
                                    @change="const file = $event.target.files[0]; if (file) { const r = new FileReader(); r.onload = (e) => { addPreview = e.target.result; }; r.readAsDataURL(file); }">
                         </div>
                     </div>
@@ -161,7 +161,7 @@
                             </template>
                         </div>
                         <div class="flex-grow">
-                            <input type="file" name="image" accept="image/*" class="w-full text-xs text-slate-500 file:mr-3 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:text-[11px] file:font-bold file:bg-blue-50 file:text-brand dark:file:bg-slate-700 dark:file:text-blue-400 hover:file:bg-blue-100 cursor-pointer"
+                            <input type="file" name="image" accept="image/*" class="w-full text-xs text-slate-500 file:mr-3 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:text-[11px] file:font-bold file:bg-brand-light file:text-brand dark:file:bg-slate-700 dark:file:text-brand hover:file:bg-brand-light/80 cursor-pointer"
                                    @change="const file = $event.target.files[0]; if (file) { const r = new FileReader(); r.onload = (e) => { editPreview = e.target.result; }; r.readAsDataURL(file); }">
                         </div>
                     </div>
@@ -238,7 +238,7 @@
                         </p>
                     </div>
                     
-                    <div class="text-sm font-black text-brand dark:text-blue-400">
+                    <div class="text-sm font-black text-brand dark:text-brand">
                         Rp {{ number_format($s->price, 0, ',', '.') }} <span class="text-[10px] text-slate-400 dark:text-slate-500 font-bold uppercase">/{{ $s->unit }}</span>
                     </div>
                 </div>

@@ -11,8 +11,8 @@
         </a>
         <!-- Logo and Header -->
         <div class="text-center">
-            <div class="mx-auto w-12 h-12 rounded-xl bg-gradient-to-br from-primary to-secondary flex items-center justify-center text-white font-bold text-2xl shadow-lg ring-4 ring-blue-50">
-                L
+            <div class="mx-auto w-14 h-14 rounded-xl overflow-hidden shadow-md border border-slate-100 flex items-center justify-center bg-white ring-4 ring-blue-50">
+                <img src="{{ asset('images/logo.png') }}" alt="Logo" class="w-full h-full object-cover">
             </div>
             <h2 class="mt-6 text-3xl font-extrabold text-slate-900 tracking-tight">
                 Selamat Datang

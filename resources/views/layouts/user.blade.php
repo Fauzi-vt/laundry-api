@@ -348,7 +348,10 @@
 {{-- Footer --}}
 <footer class="max-w-6xl mx-auto px-4 sm:px-6 pb-8 mt-4">
     <div class="border-t border-slate-200 pt-6 flex flex-wrap justify-between items-center gap-3 text-xs text-slate-400">
-        <p>© {{ date('Y') }} <span class="font-semibold text-slate-600">Rumah Laundry Tasikmalaya</span>. All rights reserved.</p>
+        <div>
+            <p>© {{ date('Y') }} <span class="font-semibold text-slate-600">Rumah Laundry Tasikmalaya</span>. All rights reserved.</p>
+            <p class="text-[10px] text-slate-400 mt-1">M42G+RHR, Jl. Muktamar NU. XXIX, Cipakat, Kec. Singaparna, Kabupaten Tasikmalaya, Jawa Barat 46417</p>
+        </div>
         <a href="https://wa.me/62812345678" class="text-brand font-semibold hover:underline">Hubungi via WhatsApp</a>
     </div>
 </footer>

@@ -28,14 +28,20 @@
         <div class="absolute inset-0 bg-slate-900/60 dark:bg-slate-900/80 backdrop-blur-sm" aria-hidden="true" @click="show = false"></div>
 
         <div class="relative bg-white dark:bg-slate-800 rounded-3xl shadow-2xl w-full max-w-xl z-10 overflow-hidden border dark:border-slate-700">
-            <div class="print-only p-6 border-b">
-                <h1 class="text-xl font-black text-slate-900">Rumah Laundry</h1>
-                <p class="text-sm text-slate-500">Layanan Laundry Profesional Terpercaya</p>
+            <div class="print-only p-6 border-b flex justify-between items-start">
+                <div>
+                    <h1 class="text-xl font-black text-slate-900">Rumah Laundry Tasikmalaya</h1>
+                    <p class="text-xs text-slate-500 mt-1">M42G+RHR, Jl. Muktamar NU. XXIX, Cipakat, Kec. Singaparna, Kabupaten Tasikmalaya, Jawa Barat 46417</p>
+                </div>
+                <div class="text-right text-xs text-slate-500">
+                    <p class="font-bold">Nota Transaksi</p>
+                    <p class="text-[10px] mt-1 text-slate-400">Dicetak: <span class="print-time"></span></p>
+                </div>
             </div>
 
-            <div class="px-6 py-5 bg-gradient-to-r from-slate-900 to-brand dark:from-slate-950 dark:to-blue-900 text-white flex justify-between items-start no-print">
+            <div class="px-6 py-5 bg-gradient-to-r from-slate-900 to-brand dark:from-slate-950 dark:to-brand-dark/50 text-white flex justify-between items-start no-print">
                 <div>
-                    <p class="text-xs text-blue-200 dark:text-blue-300 font-bold uppercase tracking-widest mb-1" id="modal-detail-title">Nota Transaksi</p>
+                    <p class="text-xs text-brand-ring/80 dark:text-brand-ring/90 font-bold uppercase tracking-widest mb-1" id="modal-detail-title">Nota Transaksi</p>
                     <h2 class="text-2xl font-black" x-text="trx.invoice_code"></h2>
                 </div>
                 <button @click="show = false" aria-label="Tutup detail" class="text-white/70 hover:text-white transition p-1.5 rounded-lg focus:ring-2 focus:ring-white outline-none">
@@ -88,7 +94,7 @@
                         <tfoot class="bg-slate-50 dark:bg-slate-900/80 border-t border-slate-200 dark:border-slate-700">
                             <tr>
                                 <td colspan="2" class="px-4 py-4 font-bold text-slate-900 dark:text-slate-200 text-right">TOTAL</td>
-                                <td class="px-4 py-4 text-right font-black text-brand dark:text-blue-400 text-base" x-text="'Rp ' + Number(trx.total_price).toLocaleString('id-ID')"></td>
+                                <td class="px-4 py-4 text-right font-black text-brand dark:text-brand text-base" x-text="'Rp ' + Number(trx.total_price).toLocaleString('id-ID')"></td>
                             </tr>
                         </tfoot>
                     </table>
@@ -100,7 +106,7 @@
                         Tutup
                     </button>
                     <button onclick="window.print()"
-                            class="flex-1 py-3.5 rounded-xl bg-brand text-white font-bold text-sm hover:bg-brand-dark transition-all shadow-lg shadow-blue-100 dark:shadow-none flex items-center justify-center gap-2 focus:ring-2 focus:ring-brand outline-none focus:ring-offset-2 dark:focus:ring-offset-slate-800">
+                            class="flex-1 py-3.5 rounded-xl bg-brand text-white font-bold text-sm hover:bg-brand-dark transition-all shadow-lg shadow-brand/10 dark:shadow-none flex items-center justify-center gap-2 focus:ring-2 focus:ring-brand outline-none focus:ring-offset-2 dark:focus:ring-offset-slate-800">
                         <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"/>
                         </svg>
@@ -126,9 +132,9 @@
          x-cloak>
         <div class="absolute inset-0 bg-slate-900/60 dark:bg-slate-900/80 backdrop-blur-sm" aria-hidden="true" @click="showAddModal = false"></div>
         <div class="relative bg-white dark:bg-slate-800 rounded-3xl shadow-2xl w-full max-w-lg z-10 overflow-hidden border dark:border-slate-700">
-            <div class="px-6 py-5 bg-gradient-to-r from-slate-900 to-brand dark:from-slate-950 dark:to-blue-900 text-white flex justify-between items-center">
+            <div class="px-6 py-5 bg-gradient-to-r from-slate-900 to-brand dark:from-slate-950 dark:to-brand-dark/50 text-white flex justify-between items-center">
                 <div>
-                    <p class="text-xs text-blue-200 dark:text-blue-300 font-bold uppercase tracking-widest mb-1">Transaksi Baru</p>
+                    <p class="text-xs text-brand-ring/80 dark:text-brand-ring/90 font-bold uppercase tracking-widest mb-1">Transaksi Baru</p>
                     <h2 id="modal-add-title" class="text-xl font-black">Buat Pesanan</h2>
                 </div>
                 <button @click="showAddModal = false" aria-label="Tutup form tambah" class="text-white/70 hover:text-white transition p-1.5 rounded-lg focus:ring-2 focus:ring-white outline-none">
@@ -166,7 +172,7 @@
                         </div>
                     </div>
                 </div>
-                <button type="button" onclick="addAdminItem()" class="w-full py-3 border-2 border-dashed border-slate-300 dark:border-slate-600 rounded-2xl text-sm font-bold text-slate-500 dark:text-slate-400 hover:border-brand hover:text-brand hover:bg-blue-50 dark:hover:bg-slate-800 transition-all flex items-center justify-center gap-2 outline-none">
+                <button type="button" onclick="addAdminItem()" class="w-full py-3 border-2 border-dashed border-slate-300 dark:border-slate-600 rounded-2xl text-sm font-bold text-slate-500 dark:text-slate-400 hover:border-brand hover:text-brand hover:bg-brand-light dark:hover:bg-slate-800 transition-all flex items-center justify-center gap-2 outline-none">
                     + Tambah Item Layanan
                 </button>
                 <button type="submit" class="w-full py-4 bg-brand text-white font-black text-base rounded-2xl hover:bg-brand-dark transition-all shadow-xl">
@@ -357,6 +363,24 @@
 
 @section('scripts')
 <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        function updatePrintTime() {
+            const timeElements = document.querySelectorAll('.print-time');
+            const now = new Date();
+            const months = ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agu', 'Sep', 'Okt', 'Nov', 'Des'];
+            const dateStr = String(now.getDate()).padStart(2, '0') + ' ' + 
+                            months[now.getMonth()] + ' ' + 
+                            now.getFullYear() + ', ' + 
+                            String(now.getHours()).padStart(2, '0') + ':' + 
+                            String(now.getMinutes()).padStart(2, '0');
+            timeElements.forEach(el => {
+                el.textContent = dateStr + ' WIB';
+            });
+        }
+        window.addEventListener('beforeprint', updatePrintTime);
+        updatePrintTime();
+    });
+
     const allTransactions = @json($trxJson);
 
     function detailModal() {
