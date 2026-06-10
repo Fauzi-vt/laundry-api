@@ -10,6 +10,7 @@ class Transaction extends Model
         'user_id',
         'invoice_code',
         'total_price',
+        'down_payment',
         'status',
         'address',
         'phone',

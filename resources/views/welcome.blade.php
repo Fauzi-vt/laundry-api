@@ -45,18 +45,18 @@
                 <div class="flex items-center gap-4">
                     @auth
                         <a href="{{ route('dashboard') }}"
-                            class="text-sm font-bold bg-blue-600 text-white px-5.5 py-2.5 rounded-xl hover:bg-blue-700 hover:shadow-xl hover:shadow-blue-500/25 active:scale-95 transition-all duration-300 shadow-lg shadow-blue-500/15">Dashboard</a>
+                            class="text-sm font-bold bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 hover:shadow-lg hover:-translate-y-0.5 active:scale-95 transition-all duration-300 shadow-md inline-flex items-center justify-center text-center">Dashboard</a>
                         
                         <form method="POST" action="{{ route('logout') }}" class="inline">
                             @csrf
                             <button type="submit" 
-                                class="text-sm font-semibold text-slate-600 hover:text-red-600 transition-colors duration-300">Keluar</button>
+                                class="text-sm font-semibold text-gray-600 hover:text-red-600 transition-colors duration-300">Keluar</button>
                         </form>
                     @else
                         <a href="{{ route('register') }}"
-                            class="text-sm font-semibold text-slate-600 hover:text-blue-600 transition-colors duration-300 hidden sm:block">Daftar Akun</a>
+                            class="text-sm font-semibold text-gray-600 hover:text-blue-600 transition-colors duration-300 hidden sm:block">Daftar Akun</a>
                         <a href="{{ route('login') }}"
-                            class="text-sm font-bold bg-blue-600 text-white px-5.5 py-2.5 rounded-xl hover:bg-blue-700 hover:shadow-xl hover:shadow-blue-500/25 active:scale-95 transition-all duration-300 shadow-lg shadow-blue-500/15">Login</a>
+                            class="text-sm font-bold bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 hover:shadow-lg hover:-translate-y-0.5 active:scale-95 transition-all duration-300 shadow-md inline-flex items-center justify-center text-center">Login</a>
                     @endauth
                 </div>
             </div>
@@ -221,36 +221,33 @@
             </div>
         </div>
     </div>
-
-    <!-- Hero Section -->
-    <div class="relative bg-slate-50/60 overflow-hidden border-b border-slate-200/50">
+    <div class="relative bg-slate-50/60 overflow-hidden border-b border-slate-200/50 py-12 lg:py-20">
         <!-- Soft decorative background gradients for a premium feel -->
         <div class="absolute top-0 left-1/4 w-96 h-96 bg-blue-100/40 rounded-full filter blur-3xl -translate-x-1/2 -translate-y-1/2"></div>
         <div class="absolute bottom-0 right-1/4 w-96 h-96 bg-indigo-100/40 rounded-full filter blur-3xl translate-x-1/2 translate-y-1/2"></div>
 
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-            <div class="grid lg:grid-cols-2 gap-12 lg:gap-8 items-center py-12 lg:py-20">
-                <!-- Left Column: Headline and Info -->
+            <div class="grid lg:grid-cols-2 gap-12 lg:gap-8 items-center">
+                <!-- Left Column: Teks Promosi / Copywriting -->
                 <div class="space-y-8 text-center lg:text-left">
                     <div class="space-y-4">
-                        <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-slate-900 tracking-tight leading-[1.1] text-balance">
-                            Cuci Bersih, Cepat, & <br class="hidden sm:inline">
+                        <h1 class="text-5xl lg:text-6xl font-extrabold text-gray-900 tracking-tight leading-tight">
+                            Cuci Bersih, Cepat, &amp;&nbsp;<br class="hidden sm:inline">
                             <span class="text-blue-600">Wangi Sepanjang Hari</span>
                         </h1>
-                        <p class="text-base text-slate-500 sm:text-lg max-w-xl mx-auto lg:mx-0 leading-relaxed">
+                        <p class="text-lg text-gray-500 leading-relaxed mt-6 max-w-xl mx-auto lg:mx-0">
                             Kami ahlinya dalam merawat pakaian Anda. Mulai dari cuci kiloan, sepatu, hingga selimut.
                             Nikmati layanan laundry premium berkualitas tinggi dengan hasil cucian harum higienis di Singaparna, Tasikmalaya.
                         </p>
                     </div>
 
-                    <!-- Trust Badges (Horizontal Flow) -->
-                    <div class="flex flex-wrap items-center gap-3.5 justify-center lg:justify-start">
+                    <!-- Keunggulan (Trust Badges) -->
+                    <div class="flex flex-wrap items-center gap-4 justify-center lg:justify-start">
                         <!-- Badge 1: Truck -->
                         <div class="flex items-center gap-2 bg-white border border-slate-100 rounded-full pl-2 pr-4.5 py-1.5 shadow-sm hover:shadow-md hover:border-blue-100 transition-all duration-300 group">
                             <span class="w-8 h-8 rounded-full bg-blue-50 flex items-center justify-center text-blue-600 group-hover:bg-blue-100 transition-colors">
-                                <svg class="w-4.5 h-4.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17a2 2 0 11-4 0 2 2 0 014 0zM19 17a2 2 0 11-4 0 2 2 0 014 0z"></path>
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16V6a1 1 0 00-1-1H4a1 1 0 00-1 1v10a1 1 0 001 1h1m8-1a1 1 0 01-1 1H9m4-1V8a1 1 0 011-1h2.586a1 1 0 01.707.293l3.414 3.414a1 1 0 01.293.707V16a1 1 0 01-1 1h-1m-6-1a1 1 0 001 1h1M5 17a2 2 0 104 0m-4 0a2 2 0 114 0m6 0a2 2 0 104 0m-4 0a2 2 0 114 0"></path>
+                                <svg class="w-4.5 h-4.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 18.75a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h6m-9 0H3.75a1.125 1.125 0 01-1.125-1.125V15m1.5 3.75h1.5m11.25-3.75h1.5a1.125 1.125 0 011.125 1.125v1.5a1.125 1.125 0 01-1.125 1.125H9.75m10.5-3.75H9.75m0 0V8.25m0 0h5.625c.621 0 1.125.504 1.125 1.125v3.375c0 .621-.504 1.125-1.125 1.125h-5.625M9.75 8.25V4.875c0-.621-.504-1.125-1.125-1.125H3.75A1.125 1.125 0 002.625 4.875V15"></path>
                                 </svg>
                             </span>
                             <span class="text-xs font-bold text-slate-700">Gratis Antar-Jemput</span>
@@ -258,7 +255,7 @@
                         <!-- Badge 2: Star -->
                         <div class="flex items-center gap-2 bg-white border border-slate-100 rounded-full pl-2 pr-4.5 py-1.5 shadow-sm hover:shadow-md hover:border-amber-100 transition-all duration-300 group">
                             <span class="w-8 h-8 rounded-full bg-amber-50 flex items-center justify-center text-amber-500 group-hover:bg-amber-100 transition-colors">
-                                <svg class="w-4.5 h-4.5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                <svg class="w-4.5 h-4.5" fill="currentColor" viewBox="0 0 20 20">
                                     <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
                                 </svg>
                             </span>
@@ -267,8 +264,8 @@
                         <!-- Badge 3: Shield -->
                         <div class="flex items-center gap-2 bg-white border border-slate-100 rounded-full pl-2 pr-4.5 py-1.5 shadow-sm hover:shadow-md hover:border-emerald-100 transition-all duration-300 group">
                             <span class="w-8 h-8 rounded-full bg-emerald-50 flex items-center justify-center text-emerald-600 group-hover:bg-emerald-100 transition-colors">
-                                <svg class="w-4.5 h-4.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
+                                <svg class="w-4.5 h-4.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.57-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z"></path>
                                 </svg>
                             </span>
                             <span class="text-xs font-bold text-slate-700">100% Higienis</span>
@@ -276,29 +273,21 @@
                     </div>
                 </div>
 
-                <!-- Right Column: Interactive Card floating over Background Image -->
-                <div class="relative w-full aspect-[4/3] sm:aspect-[16/10] lg:aspect-[4/3] rounded-3xl overflow-hidden shadow-2xl border border-slate-200/50 bg-slate-100 flex items-center justify-center p-4 sm:p-6 lg:p-8">
-                    <!-- Background image with scale effect -->
-                    <div class="absolute inset-0 bg-cover bg-center transition-transform duration-700 hover:scale-105" 
-                         style="background-image: url('https://images.unsplash.com/photo-1545173168-9f1947eebd01?auto=format&fit=crop&w=1200&q=80');">
-                    </div>
-                    
-                    <!-- Smooth high-quality gradient overlay -->
-                    <div class="absolute inset-0 bg-gradient-to-tr from-slate-950/80 via-slate-900/40 to-blue-900/10"></div>
-
-                    <!-- Glassmorphism Card -->
-                    <div class="relative z-10 bg-white/70 backdrop-blur-md p-6 sm:p-8 rounded-2xl shadow-2xl border border-white/40 w-full max-w-md transform hover:scale-[1.01] transition-all duration-300">
-                        <h3 class="text-lg sm:text-xl font-extrabold text-slate-900 mb-2">Pelacakan Status Cucian</h3>
-                        <p class="text-xs text-slate-600 mb-5 sm:mb-6 font-medium leading-relaxed">Masukkan Nomor Nota / Invoice Code Anda untuk melihat perkembangan cucian Anda secara real-time.</p>
+                <!-- Right Column: Widget Pelacakan Cucian -->
+                <div class="relative w-full aspect-[4/3] sm:aspect-[16/10] lg:aspect-[4/3] rounded-3xl overflow-hidden shadow-2xl bg-gradient-to-br from-gray-400 to-gray-600 flex items-center justify-center p-6 sm:p-8">
+                    <!-- Inner Card -->
+                    <div class="relative z-10 bg-white/90 p-8 rounded-xl shadow-lg w-full max-w-md">
+                        <h3 class="text-lg font-bold text-gray-800 mb-2">Pelacakan Status Cucian</h3>
+                        <p class="text-xs text-gray-500 mb-6 leading-relaxed">Masukkan Nomor Nota / Invoice Code Anda untuk melihat perkembangan cucian Anda secara real-time.</p>
 
                         <div>
                             <form @submit.prevent="track" class="flex gap-2">
                                 <input type="text" x-model="invoice" placeholder="Contoh: INV-DUMMY123"
-                                    class="flex-1 rounded-xl border border-slate-300/80 bg-white/90 shadow-inner px-4 py-3 text-xs outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-600 transition-all placeholder-slate-400"
+                                    class="flex-1 rounded-lg border border-gray-300 bg-white px-4 py-2 text-sm outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-600 transition-all placeholder-gray-400"
                                     required>
                                 <button type="submit"
-                                    class="bg-blue-600 hover:bg-blue-700 text-white font-bold px-5 py-3 rounded-xl shadow-lg hover:shadow-xl hover:shadow-blue-500/20 transform hover:-translate-y-0.5 active:translate-y-0 transition-all duration-300 flex items-center justify-center w-24">
-                                    <span x-show="!loading" class="text-xs">Lacak</span>
+                                    class="bg-blue-600 hover:bg-blue-700 text-white font-bold px-6 py-2 rounded-lg transition duration-300 flex items-center justify-center min-w-[80px]">
+                                    <span x-show="!loading" class="text-sm">Lacak</span>
                                     <svg x-show="loading" class="animate-spin h-5 w-5 text-white"
                                         xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                         style="display: none;">

@@ -18,6 +18,8 @@ class AdminOrderController extends Controller
     {
         $request->validate([
             'user_id'             => 'required|exists:users,id',
+            'down_payment'        => 'nullable|numeric|min:0',
+            'payment_method'      => 'nullable|string|in:cash,bca,bri,mandiri,bsi,bni,gopay,ovo,dana,shopeepay',
             'items'               => 'required|array|min:1',
             'items.*.service_id'  => 'required|exists:services,id',
             'items.*.quantity'    => 'required|numeric|min:0.1',
@@ -32,10 +34,12 @@ class AdminOrderController extends Controller
 
         DB::transaction(function () use ($request, &$totalPrice) {
             $trx = Transaction::create([
-                'user_id'      => $request->user_id,
-                'invoice_code' => 'INV-' . date('Ymd') . '-' . strtoupper(substr(uniqid(), -5)),
-                'total_price'  => 0,
-                'status'       => 'baru',
+                'user_id'        => $request->user_id,
+                'invoice_code'   => 'INV-' . date('Ymd') . '-' . strtoupper(substr(uniqid(), -5)),
+                'total_price'    => 0,
+                'down_payment'   => $request->down_payment ?? 0,
+                'payment_method' => $request->payment_method ?? 'cash',
+                'status'         => 'baru',
             ]);
 
             foreach ($request->items as $item) {
@@ -55,7 +59,7 @@ class AdminOrderController extends Controller
             $trx->update(['total_price' => $totalPrice]);
         });
 
-        return redirect()->route('admin.orders.index')
+        return redirect()->back()
             ->with('success', 'Transaksi baru berhasil dibuat!');
     }
 }

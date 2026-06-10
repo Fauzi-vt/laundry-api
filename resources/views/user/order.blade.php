@@ -72,11 +72,80 @@
                               class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 bg-slate-50 text-sm text-slate-800 outline-none focus:border-brand focus:bg-white focus:ring-2 focus:ring-brand-ring transition resize-none"></textarea>
                 </div>
 
+                {{-- Metode Pembayaran --}}
+                <div class="mb-5">
+                    <label class="block text-xs font-semibold text-slate-700 mb-3 flex items-center gap-2">
+                        <svg class="w-4 h-4 text-brand" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"/></svg>
+                        Metode Pembayaran
+                    </label>
+
+                    {{-- Cash --}}
+                    <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-2">💵 Tunai</p>
+                    <div class="grid grid-cols-1 gap-2 mb-3">
+                        <label class="cursor-pointer">
+                            <input type="radio" name="payment_method" value="cash" class="peer sr-only" checked>
+                            <div class="flex items-center gap-3 px-4 py-3 border-2 border-slate-200 rounded-xl bg-slate-50 peer-checked:border-emerald-500 peer-checked:bg-emerald-50 transition-all">
+                                <span class="text-xl">💵</span>
+                                <div class="flex-1">
+                                    <p class="text-sm font-bold text-slate-700 peer-checked:text-emerald-700">Cash / Tunai</p>
+                                    <p class="text-[11px] text-slate-400">Bayar langsung di kasir saat ambil cucian</p>
+                                </div>
+                                <svg class="w-5 h-5 text-emerald-500 opacity-0 peer-checked:opacity-100 transition flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+                            </div>
+                        </label>
+                    </div>
+
+                    {{-- Transfer Bank --}}
+                    <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-2">🏦 Transfer Bank</p>
+                    <div class="grid grid-cols-2 sm:grid-cols-3 gap-2 mb-3">
+                        @foreach([
+                            ['val'=>'bca',     'label'=>'BCA',     'color'=>'blue'],
+                            ['val'=>'bri',     'label'=>'BRI',     'color'=>'sky'],
+                            ['val'=>'mandiri', 'label'=>'Mandiri', 'color'=>'amber'],
+                            ['val'=>'bsi',     'label'=>'BSI',     'color'=>'teal'],
+                            ['val'=>'bni',     'label'=>'BNI',     'color'=>'orange'],
+                        ] as $bank)
+                        <label class="cursor-pointer">
+                            <input type="radio" name="payment_method" value="{{ $bank['val'] }}" class="peer sr-only user-pay-method">
+                            <div class="flex items-center justify-center gap-2 px-3 py-2.5 border-2 border-slate-200 rounded-xl text-sm font-bold text-slate-500 bg-white peer-checked:border-brand peer-checked:bg-brand-light peer-checked:text-brand transition-all hover:border-slate-300">
+                                🏦 {{ $bank['label'] }}
+                            </div>
+                        </label>
+                        @endforeach
+                    </div>
+
+                    {{-- E-Wallet --}}
+                    <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-2">📱 Dompet Digital (E-Wallet)</p>
+                    <div class="grid grid-cols-2 gap-2 mb-3">
+                        @foreach([
+                            ['val'=>'gopay',     'label'=>'GoPay',      'emoji'=>'🟢'],
+                            ['val'=>'ovo',       'label'=>'OVO',        'emoji'=>'🟣'],
+                            ['val'=>'dana',      'label'=>'DANA',       'emoji'=>'🔵'],
+                            ['val'=>'shopeepay', 'label'=>'ShopeePay',  'emoji'=>'🟠'],
+                        ] as $ew)
+                        <label class="cursor-pointer">
+                            <input type="radio" name="payment_method" value="{{ $ew['val'] }}" class="peer sr-only user-pay-method">
+                            <div class="flex items-center gap-2.5 px-3.5 py-2.5 border-2 border-slate-200 rounded-xl text-sm font-bold text-slate-500 bg-white peer-checked:border-brand peer-checked:bg-brand-light peer-checked:text-brand transition-all hover:border-slate-300">
+                                <span>{{ $ew['emoji'] }}</span> {{ $ew['label'] }}
+                            </div>
+                        </label>
+                        @endforeach
+                    </div>
+
+                    {{-- Bank/E-wallet info box --}}
+                    <div id="userPayInfo" class="hidden p-3.5 bg-blue-50 border border-blue-200 rounded-xl">
+                        <p class="text-[11px] font-bold text-blue-700 mb-1.5">📋 Informasi Rekening / Nomor Tujuan</p>
+                        <div id="userPayDetail" class="text-xs text-blue-800 space-y-0.5 font-medium"></div>
+                        <p class="text-[10px] text-blue-500 mt-2">Kirim bukti transfer setelah melakukan pembayaran.</p>
+                    </div>
+                </div>
+
                 <button type="submit"
                         class="w-full flex items-center justify-center gap-2 bg-brand text-white font-semibold py-3.5 rounded-xl hover:bg-brand-dark transition shadow-lg shadow-blue-200 text-sm">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
                     Konfirmasi & Kirim Pesanan
                 </button>
+
             </form>
         </div>
     </div>
@@ -188,5 +257,33 @@ function recalc() {
 document.getElementById('orderItems').addEventListener('change', recalc);
 document.getElementById('orderItems').addEventListener('input', recalc);
 document.addEventListener('DOMContentLoaded', recalc);
+
+// ── Payment method info (user form) ──────────────────────────────────────────
+const userBankAccounts = {
+    cash:      null,
+    bca:       'BCA — a/n Rumah Laundry Tasikmalaya<br>No. Rek: <strong>1234567890</strong>',
+    bri:       'BRI — a/n Rumah Laundry Tasikmalaya<br>No. Rek: <strong>0987654321</strong>',
+    mandiri:   'Mandiri — a/n Rumah Laundry Tasikmalaya<br>No. Rek: <strong>1122334455</strong>',
+    bsi:       'BSI — a/n Rumah Laundry Tasikmalaya<br>No. Rek: <strong>7081234567</strong>',
+    bni:       'BNI — a/n Rumah Laundry Tasikmalaya<br>No. Rek: <strong>0123456789</strong>',
+    gopay:     'GoPay — <strong>0812-3456-7890</strong><br>a/n Rumah Laundry',
+    ovo:       'OVO — <strong>0812-3456-7890</strong><br>a/n Rumah Laundry',
+    dana:      'DANA — <strong>0812-3456-7890</strong><br>a/n Rumah Laundry',
+    shopeepay: 'ShopeePay — <strong>0812-3456-7890</strong><br>a/n Rumah Laundry',
+};
+
+document.querySelectorAll('input[name="payment_method"]').forEach(radio => {
+    radio.addEventListener('change', function() {
+        const val = this.value;
+        const infoBox = document.getElementById('userPayInfo');
+        const detailEl = document.getElementById('userPayDetail');
+        if (userBankAccounts[val]) {
+            detailEl.innerHTML = userBankAccounts[val];
+            infoBox.classList.remove('hidden');
+        } else {
+            infoBox.classList.add('hidden');
+        }
+    });
+});
 </script>
 @endsection

@@ -27,7 +27,7 @@
 
         <div class="absolute inset-0 bg-slate-900/60 dark:bg-slate-900/80 backdrop-blur-sm" aria-hidden="true" @click="show = false"></div>
 
-        <div class="relative bg-white dark:bg-slate-800 rounded-3xl shadow-2xl w-full max-w-xl z-10 overflow-hidden border dark:border-slate-700">
+        <div class="relative bg-white dark:bg-slate-800 rounded-3xl shadow-2xl w-full max-w-xl z-10 overflow-hidden border dark:border-slate-700 flex flex-col max-h-[90vh]">
             <div class="print-only p-6 border-b flex justify-between items-start">
                 <div>
                     <h1 class="text-xl font-black text-slate-900">Rumah Laundry Tasikmalaya</h1>
@@ -39,7 +39,7 @@
                 </div>
             </div>
 
-            <div class="px-6 py-5 bg-gradient-to-r from-slate-900 to-brand dark:from-slate-950 dark:to-brand-dark/50 text-white flex justify-between items-start no-print">
+            <div class="px-6 py-5 bg-gradient-to-r from-slate-900 to-brand dark:from-slate-950 dark:to-brand-dark/50 text-white flex justify-between items-start no-print flex-shrink-0">
                 <div>
                     <p class="text-xs text-brand-ring/80 dark:text-brand-ring/90 font-bold uppercase tracking-widest mb-1" id="modal-detail-title">Nota Transaksi</p>
                     <h2 class="text-2xl font-black" x-text="trx.invoice_code"></h2>
@@ -51,7 +51,7 @@
                 </button>
             </div>
 
-            <div class="p-6">
+            <div class="p-6 overflow-y-auto">
                 <div class="grid grid-cols-2 gap-4 mb-6 text-sm">
                     <div>
                         <p class="text-slate-500 dark:text-slate-400 font-bold text-[11px] uppercase tracking-wider mb-1">Pelanggan</p>
@@ -67,10 +67,15 @@
                               :class="statusClass(trx.status)" x-text="trx.status"></span>
                     </div>
                     <div>
-                        <p class="text-slate-500 dark:text-slate-400 font-bold text-[11px] uppercase tracking-wider mb-1">Pembayaran</p>
+                        <p class="text-slate-500 dark:text-slate-400 font-bold text-[11px] uppercase tracking-wider mb-1">Metode Bayar</p>
+                        <span class="px-3 py-1.5 rounded-full text-xs font-bold capitalize inline-flex border bg-slate-50 border-slate-200 dark:bg-slate-900/50 dark:border-slate-700"
+                              x-text="paymentLabel(trx.payment_method)"></span>
+                    </div>
+                    <div class="col-span-2">
+                        <p class="text-slate-500 dark:text-slate-400 font-bold text-[11px] uppercase tracking-wider mb-1">Status Pembayaran</p>
                         <span :class="trx.status === 'baru' ? 'bg-red-100 text-red-700 border-red-200 dark:bg-rose-900/50 dark:text-rose-300 dark:border-rose-700' : 'bg-emerald-50 text-emerald-900 border-emerald-200 dark:bg-emerald-950/40 dark:text-emerald-300 dark:border-emerald-800/80'"
                               class="px-3 py-1.5 rounded-full text-xs font-bold inline-flex border"
-                              x-text="trx.status === 'baru' ? 'Belum Bayar' : 'Lunas'"></span>
+                              x-text="trx.status === 'baru' ? 'Belum Lunas' : 'Lunas'"></span>
                     </div>
                 </div>
 
@@ -93,10 +98,28 @@
                             </template>
                         </tbody>
                         <tfoot class="bg-slate-50 dark:bg-slate-900/80 border-t border-slate-200 dark:border-slate-700">
-                            <tr>
-                                <td colspan="2" class="px-4 py-4 font-bold text-slate-900 dark:text-slate-200 text-right">TOTAL</td>
-                                <td class="px-4 py-4 text-right font-black text-brand dark:text-brand text-base" x-text="'Rp ' + Number(trx.total_price).toLocaleString('id-ID')"></td>
+                            <tr class="border-t border-slate-100 dark:border-slate-700">
+                                <td colspan="2" class="px-4 py-3 font-semibold text-slate-500 dark:text-slate-400 text-right text-xs">TOTAL BIAYA</td>
+                                <td class="px-4 py-3 text-right font-bold text-slate-900 dark:text-slate-100 text-sm" x-text="'Rp ' + Number(trx.total_price).toLocaleString('id-ID')"></td>
                             </tr>
+                            <template x-if="trx.down_payment > 0">
+                                <tr class="border-t border-slate-100 dark:border-slate-700">
+                                    <td colspan="2" class="px-4 py-3 font-semibold text-slate-500 dark:text-slate-400 text-right text-xs">UANG MUKA (DP)</td>
+                                    <td class="px-4 py-3 text-right font-bold text-emerald-600 dark:text-emerald-400 text-sm" x-text="'- Rp ' + Number(trx.down_payment).toLocaleString('id-ID')"></td>
+                                </tr>
+                            </template>
+                            <template x-if="trx.down_payment > 0 && trx.status === 'baru'">
+                                <tr class="border-t border-slate-200 dark:border-slate-700 bg-rose-50/30 dark:bg-rose-950/20">
+                                    <td colspan="2" class="px-4 py-3 font-extrabold text-rose-600 dark:text-rose-400 text-right text-xs">SISA HARUS DIBAYAR</td>
+                                    <td class="px-4 py-3 text-right font-black text-rose-600 dark:text-rose-400 text-sm" x-text="'Rp ' + Number(trx.total_price - trx.down_payment).toLocaleString('id-ID')"></td>
+                                </tr>
+                            </template>
+                            <template x-if="trx.down_payment > 0 && trx.status !== 'baru'">
+                                <tr class="border-t border-slate-200 dark:border-slate-700 bg-emerald-50/30 dark:bg-emerald-950/20">
+                                    <td colspan="2" class="px-4 py-3 font-extrabold text-emerald-600 dark:text-emerald-400 text-right text-xs">STATUS</td>
+                                    <td class="px-4 py-3 text-right font-black text-emerald-600 dark:text-emerald-400 text-sm">LUNAS</td>
+                                </tr>
+                            </template>
                         </tfoot>
                     </table>
                 </div>
@@ -134,8 +157,8 @@
          role="dialog" aria-modal="true" aria-labelledby="modal-add-title"
          x-cloak>
         <div class="absolute inset-0 bg-slate-900/60 dark:bg-slate-900/80 backdrop-blur-sm" aria-hidden="true" @click="showAddModal = false"></div>
-        <div class="relative bg-white dark:bg-slate-800 rounded-3xl shadow-2xl w-full max-w-lg z-10 overflow-hidden border dark:border-slate-700">
-            <div class="px-6 py-5 bg-gradient-to-r from-slate-900 to-brand dark:from-slate-950 dark:to-brand-dark/50 text-white flex justify-between items-center">
+        <div class="relative bg-white dark:bg-slate-800 rounded-3xl shadow-2xl w-full max-w-lg z-10 overflow-hidden border dark:border-slate-700 flex flex-col max-h-[90vh]">
+            <div class="px-6 py-5 bg-gradient-to-r from-slate-900 to-brand dark:from-slate-950 dark:to-brand-dark/50 text-white flex justify-between items-center flex-shrink-0">
                 <div>
                     <p class="text-xs text-brand-ring/80 dark:text-brand-ring/90 font-bold uppercase tracking-widest mb-1">Transaksi Baru</p>
                     <h2 id="modal-add-title" class="text-xl font-black">Buat Pesanan</h2>
@@ -146,7 +169,7 @@
                     </svg>
                 </button>
             </div>
-            <form method="POST" action="{{ route('orders.admin.store') }}" class="p-6 space-y-5">
+            <form method="POST" action="{{ route('orders.admin.store') }}" class="p-6 space-y-5 overflow-y-auto">
                 @csrf
                 <div>
                     <label for="user_id" class="block text-xs font-bold text-slate-600 dark:text-slate-400 mb-1.5 uppercase tracking-wide">Pilih Pelanggan</label>
@@ -156,6 +179,47 @@
                         <option value="{{ $c->id }}">{{ $c->name }} ({{ $c->phone ?? $c->email }})</option>
                         @endforeach
                     </select>
+                </div>
+                <div>
+                    <label for="down_payment" class="block text-xs font-bold text-slate-600 dark:text-slate-400 mb-1.5 uppercase tracking-wide">Uang Muka / DP (Opsional)</label>
+                    <input id="down_payment" type="number" name="down_payment" placeholder="Contoh: 5000" min="0"
+                           class="w-full px-4 py-3 border border-slate-300 dark:border-slate-600 rounded-xl text-sm focus:ring-2 focus:ring-brand outline-none bg-slate-50 dark:bg-slate-900 transition-all hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-800 dark:text-slate-200 placeholder-slate-400 dark:placeholder-slate-500">
+                </div>
+
+                {{-- Metode Pembayaran --}}
+                <div>
+                    <label class="block text-xs font-bold text-slate-600 dark:text-slate-400 mb-2.5 uppercase tracking-wide">Metode Pembayaran</label>
+                    <div class="grid grid-cols-2 gap-2" id="paymentMethodAdmin">
+                        @php
+                        $payMethods = [
+                            ['val'=>'cash',      'label'=>'Cash / Tunai',   'icon'=>'💵', 'color'=>'emerald'],
+                            ['val'=>'bca',       'label'=>'Bank BCA',       'icon'=>'🏦', 'color'=>'blue'],
+                            ['val'=>'bri',       'label'=>'Bank BRI',       'icon'=>'🏦', 'color'=>'sky'],
+                            ['val'=>'mandiri',   'label'=>'Bank Mandiri',   'icon'=>'🏦', 'color'=>'amber'],
+                            ['val'=>'bsi',       'label'=>'Bank BSI',       'icon'=>'🏦', 'color'=>'teal'],
+                            ['val'=>'bni',       'label'=>'Bank BNI',       'icon'=>'🏦', 'color'=>'orange'],
+                            ['val'=>'gopay',     'label'=>'GoPay',          'icon'=>'📱', 'color'=>'cyan'],
+                            ['val'=>'ovo',       'label'=>'OVO',            'icon'=>'📱', 'color'=>'violet'],
+                            ['val'=>'dana',      'label'=>'DANA',           'icon'=>'📱', 'color'=>'blue'],
+                            ['val'=>'shopeepay', 'label'=>'ShopeePay',      'icon'=>'📱', 'color'=>'rose'],
+                        ];
+                        @endphp
+                        @foreach($payMethods as $pm)
+                        <label class="relative cursor-pointer">
+                            <input type="radio" name="payment_method" value="{{ $pm['val'] }}" class="peer sr-only" {{ $pm['val'] === 'cash' ? 'checked' : '' }}>
+                            <div class="flex items-center gap-2.5 px-3.5 py-2.5 border-2 border-slate-200 dark:border-slate-600 rounded-xl text-xs font-bold text-slate-600 dark:text-slate-300 bg-white dark:bg-slate-900 peer-checked:border-brand peer-checked:bg-brand-light dark:peer-checked:bg-brand/10 dark:peer-checked:border-brand peer-checked:text-brand transition-all cursor-pointer hover:border-slate-300 dark:hover:border-slate-500">
+                                <span class="text-base leading-none">{{ $pm['icon'] }}</span>
+                                <span class="truncate">{{ $pm['label'] }}</span>
+                                <svg class="ml-auto w-3.5 h-3.5 text-brand opacity-0 peer-checked:opacity-100 flex-shrink-0 hidden" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+                            </div>
+                        </label>
+                        @endforeach
+                    </div>
+                    {{-- Show bank account info when bank method selected --}}
+                    <div id="adminBankInfo" class="hidden mt-3 p-3.5 bg-blue-50 dark:bg-blue-950/20 border border-blue-200 dark:border-blue-800/40 rounded-xl">
+                        <p class="text-[11px] font-bold text-blue-700 dark:text-blue-400 mb-1.5">📋 Info Rekening / Nomor Tujuan</p>
+                        <div id="adminBankDetail" class="text-xs text-blue-800 dark:text-blue-300 space-y-0.5 font-medium"></div>
+                    </div>
                 </div>
                 <div id="adminOrderItems" class="space-y-3">
                     <div class="admin-order-item grid grid-cols-2 gap-3 bg-slate-50 dark:bg-slate-900/50 p-4 rounded-2xl border border-slate-200 dark:border-slate-700">
@@ -198,7 +262,16 @@
                     <li class="text-slate-700 dark:text-slate-300" aria-current="page">Dashboard</li>
                 </ol>
             </nav>
-            <h1 class="text-xl md:text-2xl lg:text-3xl font-black text-slate-900 dark:text-white tracking-tight">Dashboard Operasional</h1>
+            <div class="flex items-center gap-3">
+                <h1 class="text-xl md:text-2xl lg:text-3xl font-black text-slate-900 dark:text-white tracking-tight">Dashboard Operasional</h1>
+                <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[10px] font-black bg-emerald-50 text-emerald-700 dark:bg-emerald-950/30 dark:text-emerald-400 border border-emerald-200/50 dark:border-emerald-800/40">
+                    <span class="relative flex h-2 w-2">
+                        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-500 opacity-75"></span>
+                        <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+                    </span>
+                    Live
+                </span>
+            </div>
             <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">Ringkasan operasional, pantau status cucian, kelola pesanan secara real-time.</p>
         </div>
         <div class="flex-shrink-0">
@@ -246,14 +319,22 @@
                 Pesanan Berlangsung
             </h2>
             
-            <form method="GET" action="{{ route('admin.dashboard') }}" class="flex flex-wrap sm:flex-nowrap items-center gap-2" role="search">
+            <form method="GET" action="{{ route('admin.dashboard') }}" class="flex flex-wrap lg:flex-nowrap items-center gap-2" role="search">
                 <div class="relative">
-                    <label for="searchInput" class="sr-only">Cari invoice atau nama pelanggan</label>
+                    <label for="searchInput" class="sr-only">Cari invoice, nama, nomor telepon</label>
                     <svg class="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 dark:text-slate-500" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.602 10.602z"/>
                     </svg>
-                    <input id="searchInput" type="text" name="search" placeholder="Cari invoice / nama..." value="{{ request('search') }}"
+                    <input id="searchInput" type="text" name="search" placeholder="Cari invoice / nama / telepon..." value="{{ request('search') }}"
                            class="w-full sm:w-52 pl-10 pr-4 py-2 border-[0.5px] border-slate-200 dark:border-slate-700 rounded-lg text-xs focus:ring-1 focus:ring-brand focus:border-brand outline-none bg-white dark:bg-slate-900 text-slate-800 dark:text-slate-200 placeholder-slate-400 dark:placeholder-slate-500 transition-all">
+                </div>
+
+                <div class="flex items-center gap-1.5">
+                    <input type="date" name="start_date" value="{{ request('start_date') }}" onchange="this.form.submit()" title="Tanggal Mulai"
+                           class="px-2 py-1.5 border-[0.5px] border-slate-200 dark:border-slate-700 rounded-lg text-xs text-slate-600 dark:text-slate-300 bg-white dark:bg-slate-900 focus:ring-1 focus:ring-brand outline-none cursor-pointer">
+                    <span class="text-slate-400 text-xs">-</span>
+                    <input type="date" name="end_date" value="{{ request('end_date') }}" onchange="this.form.submit()" title="Tanggal Akhir"
+                           class="px-2 py-1.5 border-[0.5px] border-slate-200 dark:border-slate-700 rounded-lg text-xs text-slate-600 dark:text-slate-300 bg-white dark:bg-slate-900 focus:ring-1 focus:ring-brand outline-none cursor-pointer">
                 </div>
                 
                 <div class="relative">
@@ -267,7 +348,7 @@
                     </select>
                 </div>
                 
-                @if(request('search') || request('status_filter'))
+                @if(request('search') || request('status_filter') || request('start_date') || request('end_date'))
                 <a href="{{ route('admin.dashboard') }}" aria-label="Reset" class="px-4 py-2 bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 rounded-lg text-xs font-bold hover:bg-slate-200 dark:hover:bg-slate-600 transition-colors inline-flex items-center justify-center">
                     Reset
                 </a>
@@ -291,8 +372,9 @@
                 </thead>
                 <tbody class="bg-white dark:bg-slate-800">
                     @forelse($transactions as $trx)
-                    <tr class="border-b border-slate-100 dark:border-slate-700/60 hover:bg-slate-50/50 dark:hover:bg-brand/5 hover:shadow-sm transition-all duration-200 group" id="trx-{{ $trx->id }}"
-                        x-data="{ currentStatus: '{{ $trx->status }}', loading: false }">
+                    <tr class="border-b border-slate-100 dark:border-slate-700/60 hover:bg-slate-50/50 dark:hover:bg-brand/5 hover:shadow-sm transition-all duration-200 group cursor-pointer" id="trx-{{ $trx->id }}"
+                        x-data="{ currentStatus: '{{ $trx->status }}', loading: false }"
+                        @click="if (!$event.target.closest('select') && !$event.target.closest('button')) openDetail({{ $trx->id }})">
                         <td class="px-6 py-4.5 whitespace-nowrap">
                             <span class="font-extrabold text-brand dark:text-brand text-sm tracking-tight">{{ $trx->invoice_code }}</span>
                         </td>
@@ -304,8 +386,11 @@
                             <p class="text-sm font-semibold text-slate-800 dark:text-slate-200">{{ $trx->created_at->format('d M Y') }}</p>
                             <p class="text-[10px] font-medium text-slate-400 dark:text-slate-500 mt-1">{{ $trx->created_at->format('H:i') }} WIB</p>
                         </td>
-                        <td class="px-6 py-4.5 whitespace-nowrap text-sm font-extrabold text-slate-900 dark:text-white">
-                            Rp {{ number_format($trx->total_price, 0, ',', '.') }}
+                        <td class="px-6 py-4.5 whitespace-nowrap">
+                            <span class="text-sm font-extrabold text-slate-900 dark:text-white">Rp {{ number_format($trx->total_price, 0, ',', '.') }}</span>
+                            @if($trx->down_payment > 0 && $trx->status === 'baru')
+                                <div class="text-[10px] font-bold text-rose-500 mt-1">Sisa: Rp {{ number_format($trx->total_price - $trx->down_payment, 0, ',', '.') }}</div>
+                            @endif
                         </td>
                         <td class="px-6 py-4.5 whitespace-nowrap">
                             <span class="px-2.5 py-1 rounded-full text-[10px] font-bold capitalize inline-flex border"
@@ -378,13 +463,15 @@
 @php
     $trxJson = $transactions->getCollection()->map(function($t) {
         return [
-            'id'           => $t->id,
-            'invoice_code' => $t->invoice_code,
-            'customer'     => $t->user->name ?? '-',
-            'status'       => $t->status,
-            'total_price'  => $t->total_price,
-            'created_at'   => $t->created_at->format('d M Y, H:i'),
-            'details'      => $t->details->map(function($d) {
+            'id'             => $t->id,
+            'invoice_code'   => $t->invoice_code,
+            'customer'       => $t->user->name ?? '-',
+            'status'         => $t->status,
+            'total_price'    => $t->total_price,
+            'down_payment'   => $t->down_payment,
+            'payment_method' => $t->payment_method ?? 'cash',
+            'created_at'     => $t->created_at->format('d M Y, H:i'),
+            'details'        => $t->details->map(function($d) {
                 return [
                     'id'       => $d->id,
                     'quantity' => $d->quantity,
@@ -427,7 +514,7 @@
     function detailModal() {
         return {
             show: false,
-            trx: { invoice_code:'', customer:'', status:'', total_price:0, created_at:'', details:[] },
+            trx: { invoice_code:'', customer:'', status:'', total_price:0, down_payment:0, payment_method:'cash', created_at:'', details:[] },
             open(data) {
                 this.trx = data;
                 this.show = true;
@@ -436,6 +523,14 @@
                 if (s === 'baru') return 'bg-amber-100 text-amber-800 border-amber-200 dark:bg-amber-900/50 dark:text-amber-300 dark:border-amber-700/50';
                 if (['cuci','kering','setrika'].includes(s)) return 'bg-cyan-50 text-cyan-700 border-cyan-100 dark:bg-cyan-950/30 dark:text-cyan-400 dark:border-cyan-800/50';
                 return 'bg-emerald-50 text-emerald-900 border-emerald-200 dark:bg-emerald-950/40 dark:text-emerald-300 dark:border-emerald-800/80';
+            },
+            paymentLabel(m) {
+                const map = {
+                    cash: '💵 Cash / Tunai', bca: '🏦 Bank BCA', bri: '🏦 Bank BRI',
+                    mandiri: '🏦 Bank Mandiri', bsi: '🏦 Bank BSI', bni: '🏦 Bank BNI',
+                    gopay: '📱 GoPay', ovo: '📱 OVO', dana: '📱 DANA', shopeepay: '📱 ShopeePay'
+                };
+                return map[m] || '💵 Cash / Tunai';
             }
         };
     }
@@ -519,5 +614,31 @@
             </div>`;
         document.getElementById('adminOrderItems').appendChild(div);
     }
+
+    // ── Payment method info (admin modal) ────────────────────────────────────
+    const adminBankAccounts = {
+        cash:      null,
+        bca:       'BCA — a/n Rumah Laundry Tasikmalaya<br>No. Rek: <strong>1234567890</strong>',
+        bri:       'BRI — a/n Rumah Laundry Tasikmalaya<br>No. Rek: <strong>0987654321</strong>',
+        mandiri:   'Mandiri — a/n Rumah Laundry Tasikmalaya<br>No. Rek: <strong>1122334455</strong>',
+        bsi:       'BSI — a/n Rumah Laundry Tasikmalaya<br>No. Rek: <strong>7081234567</strong>',
+        bni:       'BNI — a/n Rumah Laundry Tasikmalaya<br>No. Rek: <strong>0123456789</strong>',
+        gopay:     'GoPay — <strong>0812-3456-7890</strong><br>a/n Rumah Laundry',
+        ovo:       'OVO — <strong>0812-3456-7890</strong><br>a/n Rumah Laundry',
+        dana:      'DANA — <strong>0812-3456-7890</strong><br>a/n Rumah Laundry',
+        shopeepay: 'ShopeePay — <strong>0812-3456-7890</strong><br>a/n Rumah Laundry',
+    };
+
+    document.getElementById('paymentMethodAdmin')?.addEventListener('change', function(e) {
+        const val = e.target.value;
+        const infoBox = document.getElementById('adminBankInfo');
+        const detailEl = document.getElementById('adminBankDetail');
+        if (adminBankAccounts[val]) {
+            detailEl.innerHTML = adminBankAccounts[val];
+            infoBox.classList.remove('hidden');
+        } else {
+            infoBox.classList.add('hidden');
+        }
+    });
 </script>
 @endsection

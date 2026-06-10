@@ -40,12 +40,20 @@ class DashboardController extends Controller
         if ($search = $request->get('search')) {
             $query->where(function ($q) use ($search) {
                 $q->where('invoice_code', 'like', "%{$search}%")
-                  ->orWhereHas('user', fn($u) => $u->where('name', 'like', "%{$search}%"));
+                  ->orWhereHas('user', fn($u) => $u->where('name', 'like', "%{$search}%")->orWhere('phone', 'like', "%{$search}%"));
             });
         }
 
         if ($statusFilter = $request->get('status_filter')) {
             $query->where('status', $statusFilter);
+        }
+
+        if ($startDate = $request->get('start_date')) {
+            $query->whereDate('created_at', '>=', $startDate);
+        }
+
+        if ($endDate = $request->get('end_date')) {
+            $query->whereDate('created_at', '<=', $endDate);
         }
 
         $transactions = $query->paginate(10)->withQueryString();
