@@ -14,6 +14,15 @@ Route::post('/register', [AuthController::class, 'register']);
 
 Route::get('/track/{invoice_code}', [TransactionController::class, 'track']);
 
+// ── Payment Accounts (Public — untuk ditampilkan di mobile app) ────────────
+Route::get('/payment-accounts', function () {
+    $accounts = \App\Models\PaymentAccount::where('is_active', true)
+        ->orderByRaw("FIELD(type, 'cash', 'bank', 'ewallet')")
+        ->orderBy('provider_name')
+        ->get(['id', 'type', 'provider_name', 'provider_code', 'account_number', 'account_name']);
+    return response()->json(['data' => $accounts]);
+});
+
 Route::get('/services/image/{filename}', function ($filename) {
     $path = public_path('images/services/' . $filename);
     if (!file_exists($path)) {

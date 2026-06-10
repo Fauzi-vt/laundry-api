@@ -21,6 +21,7 @@ class UserOrderController extends Controller
             'items'             => 'required|array|min:1',
             'items.*.service_id' => 'required|exists:services,id',
             'items.*.quantity'   => 'required|numeric|min:0.1',
+            'payment_method'     => 'nullable|string',
         ], [
             'items.required'              => 'Anda belum memilih layanan apapun.',
             'items.min'                   => 'Pilih setidaknya satu layanan.',
@@ -33,10 +34,11 @@ class UserOrderController extends Controller
 
         DB::transaction(function () use ($request, $user, &$totalPrice) {
             $trx = Transaction::create([
-                'user_id'      => $user->id,
-                'invoice_code' => 'INV-' . date('Ymd') . '-' . strtoupper(substr(uniqid(), -5)),
-                'total_price'  => 0,
-                'status'       => 'baru',
+                'user_id'        => $user->id,
+                'invoice_code'   => 'INV-' . date('Ymd') . '-' . strtoupper(substr(uniqid(), -5)),
+                'total_price'    => 0,
+                'payment_method' => $request->payment_method ?? 'cash',
+                'status'         => 'baru',
             ]);
 
             foreach ($request->items as $item) {

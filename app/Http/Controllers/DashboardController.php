@@ -59,11 +59,12 @@ class DashboardController extends Controller
         $transactions = $query->paginate(10)->withQueryString();
         $services     = \App\Models\Service::all();
         $customers    = \App\Models\User::where('role', 'user')->count();
+        $paymentAccounts = \App\Models\PaymentAccount::where('is_active', true)->get();
 
         return view('admin.monitoring', compact(
             'user', 'todayRevenue', 'totalRevenue',
             'totalDone', 'totalActive', 'transactions',
-            'services', 'customers'
+            'services', 'customers', 'paymentAccounts'
         ));
     }
 

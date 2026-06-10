@@ -118,6 +118,26 @@ class DatabaseSeeder extends Seeder
                 'subtotal' => $service2->price * 1
             ]);
         }
+
+        // Seed default payment accounts
+        $paymentAccounts = [
+            ['type' => 'bank', 'provider_name' => 'BCA', 'provider_code' => 'bca', 'account_number' => '1234567890', 'account_name' => 'Rumah Laundry Tasikmalaya'],
+            ['type' => 'bank', 'provider_name' => 'BRI', 'provider_code' => 'bri', 'account_number' => '0987654321', 'account_name' => 'Rumah Laundry Tasikmalaya'],
+            ['type' => 'bank', 'provider_name' => 'Mandiri', 'provider_code' => 'mandiri', 'account_number' => '1122334455', 'account_name' => 'Rumah Laundry Tasikmalaya'],
+            ['type' => 'bank', 'provider_name' => 'BSI', 'provider_code' => 'bsi', 'account_number' => '7081234567', 'account_name' => 'Rumah Laundry Tasikmalaya'],
+            ['type' => 'bank', 'provider_name' => 'BNI', 'provider_code' => 'bni', 'account_number' => '0123456789', 'account_name' => 'Rumah Laundry Tasikmalaya'],
+            ['type' => 'ewallet', 'provider_name' => 'GoPay', 'provider_code' => 'gopay', 'account_number' => '0812-3456-7890', 'account_name' => 'Rumah Laundry'],
+            ['type' => 'ewallet', 'provider_name' => 'OVO', 'provider_code' => 'ovo', 'account_number' => '0812-3456-7890', 'account_name' => 'Rumah Laundry'],
+            ['type' => 'ewallet', 'provider_name' => 'DANA', 'provider_code' => 'dana', 'account_number' => '0812-3456-7890', 'account_name' => 'Rumah Laundry'],
+            ['type' => 'ewallet', 'provider_name' => 'ShopeePay', 'provider_code' => 'shopeepay', 'account_number' => '0812-3456-7890', 'account_name' => 'Rumah Laundry'],
+        ];
+
+        foreach ($paymentAccounts as $acc) {
+            \App\Models\PaymentAccount::firstOrCreate(
+                ['provider_code' => $acc['provider_code']],
+                $acc
+            );
+        }
     }
 }
 

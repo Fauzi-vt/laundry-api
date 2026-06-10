@@ -192,17 +192,16 @@
                     <div class="grid grid-cols-2 gap-2" id="paymentMethodAdmin">
                         @php
                         $payMethods = [
-                            ['val'=>'cash',      'label'=>'Cash / Tunai',   'icon'=>'💵', 'color'=>'emerald'],
-                            ['val'=>'bca',       'label'=>'Bank BCA',       'icon'=>'🏦', 'color'=>'blue'],
-                            ['val'=>'bri',       'label'=>'Bank BRI',       'icon'=>'🏦', 'color'=>'sky'],
-                            ['val'=>'mandiri',   'label'=>'Bank Mandiri',   'icon'=>'🏦', 'color'=>'amber'],
-                            ['val'=>'bsi',       'label'=>'Bank BSI',       'icon'=>'🏦', 'color'=>'teal'],
-                            ['val'=>'bni',       'label'=>'Bank BNI',       'icon'=>'🏦', 'color'=>'orange'],
-                            ['val'=>'gopay',     'label'=>'GoPay',          'icon'=>'📱', 'color'=>'cyan'],
-                            ['val'=>'ovo',       'label'=>'OVO',            'icon'=>'📱', 'color'=>'violet'],
-                            ['val'=>'dana',      'label'=>'DANA',           'icon'=>'📱', 'color'=>'blue'],
-                            ['val'=>'shopeepay', 'label'=>'ShopeePay',      'icon'=>'📱', 'color'=>'rose'],
+                            ['val'=>'cash',      'label'=>'Cash / Tunai',   'icon'=>'💵', 'color'=>'emerald']
                         ];
+                        foreach($paymentAccounts as $acc) {
+                            $payMethods[] = [
+                                'val'   => $acc->provider_code,
+                                'label' => ($acc->type === 'bank' ? 'Bank ' : '') . $acc->provider_name,
+                                'icon'  => $acc->type === 'bank' ? '🏦' : '📱',
+                                'color' => $acc->type === 'bank' ? 'blue' : 'emerald'
+                            ];
+                        }
                         @endphp
                         @foreach($payMethods as $pm)
                         <label class="relative cursor-pointer">
@@ -618,15 +617,9 @@
     // ── Payment method info (admin modal) ────────────────────────────────────
     const adminBankAccounts = {
         cash:      null,
-        bca:       'BCA — a/n Rumah Laundry Tasikmalaya<br>No. Rek: <strong>1234567890</strong>',
-        bri:       'BRI — a/n Rumah Laundry Tasikmalaya<br>No. Rek: <strong>0987654321</strong>',
-        mandiri:   'Mandiri — a/n Rumah Laundry Tasikmalaya<br>No. Rek: <strong>1122334455</strong>',
-        bsi:       'BSI — a/n Rumah Laundry Tasikmalaya<br>No. Rek: <strong>7081234567</strong>',
-        bni:       'BNI — a/n Rumah Laundry Tasikmalaya<br>No. Rek: <strong>0123456789</strong>',
-        gopay:     'GoPay — <strong>0812-3456-7890</strong><br>a/n Rumah Laundry',
-        ovo:       'OVO — <strong>0812-3456-7890</strong><br>a/n Rumah Laundry',
-        dana:      'DANA — <strong>0812-3456-7890</strong><br>a/n Rumah Laundry',
-        shopeepay: 'ShopeePay — <strong>0812-3456-7890</strong><br>a/n Rumah Laundry',
+        @foreach($paymentAccounts as $acc)
+        '{{ $acc->provider_code }}': '{{ $acc->provider_name }} — a/n {{ $acc->account_name }}<br>No. Rek/HP: <strong>{{ $acc->account_number }}</strong>',
+        @endforeach
     };
 
     document.getElementById('paymentMethodAdmin')?.addEventListener('change', function(e) {

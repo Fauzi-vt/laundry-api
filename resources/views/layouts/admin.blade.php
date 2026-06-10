@@ -148,9 +148,18 @@
                     'icon' => 'M15 10.5a3 3 0 11-6 0 3 3 0 016 0z M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z'
                 ],
                 [
-                    'route' => 'admin.payments.index',
                     'label' => 'Pembayaran',
-                    'icon' => 'M2.25 8.25h19.5M2.25 9h19.5m-16.5 5.25h6m-6 2.25h3m-6.75-8.25h17.25c.621 0 1.125.504 1.125 1.125v9.75c0 .621-.504 1.125-1.125 1.125H3.375a1.125 1.125 0 01-1.125-1.125V6.375c0-.621.504-1.125 1.125-1.125z'
+                    'icon' => 'M2.25 8.25h19.5M2.25 9h19.5m-16.5 5.25h6m-6 2.25h3m-6.75-8.25h17.25c.621 0 1.125.504 1.125 1.125v9.75c0 .621-.504 1.125-1.125 1.125H3.375a1.125 1.125 0 01-1.125-1.125V6.375c0-.621.504-1.125 1.125-1.125z',
+                    'children' => [
+                        [
+                            'route' => 'admin.payments.index',
+                            'label' => 'Validasi Pembayaran',
+                        ],
+                        [
+                            'route' => 'admin.payment-accounts.index',
+                            'label' => 'Akun Pembayaran',
+                        ],
+                    ]
                 ],
                 [
                     'route' => 'admin.reports.index',
@@ -163,9 +172,69 @@
 
             @foreach($navItems as $n)
             @php 
-            $active = ($cur === $n['route']) || 
-                      ($n['route'] === 'admin.services.index' && str_contains($cur ?? '', 'categories')); 
+            $hasChildren = isset($n['children']);
+            $active = false;
+            $hasActiveChild = false;
+            
+            if ($hasChildren) {
+                foreach ($n['children'] as $child) {
+                    if ($cur === $child['route']) {
+                        $hasActiveChild = true;
+                    }
+                }
+                $active = $hasActiveChild;
+            } else {
+                $active = ($cur === $n['route']) || 
+                          ($n['route'] === 'admin.services.index' && str_contains($cur ?? '', 'categories')); 
+            }
             @endphp
+
+            @if($hasChildren)
+            <div x-data="{ isOpen: {{ $hasActiveChild ? 'true' : 'false' }} }" class="space-y-1">
+                <button @click="isOpen = !isOpen; sidebarOpen = true" 
+                        class="w-full flex items-center justify-between px-4 py-3 rounded-lg transition-all duration-200 group relative
+                               {{ $active 
+                                  ? 'bg-slate-100 dark:bg-slate-700/50 text-brand dark:text-white font-bold' 
+                                  : 'text-slate-700 dark:text-slate-300 font-bold hover:bg-slate-50 dark:hover:bg-slate-700/50 hover:text-brand dark:hover:text-brand' }}">
+                    <div class="flex items-center gap-3">
+                        <div class="relative z-10">
+                            <svg class="w-4.5 h-4.5 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="{{ $n['icon'] }}"/>
+                            </svg>
+                        </div>
+                        <span x-show="sidebarOpen" class="text-xs whitespace-nowrap relative z-10">{{ $n['label'] }}</span>
+                    </div>
+                    
+                    <svg x-show="sidebarOpen" :class="{ 'rotate-180': isOpen }" class="w-3.5 h-3.5 transition-transform duration-200 text-slate-400 dark:text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                    </svg>
+                    
+                    @if($active)
+                    <span class="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-6 bg-brand rounded-r-full"></span>
+                    @endif
+                </button>
+                
+                {{-- Children Sub-menu --}}
+                <div x-show="isOpen && sidebarOpen" 
+                     x-transition:enter="transition ease-out duration-150"
+                     x-transition:enter-start="opacity-0 -translate-y-1"
+                     x-transition:enter-end="opacity-100 translate-y-0"
+                     class="pl-11 pr-4 py-1 space-y-1">
+                    @foreach($n['children'] as $child)
+                    @php
+                    $childActive = ($cur === $child['route']);
+                    @endphp
+                    <a href="{{ route($child['route']) }}" 
+                       class="block py-2 px-3 rounded-lg text-xs transition-colors font-bold
+                              {{ $childActive 
+                                 ? 'text-brand dark:text-white bg-slate-100 dark:bg-slate-700/50' 
+                                 : 'text-slate-500 hover:text-brand dark:text-slate-400 dark:hover:text-white hover:bg-slate-50 dark:hover:bg-slate-700/30' }}">
+                        {{ $child['label'] }}
+                    </a>
+                    @endforeach
+                </div>
+            </div>
+            @else
             <a href="{{ route($n['route']) }}" 
                class="flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-200 group relative
                       {{ $active 
@@ -183,6 +252,7 @@
                 <span class="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-6 bg-white rounded-r-full"></span>
                 @endif
             </a>
+            @endif
             @endforeach
         </nav>
 

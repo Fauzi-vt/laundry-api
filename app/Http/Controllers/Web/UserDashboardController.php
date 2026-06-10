@@ -61,6 +61,7 @@ class UserDashboardController extends Controller
     {
         $data = $this->sharedData();
         $data['services'] = Service::all();
+        $data['paymentAccounts'] = \App\Models\PaymentAccount::where('is_active', true)->get();
 
         return view('user.order', $data);
     }

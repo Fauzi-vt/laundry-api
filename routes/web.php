@@ -76,6 +76,12 @@ Route::middleware('auth')->group(function () {
         Route::put   ('/admin/categories/{id}',      [\App\Http\Controllers\Web\CategoryController::class, 'update'])  ->name('admin.categories.update');
         Route::delete('/admin/categories/{id}',      [\App\Http\Controllers\Web\CategoryController::class, 'destroy']) ->name('admin.categories.destroy');
 
+        // CRUD Akun Pembayaran
+        Route::get   ('/admin/payment-accounts',          [\App\Http\Controllers\Web\PaymentAccountController::class, 'index'])   ->name('admin.payment-accounts.index');
+        Route::post  ('/admin/payment-accounts',          [\App\Http\Controllers\Web\PaymentAccountController::class, 'store'])   ->name('admin.payment-accounts.store');
+        Route::put   ('/admin/payment-accounts/{id}',      [\App\Http\Controllers\Web\PaymentAccountController::class, 'update'])  ->name('admin.payment-accounts.update');
+        Route::delete('/admin/payment-accounts/{id}',      [\App\Http\Controllers\Web\PaymentAccountController::class, 'destroy']) ->name('admin.payment-accounts.destroy');
+
         // 5. Antar-Jemput (Menu baru)
         Route::get('/admin/shuttles', [\App\Http\Controllers\Web\AdminShuttleController::class, 'index'])->name('admin.shuttles.index');
 
