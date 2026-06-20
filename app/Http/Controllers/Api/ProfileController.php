@@ -44,4 +44,19 @@ class ProfileController extends Controller
             'user'    => $user->fresh(),
         ]);
     }
+
+    public function updateFcmToken(Request $request)
+    {
+        $request->validate([
+            'fcm_token' => ['required', 'string'],
+        ]);
+
+        $request->user()->update([
+            'fcm_token' => $request->fcm_token,
+        ]);
+
+        return response()->json([
+            'message' => 'FCM token berhasil diperbarui.',
+        ]);
+    }
 }

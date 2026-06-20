@@ -39,6 +39,7 @@ Route::middleware('auth:sanctum')->group(function () {
     // User info & profile
     Route::get('/user',    fn(Request $r) => $r->user());
     Route::put('/profile', [ProfileController::class, 'update']);
+    Route::post('/user/fcm-token', [ProfileController::class, 'updateFcmToken']);
 
     // Layanan — semua user login bisa lihat
     Route::get('/services', [ServiceController::class, 'index']);

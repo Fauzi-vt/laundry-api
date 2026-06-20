@@ -28,6 +28,15 @@ class Transaction extends Model
         return $this->payment_proof ? url($this->payment_proof) : null;
     }
 
+    protected static function booted()
+    {
+        static::updated(function ($transaction) {
+            if ($transaction->wasChanged('status')) {
+                \App\Services\FcmService::sendStatusNotification($transaction);
+            }
+        });
+    }
+
     public function user()
     {
         return $this->belongsTo(User::class);
